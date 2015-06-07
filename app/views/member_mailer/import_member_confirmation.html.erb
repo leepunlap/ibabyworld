@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h3>Welcome to <%= @app_name %>, <%= @member[:first_name] %></h3>
+
+    <p>You have successfully signed up to example.com, your username is: <u><%= @member[:email] %></u>.<br><br></p>
+   	<p>Please change you password here: <br/><br/></p>
+   	<p><a href="<%= @recovery_url %>"><%= @recovery_url %></a><br/><br/></p>
+    <p>To login to the site, just follow this link: <a href="<%= @host_url %>"><%= @host_url %></a>.</p><br/><br/>
+    <p>Thanks for joining and have a great day!<br><br></p>
+  </body>
+</html>

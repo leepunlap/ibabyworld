@@ -1,0 +1,77 @@
+<div class="content">
+	<div class="jumbotron" data-pages="parallax">
+		<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+			<div class="inner">
+				<ul class="breadcrumb">
+					<li><p>Admin</p></li>
+					<li><a ui-sref="articles" class="active">Articles</a></li>
+				</ul>
+			</div>
+		</div>
+ 
+		<div class="container-fluid container-fixed-lg bg-white">
+			<div class="panel panel-transparent">
+				<div class="panel-heading">
+					<!-- <div class="panel-title">Article</div> -->
+					<div class="btn-group pull-right m-b-10">
+						<button type="button" class="btn btn-default" ng-click="doNewArticle()">Add new</button>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+								
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="tables.html#">Settings</a></li>
+							<li><a href="tables.html#">Help</a></li>
+						</ul>
+					</div>
+							
+					<div class="clearfix"></div>
+				</div>
+		
+				<div class="panel-body">
+					<form name="articles" class="table-responsive">
+						<table id="articles" class="table table-hover">
+							<thead>
+								<tr>
+								<th style="width:1%">
+									<button class="btn" ng-click="doDeleteArticle()"><i class="pg-trash"></i></button>
+								</th>
+								<th style="width:20%">Title</th>
+								<th style="width:15%">Status</th>
+								<th style="width:20%">Tags</th>
+								<th style="width:15%">Last Update</th>
+							</tr>
+							</thead>
+							<tbody>
+								<!-- <tr ng-repeat="article in articles" ng-bind-html="article.content"> -->
+								<tr ng-repeat="article in articles">
+									<td class="v-align-middle">
+										<div class="checkbox" style="margin-top: -15px;">
+											<input type="checkbox" value="{{article.id}}" ng-model="checkedArticleIds[article.id]" id="checkbox{{article.id}}">
+											<label for="checkbox{{article.id}}"></label>
+										</div>
+									</td>
+									<td class="v-align-middle ">
+										<p><a ui-sref="admin.articles-edit({ id: {{article.id}} })">{{article.title}}</a></p>
+									</td>
+									<!-- <td class="v-align-middle">
+										{{article.content | limitTo: 150}}
+									</td> -->
+									<td class="v-align-middle">
+										<p>{{checkStatus(article.status)}}</p>
+									</td>
+									<td>
+										<a href="" ng-repeat="tag in getTags(article.tags)">{{tag}}{{$last ? '' : ',' }} </a>
+									</td>
+									<td class="v-align-middle">
+										<p>{{article.created_at| cmdate:'MMMM dd, yyyy HH:mm'}}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

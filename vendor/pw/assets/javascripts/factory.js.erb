@@ -1,0 +1,49 @@
+app.factory('Articles', function($http, Data) {
+	return {
+		list: function(callback) {
+			Data.get(requestPath.articles.list).then(function (results) {
+				if (results.code == 200) {
+					console.log('Article response code: '+ results.code +' : '+ results.body.articles);
+				
+					callback = results.body.articles;	
+				}
+			});
+
+			return callback;
+		}
+	};
+});
+
+app.factory('AuthService', function ($http, Session, Data) {
+	var authService = {};
+ 
+	authService.login = function (user) {
+		return Data.post(requestPath.sessions + '/authenticate', {
+			user: user 
+
+    	}).then(function (results) {
+			if (results.code == 200) {
+				Session.create(results.body.token, results.body.user);
+
+				return results.body.user;
+			}
+
+			return null;
+		});
+	};
+
+	authService.destroy = function () {
+		console.log('Request post url: '+ requestPath.sessions + '/destroy');
+		return Data.post(requestPath.sessions + '/destroy').then(function (results) {
+			Session.destroy();
+
+			return results.body
+		});
+	};
+ 
+	authService.isAuthorized = function () {
+		return Session.token == null ? false : true;
+	};
+ 
+	return authService;
+})

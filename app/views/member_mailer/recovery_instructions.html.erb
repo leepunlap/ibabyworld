@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><br/>嗨 <strong><%= @member[:first_name] %></strong>,<br/><br/></p>
+	<p>您已要求将密码重置，只需按照下面的链接访问我们的安全的密码重置功能。<br/><br/></p>
+	<p><a href="<%= @recovery_url %>"><%= @recovery_url %></a><br/><br/></p>
+	<p>注：访问此链接是唯一有效的30分钟。<br/><br/></p>
+	<p>这是一个系统生成的电子邮件。请不要回复。<br/><br/></p>
+	<p>谢谢你，有一个伟大的日子！<br/><br/>-- <%= ENV['APP_NAME'] %> 团队<br/></p><br/><br/>
+    <!-- <p>Hi <strong><%= @member[:first_name] %></strong>,<br/><br/></p>
+
+    <p>You have requested to have your password reset, Just follow the link below to access our secure password reset function.<br/><br/></p>
+	<p><a href="<%= @recovery_url %>"><%= @recovery_url %></a><br/><br/></p>
+	<p>Note: Access to this link is only valid for 30 minutes.<br/><br/></p>
+	<p>This is a system-generated email. Please do not reply.<br/><br/></p>
+	<p>Thanks and have a great day!<br/>-- <%= ENV['APP_NAME'] %> Team</p> -->
+  </body>
+</html>

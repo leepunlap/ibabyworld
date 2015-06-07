@@ -1,0 +1,83 @@
+<nav class="page-sidebar" data-pages="sidebar" ng-show="isAuthorized" ng-controller="SigninController">
+	<div class="sidebar-overlay-slide from-top" id="appMenu">
+		<div class="row">
+			<div class="col-xs-6 no-padding">
+				<a href="tables.html#" class="p-l-40"><img src="assets/img/demo/social_app.svg" alt="socail"></a>
+			</div>
+			<div class="col-xs-6 no-padding">
+				<a href="tables.html#" class="p-l-10"><img src="assets/img/demo/email_app.svg" alt="socail"></a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-xs-6 m-t-20 no-padding">
+				<a href="tables.html#" class="p-l-40"><img src="assets/img/demo/calendar_app.svg" alt="socail"></a>
+			</div>
+			<div class="col-xs-6 m-t-20 no-padding">
+				<a href="tables.html#" class="p-l-10"><img src="assets/img/demo/add_more.svg" alt="socail"></a>
+			</div>
+		</div>
+	</div>
+ 
+	<div class="sidebar-header">
+		<img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">
+	</div>
+ 
+	<div class="sidebar-menu">
+		<ul class="menu-items">
+			<!-- <li class="m-t-30 ">
+				<a href="index.html" class="detailed">
+					<span class="title">Dashboard</span>
+					<span class="details">12 New Updates</span>
+				</a>
+			
+				<span class="icon-thumbnail bg-success"><i class="pg-home"></i></span>
+			</li> -->
+			<li class="m-t-30">
+				<a ui-sref="admin.dashboard"><span class="title">Dashboard</span></a>
+				<span class="icon-thumbnail">D</span>
+			</li>
+	
+			<li class="">
+				<a ui-sref="admin.members"><span class="title">Members</span></a>
+				<span class="icon-thumbnail">M</span>
+			</li>
+			
+			<li class="">
+				<a ui-sref="admin.articles"><span class="title">Articles</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">A</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.articles-new">New Article</a>
+						<span class="icon-thumbnail">CA</span>
+					</li>
+				</ul>
+			</li>
+
+			<li class="">
+				<a ui-sref="admin.products"><span class="title">Products</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">P</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.products-new">New Product</a>
+						<span class="icon-thumbnail">CP</span>
+					</li>
+				</ul>
+			</li>
+			
+			<li class="">
+				<a>
+					<button ng-click="doSignout()"><span class="title">Logout</span></button>
+				</a>
+				<span class="icon-thumbnail">L</span>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+</nav>
+
+<div class="{{pageClass}}">
+	<div ui-view class=""></div>
+</div>

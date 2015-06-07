@@ -1,0 +1,22 @@
+<style>
+ul.connect li a {
+	color: #ffffff;
+	background-color: red;
+}
+</style>
+
+<ul class="connect" ng-controller="SocialController">
+	<li>
+		<img src="<%= asset_path("membership-fb-connect.png") %>" alt="">
+		<a class="btn btn-primary" ng-click="doFacebookLogin()" href="">Login with Facebook</a>
+	</li>
+	<li>
+		<img src="<%= asset_path("membership-weibo-connect.png") %>" alt="">
+		<a class="btn btn-primary" href="">Login with Weibo</a>
+	</li>
+	<li>
+		<img src="<%= asset_path("membership-qq-connect.png") %>" alt="">
+		<a class="btn btn-primary" href="">Login with QQ</a>
+	</li>
+</ul>
+<!-- <p class="text-xsmall">Vitae adipiscing turpis. Aenean ligula nibh,<br/> molestie id viverra a, dapibus at dolor.</p> -->

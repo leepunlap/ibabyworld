@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="pwApp">
+<head>
+<base href="/">
+<title ng-bind="'<%= app_title %> | ' + pageTitle"><%= app_title %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<%= stylesheet_link_tag    'application', media: 'all' %>
+<%= javascript_include_tag 'application' %>
+<script src="<%= asset_path 'assets/js/dropzone.js' %>" type="text/javascript"></script>
+<script src="<%= asset_path 'assets/ng-plugins/ng-dropzone/angular-dropzone.js' %>" type="text/javascript"></script>
+<%= csrf_meta_tags %>
+
+<script type="text/javascript">
+requestToken = $( 'meta[name="csrf-token"]' ).attr( 'content' );
+
+app.controller('MainController', function ($scope, $location, $rootScope, $cookies, AuthService, Session, $translate) {
+  $rootScope.appTitle = '<%= app_title %>';
+  $rootScope.loggedUser = null;
+
+  <% if !logged_user.nil? %>
+  var user = <%= logged_member.to_json.html_safe %>;
+
+  Session.create('<%= token %>', user);
+  $rootScope.loggedUser = user;
+  
+  <% end %>
+  $rootScope.isAuthorized = AuthService.isAuthorized();
+  
+  console.log('Localization: '+ $rootScope.locale);
+
+  $scope.doLanguage = function (locale) {
+    $rootScope.locale = locale;
+  $translate.use($rootScope.locale);
+
+    $cookies['locale'] = $rootScope.locale;
+
+    console.log('Switch Localization: '+ $rootScope.locale);
+  }
+});
+</script>
+</head>
+<body>
+
+<%= yield %>
+<div id="fb-root"></div>
+</body>
+</html>

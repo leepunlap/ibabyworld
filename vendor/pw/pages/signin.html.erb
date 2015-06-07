@@ -1,0 +1,78 @@
+<div class="login-wrapper">
+<div class="bg-pic">
+ 
+<img src="<%= asset_path 'assets/img/hongkong.jpg' %>" data-src="<%= asset_path 'assets/img/hongkong.jpg' %>" data-src-retina="<%= asset_path 'assets/img/hongkong.jpg' %>" alt="" class="lazy">
+ 
+<div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20" style="margin-left: 20px; margin-bottom: 40px;">
+<h2 class="semi-bold text-white">
+CMS<br/>More than your thought.</h2>
+<p class="small">
+Copyright &copy; 2015 RoadLogica & Perpetual Wave.
+</p>
+</div>
+</div>
+ 
+ 
+<div class="login-container bg-white">
+<div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+<img src="<%= asset_path 'assets/img/perpetualwave_logo_small.jpg' %>" alt="logo" data-src="<%= asset_path 'assets/img/perpetualwave_logo_small.jpg' %>" data-src-retina="<%= asset_path 'assets/img/perpetualwave_logo_small.jpg' %>" width="150">
+<p class="p-t-35">Sign-in using your admin account</p>
+ 
+<form id="form-login" name="loginForm" class="p-t-15" role="form">
+ 
+<div class="form-group form-group-default">
+<label>Login</label>
+<div class="controls">
+<input type="text" name="username" placeholder="User Name" class="form-control" ng-model="user.username" required>
+</div>
+</div>
+ 
+ 
+<div class="form-group form-group-default">
+<label>Password</label>
+<div class="controls">
+<input type="password" class="form-control" name="password" placeholder="Credentials" ng-model="user.password" required>
+</div>
+</div>
+ 
+<div class="row">
+<div class="col-md-6 no-padding">
+<div class="checkbox ">
+<input type="checkbox" value="1" id="checkbox1">
+<label for="checkbox1">Keep Me Signed in</label>
+</div>
+</div>
+<div class="col-md-6 text-right">
+<a class="text-info small">Help? Contact Support</a>
+</div>
+</div>
+ 
+<span class="error red" ng-show="submitted && !success" translate="error_credentails_invalid">
+	Invalid email or password. Please try again.
+</span>
+
+<button class="btn btn-primary btn-cons m-t-10" ng-click="doSignin(user)">Sign in</button>
+</form>
+ 
+<div class="pull-bottom sm-pull-bottom">
+<div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
+<div class="col-sm-3 col-md-2 no-padding">
+<img alt="" class="m-t-5" data-src="<%= asset_path 'assets/img/logo.jpg' %>" data-src-retina="<%= asset_path 'assets/img/logo.jpg' %>" height="60" src="<%= asset_path 'assets/img/logo.jpg' %>" width="60">
+</div>
+<div class="col-sm-9 no-padding m-t-10">
+<p><small>
+Get your account from our customer services. Please contact us by <a href="mailto:info@perpetualwave.com">email</a></small>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+ 
+</div>
+
+<script>
+$(function() {
+   $('#form-login').validate()
+})
+</script>

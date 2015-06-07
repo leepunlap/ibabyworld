@@ -1,0 +1,42 @@
+app.factory('countries', function($http) {
+	return {
+		list: function(callback){
+			$http.get('countries.json').success(callback);
+		}
+	};
+});
+
+app.factory('AuthService', function ($http, Session, Data) {
+	var authService = {};
+ 
+	authService.login = function (credentials) {
+		console.log('Login parameters: '+ credentials.email + ' : '+ credentials.password);
+
+		return Data.post(requestPath.sessions.authenticate, {
+			member: credentials 
+
+    	}).then(function (results) {
+			if (results.code == 200) {
+				Session.create(results.body.token, results.body.member);
+
+				return results.body.member;
+			}
+
+			return null;
+		});
+	};
+
+	authService.destroy = function () {
+		return Data.post(requestPath.sessions.destroy).then(function (results) {
+			Session.destroy();
+
+			return results.body
+		});
+	};
+ 
+	authService.isAuthorized = function () {
+		return Session.token == null ? false : true;
+	};
+ 
+	return authService;
+})

@@ -1,0 +1,98 @@
+var date = new Date;
+var token = null;
+var goToPage = location.search.substring(6);
+var months = [
+	{ name: 'January' , value: 1 },
+	{ name: 'February' , value: 2 },
+	{ name: 'March' , value: 3 },
+	{ name: 'April' , value: 4 },
+	{ name: 'May' , value: 5 },
+	{ name: 'June' , value: 6 },
+	{ name: 'July' , value: 7 },
+	{ name: 'August' , value: 8 },
+	{ name: 'September' , value: 9 },
+	{ name: 'October' , value: 10 },
+	{ name: 'November' , value: 11 },
+	{ name: 'December' , value: 12 }
+];
+
+var requestToken = null;
+var requestPath = {
+	sessions: {
+		authenticate: 'sessions/authenticate',
+		facebook_auth: 'sessions/facebook/auth',
+		destroy: 'sessions/destroy'
+	},
+	members: 'members',
+	articles: 'articles'
+}
+var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSanitize', 'ui.router', 'pascalprecht.translate', 'matchmedia-ng', 'ngDropzone'])
+
+	.config(['$facebookProvider', function($facebookProvider) {
+		// production setting
+    	// $facebookProvider.setAppId('613007765509884').setPermissions(['email','user_friends']);
+    	$facebookProvider.setAppId('613007765509884').setPermissions(['email', 'public_profile', 'user_friends', 'publish_actions']);
+	}])
+
+	.run(function ($window, $rootScope, $location, $cookies, $translate, matchmedia, Data, AuthService, Session) {
+		$rootScope.locale = $cookies['locale'];
+		$rootScope.locales = {
+        	en_US: 'English',
+        	zh_CN: 'Chinese'
+		};
+
+		// matchmedia
+		$rootScope.isTablet 	= matchmedia.isTablet();
+		$rootScope.isDesktop 	= matchmedia.isDesktop();
+		$rootScope.isPhone 		= matchmedia.isPhone();
+
+		console.log('Current localization: '+ $rootScope.locale);
+
+		if (typeof($rootScope.locale) == undefined) {
+			$rootScope.locale = locale;
+			$cookies['locale'] = $rootScope.locale;
+		}
+
+		// Switch to reloaded page
+		if (goToPage != null) {
+			$location.path(goToPage);
+			$location.search('');
+		}
+
+		// // If the current selected locale doesn't exist
+		if (!$rootScope.locales.hasOwnProperty($rootScope.locale)) {
+			$rootScope.locale = "en_US";
+		}
+
+		// Set translation
+		$translate.use($rootScope.locale);
+
+		$rootScope.$on('$stateChangeStart', function (event, next) {
+    		$rootScope.$state = next;
+    		$rootScope.pageTitle = $rootScope.$state.title;
+    		
+    		console.log('State changed to: '+ $rootScope.$state.name);
+  		});
+
+  		$rootScope.doLogout = function() {
+        	AuthService.destroy().then(function (results) {
+				$rootScope.isAuthorized = AuthService.isAuthorized();
+				$rootScope.loggedUser == null;
+
+            	$location.path('membership');
+        	});
+    	};
+
+        (function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			
+			if (d.getElementById(id)) return;
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			} (document, 'script', 'facebook-jssdk'));
+				
+			$rootScope.$on('fb.load', function() {
+			$window.dispatchEvent(new Event('fb.load'));
+		});
+    });

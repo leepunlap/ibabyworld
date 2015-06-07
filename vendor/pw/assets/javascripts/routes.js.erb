@@ -1,0 +1,143 @@
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  // default fall back route
+  $urlRouterProvider.otherwise('/admin');
+
+	$stateProvider
+		.state('signin', {
+            	url: '/admin/signin',
+				title: 'Signin',
+				templateUrl: '<%= asset_path("pages/signin.html") %>',
+				controller: 'SigninController',
+				data: {
+					pageClass: 'login-wrapper'
+				}
+	        })
+
+		.state('admin', {
+	        	abstract: true,
+            	url: '/admin',
+				templateUrl: '<%= asset_path("pages/index.html") %>',
+				data: {
+					pageClass: 'page-container',
+					secure: true
+				}
+	        })
+
+	        	.state('admin.dashboard', {
+            		url: '',
+            		title: 'Dashboard',
+					templateUrl: '<%= asset_path("pages/dashboard.html") %>',
+	        	})
+
+	        	.state('admin.members', {
+					url: '/members',
+					title: 'Members',
+					templateUrl: '<%= asset_path("pages/members.html") %>',
+					controller: 'MemberController'
+	        	})
+
+	        	.state('admin.articles', {
+					url: '/articles',
+					title: 'Articles',
+					templateUrl: '<%= asset_path("pages/articles.html") %>',
+					controller: 'ArticleController'
+	        	})
+
+	        	.state('admin.articles-new', {
+            		url: '/articles/new',
+            		title: 'New Article',
+					templateUrl: '<%= asset_path("pages/articles_new.html") %>',
+					controller: 'ArticleController'
+	        	})
+
+	        	.state('admin.articles-edit', {
+					url: '/articles/edit?id=',
+            		title: 'Edit Article',
+					templateUrl: '<%= asset_path("pages/articles_edit.html") %>',
+					controller: 'ArticleController'
+	        	})
+	        	// Products
+	        	.state('admin.products', {
+					url: '/products',
+					title: 'Products',
+					templateUrl: '<%= asset_path("pages/products.html") %>',
+					controller: 'ProductController'
+	        	})
+
+	        	.state('admin.products-new', {
+            		url: '/products/new',
+            		title: 'New Product',
+					templateUrl: '<%= asset_path("pages/products_new.html") %>',
+					controller: 'ProductController'
+	        	})
+
+	        	.state('admin.products-edit', {
+					url: '/products/edit/:id',
+            		title: 'Edit Product',
+					templateUrl: '<%= asset_path("pages/products_edit.html") %>',
+					controller: 'ProductController'
+	        	})
+
+    // 		.state('login', {
+    //         	url: '/login',
+    //         	title: 'Administrator Login',
+				// templateUrl: '<%= asset_path("templates/admin/login.html") %>',
+				// data: {
+				// 	secure: false
+				// }
+	   //      })
+
+	   //      .state('dashboard', {
+    //         	url: '/dashboard',
+    //         	title: 'Dashboard',
+				// templateUrl: '<%= asset_path("templates/admin/dashboard.html") %>',
+				// data: {
+				// 	secure: true
+				// }
+	   //      })
+
+	   //      .state('members', {
+    //         	url: '/members',
+    //         	title: 'Members',
+				// templateUrl: '<%= asset_path("templates/admin/members.html") %>',
+				// controller: 'MemberController',
+				// data: {
+				// 	secure: true
+				// }
+	   //      })
+
+	   //      .state('articles', {
+    //         	url: '/articles',
+    //         	title: 'articles',
+				// templateUrl: '<%= asset_path("templates/admin/articles.html") %>',
+				// controller: 'ArticleController',
+				// data: {
+				// 	secure: true
+				// }
+	   //      })
+
+	   //      .state('articles-new', {
+    //         	url: '/articles/new',
+    //         	title: 'New Article',
+				// templateUrl: '<%= asset_path("templates/admin/articles_new.html") %>',
+				// controller: 'ArticleController',
+				// data: {
+				// 	secure: true
+				// }
+	   //      })
+
+	   //      .state('articles-edit', {
+    //         	url: '/articles/edit?id=',
+    //         	title: 'Edit Article',
+				// templateUrl: '<%= asset_path("templates/admin/articles_edit.html") %>',
+				// controller: 'ArticleController',
+				// data: {
+				// 	secure: true
+				// }
+	   //      })
+
+
+
+	    // use the HTML5 History API
+	    // $locationProvider.html5Mode(true);
+	})

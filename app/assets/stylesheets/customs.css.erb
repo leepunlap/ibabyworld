@@ -1,0 +1,222 @@
+@font-face {
+    font-family: "Apple Gothic";
+    src: url('/fonts/AppleLiGothicMedium.ttf') format("truetype");
+}
+
+body {
+	color: #474e5d;
+}
+
+a {
+    cursor: pointer;
+}
+
+p {
+	color: #474e5d;
+}
+
+label {
+	color: #888888;
+}
+
+a:focus, button:focus {
+	outline: 0;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
+.text-large {
+    font-size: 110%;
+}
+
+.text-small {
+    font-size: 90%;
+}
+
+.text-xsmall {
+    font-size: 80%;
+}
+
+.red {
+    color: #cc0000;
+}
+
+.white {
+    color: #ffffff;
+}
+
+.gray {
+    color: #777777;
+}
+
+.spacer-5 {
+	height: 5px;
+}
+
+.spacer-10 {
+	height: 10px;
+}
+
+.spacer-15 {
+    height: 15px;
+}
+
+.spacer-20 {
+	height: 20px;
+}
+
+.errors p {
+    margin: -5px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    color: #cc0000;
+    font-size: 95%;
+}
+
+.header h2,
+.header h3,
+.header h4 {
+    text-shadow: -2px 0 #666666, 0 2px #666666, 2px 0 #666666, 0 -2px #666666;
+    letter-spacing: 0.05em;
+}
+
+.box-wrapper {
+    font-size: 0.9em;
+}
+
+.box-wrapper .header {
+    margin-bottom: -30px;
+}
+
+/**
+ *  CKEditor editables are automatically set with the "cke_editable" class
+ *  plus cke_editable_(inline|themed) depending on the editor type.
+ */
+
+/* Style a bit the inline editables. */
+.cke_editable.cke_editable_inline
+{
+    cursor: pointer;
+}
+
+/* Once an editable element gets focused, the "cke_focus" class is
+   added to it, so we can style it differently. */
+.cke_editable.cke_editable_inline.cke_focus
+{
+    box-shadow: inset 0px 0px 20px 3px #ddd, inset 0 0 1px #000;
+    outline: none;
+    background: #eee;
+    cursor: text;
+}
+
+/* Avoid pre-formatted overflows inline editable. */
+.cke_editable_inline pre
+{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/**
+ *  Samples index styles.
+ */
+
+.twoColumns,
+.twoColumnsLeft,
+.twoColumnsRight
+{
+    overflow: hidden;
+}
+
+.twoColumnsLeft,
+.twoColumnsRight
+{
+    width: 45%;
+}
+
+.twoColumnsLeft
+{
+    float: left;
+}
+
+.twoColumnsRight
+{
+    float: right;
+}
+
+dl.samples
+{
+    padding: 0 0 0 40px;
+}
+dl.samples > dt
+{
+    display: list-item;
+    list-style-type: disc;
+    list-style-position: outside;
+    margin: 0 0 3px;
+}
+dl.samples > dd
+{
+    margin: 0 0 3px;
+}
+.warning
+{
+    color: #ff0000;
+    background-color: #FFCCBA;
+    border: 2px dotted #ff0000;
+    padding: 15px 10px;
+    margin: 10px 0;
+}
+
+/* Used on inline samples */
+
+blockquote
+{
+    font-style: italic;
+    font-family: Georgia, Times, "Times New Roman", serif;
+    padding: 2px 0;
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 0;
+}
+
+.cke_contents_ltr blockquote
+{
+    padding-left: 20px;
+    padding-right: 8px;
+    border-left-width: 5px;
+}
+
+.cke_contents_rtl blockquote
+{
+    padding-left: 8px;
+    padding-right: 20px;
+    border-right-width: 5px;
+}
+
+img.right {
+    border: 1px solid #ccc;
+    float: right;
+    margin-left: 15px;
+    padding: 5px;
+}
+
+img.left {
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 15px;
+    padding: 5px;
+}
+
+.marker
+{
+    background-color: Yellow;
+}

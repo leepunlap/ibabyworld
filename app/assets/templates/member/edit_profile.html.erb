@@ -1,0 +1,215 @@
+<style>
+.header.blue-max h3 {
+	margin-left: 110px;
+	font-size: 1.4em;
+}
+</style>
+
+<div id="registration">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="header blue-max">
+				<h3><i translate="edit_profile">Edit Profile</i></h3>
+			</div>
+			<!-- <div class="header blue">
+				<div class="icon mother-child"></div>
+				<div class="caption">
+					<h3><i translate="forgot_password">Forgot Password</i></h3>
+				</div>
+			</div> -->
+
+			<div class="caption rounded-20">
+				<form name="profileForm" class="form-horizontal" ng-hide="successful">
+					<div class="spacer-10"></div>
+
+					<div class="form-group">
+						<label for="title" class="col-sm-3 control-label"><b class="red">*</b> <span translate="title">Title</span>:</label>
+						<div class="col-sm-7">
+							<div class="btn-group btn-group-sm rounded-20" role="group">
+  								<button type="button" class="btn active" ng-click="member.title = 0" translate="title_mr">Mr.</button>
+  								<button type="button" class="btn" ng-click="member.title = 1" translate="title_miss">Miss</button>
+	  							<button type="button" class="btn" ng-click="member.title = 2" translate="title_mrs">Mrs.</button>
+	  						</div>
+						</div>
+						<input type="hidden" class="form-control left" id="title" ng-init="member.title = 0" ng-model="member.title" value="0">
+					</div>
+
+					<div class="form-group" style="padding-top: 5px;">
+						<label for="lastName" class="col-sm-3 control-label"><b class="red">*</b> <span translate="surname">Surname</span>:</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control left" id="lastName" name="lastName" placeholder="" style="width:130px;" ng-model="member.last_name" ng-bind="member.last_name" required="" focus>
+							
+							<input type="text" class="form-control right" id="firstName" name="firstName" placeholder="" style="width:130px;" ng-model="member.first_name" required="">
+							
+							<label for="firstName" class="control-label right"><b class="red">*</b> <span translate="first_name">First name</span>:&nbsp;&nbsp;&nbsp;</label>
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.lastName.$error.required || profileForm.firstName.$error.required" translate="error_name_required">Please provide you first and last name</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-sm-3 control-label"><b class="red">*</b> <span translate="email">Email</span>:</label>
+						<div class="col-sm-8">
+							<input type="email" class="form-control" id="email" name="email" placeholder="" ng-model="member.email" required="">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.email.$error.required" translate="error_email_required">Email address is required</p>
+        					<p ng-show="profileForm.email.$error.email" translate="error_email_invalid">Please enter a valid email address</p>
+        					<p ng-show="profileForm.$error.emailConflict" translate="error_email_taken">Email address is already taken</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="accountName" class="col-sm-3 control-label"><b class="red">*</b> <span translate="account_name">Account name</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="accountName" name="accountName" placeholder="" ng-model="member.account_name" ng-minlength="5" required="">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.accountName.$error.required" translate="error_account_required">Account name is required</p>
+        					<p ng-show="profileForm.accountName.$error.minlength" translate="error_account_length">Your account name is required to be at least 5 characters</p>
+        				</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.password.$error.required" translate="error_password_required">Password is required</p>
+        					<p ng-show="profileForm.password.$error.pattern" translate="error_password_invalid">Password must contain at least 6 characters (english letters and numbers)</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="birthYear" class="col-sm-3 control-label"><span translate="birthday">Birthday</span>:</label>
+						<div class="col-sm-8">
+							<select id="birthYear" class="form-control left" style="width:80px;" ng-init="birth.year = years[0]"  ng-options="year for year in years" ng-model="birth.year" ng-change="updateBirthdate(birth)"></select>
+							
+							<select id="birthMonth" class="form-control left" style="width:120px;" ng-init="birth.month = months[0].value" ng-options="month.value as month.name for month in months" ng-model="birth.month" ng-change="updateBirthdate(birth)"></select>
+
+							<select id="birthDay" class="form-control left" style="width:63px;" ng-init="birth.day = days[0]" ng-options="day for day in days" ng-model="birth.day" ng-change="updateBirthdate(birth)"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="numChilds" class="col-sm-3 control-label"><span translate="number_childs">No. of child</span>:</label>
+						<div class="col-sm-8">
+							<select id="numChilds" class="form-control left" style="width:70px;" ng-init="member.details.childs.total = childs[0]" ng-options="child for child in childs" ng-model="member.details.childs.total">
+							</select>
+
+							<div class="left" style="margin-left: 25px;">
+								<input type="text" class="right form-control" id="childFirstAge" name="childFirstAge" placeholder="" ng-model="member.details.childs.age[0]" style="width:50px;margin-bottom: 5px;" only-digits>
+								<label for="childFirstAge" class="right control-label left"><span translate="child_first_age">Age of first child</span>:&nbsp;&nbsp;</label>
+								
+								<div class="clear"></div>
+
+								<input type="text" class="right form-control" id="childSecondAge" name="childSecondAge" placeholder="" ng-model="member.details.childs.age[1]" style="width:50px;" only-digits>
+								<label for="childSecondAge" class="right control-label left"><span translate="child_second_age">Age of second child</span>:&nbsp;&nbsp;</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="income" class="col-sm-3 control-label"><span translate="household_income">Household income</span>:</label>
+						<div class="col-sm-4">
+							<select id="income" ng-model="member.details.income" ng-options="income.value as income.label for income in incomes" ng-init="member.details.income = incomes[0].value" class="form-control left"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address1" class="col-sm-3 control-label"><span translate="address_first">Address 1</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="address1" placeholder="" ng-model="member.details.address[0]" >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address2" class="col-sm-3 control-label"><span translate="address_second">Address 2:</span></label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control left" id="address2" placeholder="" ng-model="member.details.address[1]">
+							<span class="gray text-small left" style="margin: 7px 5px 0px 0px;">(<span translate="optional">Optional</span>)</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="contactNumber" class="col-sm-3 control-label"><span translate="contact_number">Contact number</span>:</label>
+						<div class="col-sm-8">
+							<select id="contactDevice" class="form-control left" style="width:120px;" ng-init="device = contactDevices[0].value"  ng-options="device.value as device.label for device in contactDevices" ng-model="device"></select>
+							<input type="text" class="form-control left" id="contactNumber" name="contactNumber" placeholder="" ng-model="member.details.contact_numbers[device]" ng-pattern="/^([0-9\(\)\/\+ \-]*)$/" style="width:40%;">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.contactNumber.$error.pattern" translate="error_phone_invalid">Please enter a valid contact number</p>
+        				</div>
+					</div>
+
+					<div class="spacer-5"></div>
+
+					<div class="form-group">
+						<label for="accept" class="col-sm-3 control-label" style="margin-top: -7px;">
+							<input id="accept" type="checkbox" ng-model="member.newsletter">
+						</label>
+						<div class="col-sm-8 gray">
+							<span translate="receive_daily_newsletter">I want to receive daily newsletter by email and I want to receive promotion offers by email</span>
+						</div>
+    				</div>
+
+    				<div class="spacer-15"></div>
+
+					<div class="form-group">
+						<label for="iUnderstand" class="col-sm-3 control-label"></label>
+						<div class="col-sm-8">
+							<button id="btnRegister" type="button" class="btn btn-primary" ng-click="doSaveChanges(member)" translate="save_changes">Save Changes</button>
+						</div>
+    				</div>
+
+					<div class="spacer-5"></div>
+
+    				<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="profileForm.$invalid" translate="register_error_note">Please check your form carefully and complete the missing fields or invalid format</p>
+        				</div>
+					</div>
+    			</form>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel first">
+				<div class="header-orange-min"></div>
+				
+				<div class="caption rounded-20 text-center">
+					<ol class="posts">
+  						<li>
+  							<h5>Loem ipsum dolor</h5>
+							<p class="text-small">Vitae adipiscing turpis. Aenean ligula nibh, molestie id viverra a, dapibus at dolor.</p>
+  						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+$('.btn-group button').click(function(){
+	$('.btn-group button').removeClass('active');
+	$(this).addClass('active');
+});
+</script>

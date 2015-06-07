@@ -1,0 +1,77 @@
+<div class="content">
+	<div class="jumbotron" data-pages="parallax">
+		<div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+			<div class="inner">
+				<ul class="breadcrumb">
+					<li><p>Admin</p></li>
+					<li><a ui-sref="products" class="active">Products</a></li>
+				</ul>
+			</div>
+		</div>
+ 
+		<div class="container-fluid container-fixed-lg bg-white">
+			<div class="panel panel-transparent">
+				<div class="panel-heading">
+					<!-- <div class="panel-title">Product</div> -->
+					<div class="btn-group pull-right m-b-10">
+						<button type="button" class="btn btn-default" ng-click="doNewProduct()">Add new</button>
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+								
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="tables.html#">Settings</a></li>
+							<li><a href="tables.html#">Help</a></li>
+						</ul>
+					</div>
+							
+					<div class="clearfix"></div>
+				</div>
+		
+				<div class="panel-body">
+					<form name="products" class="table-responsive">
+						<table id="products" class="table table-hover">
+							<thead>
+								<tr>
+								<th style="width:1%">
+									<button class="btn" ng-click="doDeleteProduct()"><i class="pg-trash"></i></button>
+								</th>
+								<th style="width:20%">Title</th>
+								<th style="width:15%">Status</th>
+								<th style="width:20%">Tags</th>
+								<th style="width:15%">Last Update</th>
+							</tr>
+							</thead>
+							<tbody>
+								<!-- <tr ng-repeat="product in products" ng-bind-html="product.content"> -->
+								<tr ng-repeat="product in products">
+									<td class="v-align-middle">
+										<div class="checkbox" style="margin-top: -15px;">
+											<input type="checkbox" value="{{product.id}}" ng-model="checkedProductIds[product.id]" id="checkbox{{product.id}}">
+											<label for="checkbox{{product.id}}"></label>
+										</div>
+									</td>
+									<td class="v-align-middle ">
+										<p><a ui-sref="admin.products-edit({ id: {{product.id}} })">{{product.title}}</a></p>
+									</td>
+									<!-- <td class="v-align-middle">
+										{{product.content | limitTo: 150}}
+									</td> -->
+									<td class="v-align-middle">
+										<p>{{checkStatus(product.status)}}</p>
+									</td>
+									<td>
+										<a href="" ng-repeat="tag in getTags(product.tags)">{{tag}}{{$last ? '' : ',' }} </a>
+									</td>
+									<td class="v-align-middle">
+										<p>{{product.created_at| cmdate:'MMMM dd, yyyy HH:mm'}}</p>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

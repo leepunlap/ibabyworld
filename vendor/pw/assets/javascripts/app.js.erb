@@ -1,0 +1,38 @@
+var urlService = 'api/v1/';
+var requestToken = null;
+var requestPath = {
+    sessions: 'sessions/user',
+	members: 'members',
+	articles: 'articles'
+};
+
+var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngCkeditor', 'ngTagsInput', 'ngFileUpload', 'ui.router', 'ngActivityIndicator', 'ui.bootstrap.modal'])
+
+	.run(function ($window, $rootScope, $location, $state, $cookies, Data, AuthService, Session) {
+		$rootScope.$on('$stateChangeStart', function (event, next) {
+            var isSecure = false;
+
+            if (angular.isDefined(next.data.secure))
+                isSecure = next.data.secure;
+
+            console.log('Current state name: '+ next.name);
+
+            // $rootScope.$state = next;
+            // $rootScope.pageName = next.name;
+            $rootScope.pageTitle = next.title;
+            $rootScope.pageClass = next.data.pageClass;
+            $rootScope.isAuthorized = AuthService.isAuthorized();
+    
+            // If no authorize token exist, we must redirect user to our public page
+            if (isSecure) {
+                if (AuthService.isAuthorized() == false) {
+                    event.preventDefault();
+
+                    $state.go('signin');
+                    return false;
+                }
+            }
+  		});
+    });
+
+	

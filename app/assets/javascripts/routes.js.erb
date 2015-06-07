@@ -1,0 +1,92 @@
+app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+    	$stateProvider
+        	.state('home', {
+            	url: '/',
+            	title: 'Home',
+				templateUrl: '<%= asset_path("home.html") %>'
+	        })
+
+	        .state('ibaby', {
+            	url: '/ibaby?article=',
+            	title: 'iBaby',
+				templateUrl: '<%= asset_path("ibaby.html") %>',
+				controller: 'ArticleController'
+	        })
+
+	        .state('membership', {
+            	url: '/membership',
+            	title: 'Membership',
+				templateUrl: '<%= asset_path("membership.html") %>',
+				controller: 'MembershipController'
+	        })
+
+	        .state('password_recovery', {
+            	url: '/password/recovery',
+            	title: 'Password Recovery',
+				templateUrl: '<%= asset_path("password-recovery.html") %>',
+				controller: 'RecoverController'
+	        })
+
+	        .state('password_reset', {
+            	url: '/password/reset?uid&email',
+            	title: 'Reset Password',
+				templateUrl: '<%= asset_path("password-reset.html.erb") %>',
+				controller: 'RecoverController'
+	        })
+
+	        .state('kidsworld', {
+            	url: '/kids-world',
+            	title: 'Kids World',
+				templateUrl: '<%= asset_path("kids-fashion.html.erb") %>',
+				controller: 'KidsFashionController'
+	        })
+
+	        .state('kids-fashion-details', {
+            	url: '/kids-fashion-details',
+            	title: 'Kids Fasion Details',
+				templateUrl: '<%= asset_path("kids-fashion-details.html.erb") %>',
+				controller: 'KidsFashionController'
+	        })
+
+	        .state('register', {
+            	url: '/register?token=',
+            	title: 'Register',
+				templateUrl: '<%= asset_path("registration.html") %>',
+				controller: 'RegisterController'
+	        })
+
+	        .state('bb_shop', {
+            	url: '/bb-shop',
+            	title: 'BB Shop',
+				templateUrl: '<%= asset_path("bb-shop.html") %>',
+				controller: 'BBShopController'
+	        })
+	        
+        	.state('bb_shop_product', {
+        		url: '/bb-shop/product',
+        		title: 'Product',
+				templateUrl: '<%= asset_path("bb_shop_product.html") %>',
+				controller: 'BBShopController'
+        	})
+
+
+	        .state('member', {
+	        	abstract: true,
+            	url: '/member',
+				templateUrl: '<%= asset_path("member/index.html") %>'
+	        })
+	        
+	        	.state('member.edit_profile', {
+            		url: 'member/edit-profile',
+            		title: 'Edit Profile',
+					templateUrl: '<%= asset_path("member/edit_profile.html") %>',
+					controller: 'RegisterController'
+	        	})
+
+		// default fall back route
+		$urlRouterProvider.otherwise('/');
+
+		// use the HTML5 History API
+        // $locationProvider.html5Mode(true);
+    })

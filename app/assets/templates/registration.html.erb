@@ -1,0 +1,270 @@
+<style>
+.header.blue-max h3 {
+	margin-left: 110px;
+	font-size: 1.4em;
+}
+</style>
+
+<div id="registration">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="header blue-max">
+				<h3><i translate="create_own_account">Create you own account now</i></h3>
+			</div>
+			<div class="caption rounded-20">
+				<div scroll-to-top="successMessage" ng-show="successful">
+					<h3><span translate="register_success_title">Thank You</span> <span class="text-capitalize">{{first_name}}</span>!</h3>
+					<br/>
+					<!-- <p>We receive you request to create new account.<br/>You will soon receive an email containing instructions on how to activate your new account.</p> -->
+					<p class="text-large" translate="register_success_message">You have been successfully joined {{appName}}. Your information has been saved to our database.</p>
+				</div>
+
+				<form name="registerForm" class="form-horizontal" ng-hide="successful">
+					<h5><span translate="{{fill_information}}" translate-values="fill_personal_info">Please fill in your personal information</span>:</h5>
+
+					<!-- <input type="hidden" class="form-control left" id="title" ng-model="member.oauth_provider" value="0"> -->
+
+					<div class="form-group">
+						<label for="title" class="col-sm-3 control-label"><b class="red">*</b> <span translate="title">Title</span>:</label>
+						<div class="col-sm-7">
+							<div class="btn-group btn-group-sm rounded-20" role="group">
+  								<button type="button" class="btn active" ng-click="member.title = 0" translate="title_mr">Mr.</button>
+  								<button type="button" class="btn" ng-click="member.title = 1" translate="title_miss">Miss</button>
+	  							<button type="button" class="btn" ng-click="member.title = 2" translate="title_mrs">Mrs.</button>
+	  						</div>
+						</div>
+						<input type="hidden" class="form-control left" id="title" ng-init="member.title = 0" ng-model="member.title" value="0">
+					</div>
+
+					<div class="form-group" style="padding-top: 5px;">
+						<label for="lastName" class="col-sm-3 control-label"><b class="red">*</b> <span translate="surname">Surname</span>:</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control left" id="lastName" name="lastName" placeholder="" style="width:130px;" ng-model="member.last_name" ng-bind="member.last_name" required="" focus>
+							
+							<input type="text" class="form-control right" id="firstName" name="firstName" placeholder="" style="width:130px;" ng-model="member.first_name" required="">
+							
+							<label for="firstName" class="control-label right"><b class="red">*</b> <span translate="first_name">First name</span>:&nbsp;&nbsp;&nbsp;</label>
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.lastName.$error.required || registerForm.firstName.$error.required" translate="error_name_required">Please provide you first and last name</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-sm-3 control-label"><b class="red">*</b> <span translate="email">Email</span>:</label>
+						<div class="col-sm-8">
+							<input type="email" class="form-control" id="email" name="email" placeholder="" ng-model="member.email" required="">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.email.$error.required" translate="error_email_required">Email address is required</p>
+        					<p ng-show="registerForm.email.$error.email" translate="error_email_invalid">Please enter a valid email address</p>
+        					<p ng-show="registerForm.$error.emailConflict" translate="error_email_taken">Email address is already taken</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="accountName" class="col-sm-3 control-label"><b class="red">*</b> <span translate="account_name">Account name</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="accountName" name="accountName" placeholder="" ng-model="member.account_name" ng-minlength="5" required="">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.accountName.$error.required" translate="error_account_required">Account name is required</p>
+        					<p ng-show="registerForm.accountName.$error.minlength" translate="error_account_length">Your account name is required to be at least 5 characters</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="password" class="col-sm-3 control-label"><b class="red">*</b> <span translate="password">Password</span>:</label>
+						<div class="col-sm-8">
+							<input type="password" class="form-control" id="password" name="password" placeholder="" ng-model="member.password" ng-pattern="/^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{6,}$/" required="">
+							<span class="gray text-small" ng-hide="submitted  && registerForm.password.$error.pattern" translate="password_note">Must contain at least 6 characters (english letters and numbers)</span>
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.password.$error.required" translate="error_password_required">Password is required</p>
+        					<p ng-show="registerForm.password.$error.pattern" translate="error_password_invalid">Password must contain at least 6 characters (english letters and numbers)</p>
+        				</div>
+					</div>
+
+					<div class="form-group">
+						<label for="birthYear" class="col-sm-3 control-label"><span translate="birthday">Birthday</span>:</label>
+						<div class="col-sm-8">
+							<select id="birthYear" class="form-control left" style="width:80px;" ng-init="birth.year = years[0]"  ng-options="year for year in years" ng-model="birth.year" ng-change="updateBirthdate(birth)"></select>
+							
+							<select id="birthMonth" class="form-control left" style="width:120px;" ng-init="birth.month = months[0].value" ng-options="month.value as month.name for month in months" ng-model="birth.month" ng-change="updateBirthdate(birth)"></select>
+
+							<select id="birthDay" class="form-control left" style="width:63px;" ng-init="birth.day = days[0]" ng-options="day for day in days" ng-model="birth.day" ng-change="updateBirthdate(birth)"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="numChilds" class="col-sm-3 control-label"><span translate="number_childs">No. of child</span>:</label>
+						<div class="col-sm-8">
+							<select id="numChilds" name="numChilds" class="form-control left" style="width:70px;" ng-init="member.details.childs.total = childs[0]" ng-change="changeChilds()" ng-options="child for child in childs" ng-model="member.details.childs.total">
+							</select>
+
+							<div class="left" style="margin-left: 25px;">
+								<fieldset  data-ng-repeat="field in fields">
+									<input type="text" class="right form-control" id="childFirstAge" name="childFirstAge" placeholder="" ng-model="field.name" style="width:50px;margin-bottom: 5px;" only-digits>
+									<label for="childFirstAge" class="right control-label left"><span translate="child_{{field.label}}_age"></span>:&nbsp;&nbsp;</label>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="income" class="col-sm-3 control-label"><span translate="household_income">Household income</span>:</label>
+						<div class="col-sm-4">
+							<select id="income" ng-model="member.details.income" ng-options="income.value as income.label for income in incomes" ng-init="member.details.income = incomes[0].value" class="form-control left"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address1" class="col-sm-3 control-label"><span translate="address_first">Address 1</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="address1" placeholder="" ng-model="member.details.address[0]" >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address2" class="col-sm-3 control-label"><span translate="address_second">Address 2</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control left" id="address2" placeholder="" ng-model="member.details.address[1]">
+							<span class="gray text-small left" style="margin: 7px 5px 0px 0px;">(<span translate="optional">Optional</span>)</span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="contactNumber" class="col-sm-3 control-label"><span translate="contact_number">Contact number</span>:</label>
+						<div class="col-sm-8">
+							<select id="contactDevice" class="form-control left" style="width:120px;" ng-init="device = contactDevices[0].value"  ng-options="device.value as device.label for device in contactDevices" ng-model="device"></select>
+							<input type="text" class="form-control left" id="contactNumber" name="contactNumber" placeholder="" ng-model="member.details.contact_numbers[device]" ng-pattern="/^([0-9\(\)\/\+ \-]*)$/" style="width:40%;">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.contactNumber.$error.pattern" translate="error_phone_invalid">Please enter a valid contact number</p>
+        				</div>
+					</div>
+
+					<h5><span translate="fill_referrer_info">Please fill in you referrer's information</span>:</h5>
+
+					<div class="form-group">
+						<label for="membershipType" class="col-sm-3 control-label"><span translate="registration_type">Registration type</span>:</label>
+						<div class="col-sm-5">
+							<select id="memberType" class="form-control field-medium" ng-options="type.value as type.label for type in types" ng-init="member.member_type = types[0].value" ng-model="member.member_type"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inviteCode" class="col-sm-3 control-label"><span translate="invite_code">Invite code</span>:</label>
+						<div class="col-sm-5">
+							<input type="text" class="form-control field-medium" id="inviteCode" placeholder="" ng-model="member.referrer.code">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="referrerEmail" class="col-sm-3 control-label"><span translate="referrer_email">Referrer email</span>:</label>
+						<div class="col-sm-5">
+							<input type="email" class="form-control field-medium" id="referrerEmail" name="referrerEmail" placeholder="" ng-model="member.referrer.email">
+						</div>
+					</div>
+
+					<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.referrerEmail.$error.email" translate="error_referrer_email_invalid">Please enter a valid referrer email address</p>
+        				</div>
+					</div>
+
+					<div class="spacer-5"></div>
+
+					<div class="form-group">
+						<label for="accept" class="col-sm-3 control-label" style="margin-top: -7px;">
+							<input id="accept" type="checkbox" ng-model="member.newsletter">
+						</label>
+						<div class="col-sm-8 gray">
+							<span translate="receive_daily_newsletter">I want to receive daily newsletter by email and I want to receive promotion offers by email</span>
+						</div>
+    				</div>
+
+					<div class="spacer-10"></div>
+
+					<div class="form-group">
+						<label for="accept" class="col-sm-3 control-label">
+							<input id="accept" type="checkbox" ng-model="member.accept">
+						</label>
+						<div class="col-sm-8 gray">
+							<span translate="i_understand">I understand and consent to <a ui-sref="member.home">{{appTitle}}.com</a> to use my personal data as member, and direct marketing.</span>
+						</div>
+    				</div>
+
+					<div class="spacer-5"></div>
+					
+					<div class="form-group">
+						<label for="iUnderstand" class="col-sm-3 control-label"></label>
+						<div class="col-sm-8">
+							<button id="btnRegister" type="button" class="btn btn-primary" ng-click="doRegister(member)" ng-disabled="!member.accept" translate="register">Register</button>
+						</div>
+    				</div>
+
+					<div class="spacer-5"></div>
+
+    				<div class="form-group errors" ng-show="submitted">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-7">
+        					<p ng-show="registerForm.$invalid" translate="register_error_note">Please check your form carefully and complete the missing fields or invalid format</p>
+        				</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label"></label>
+						<div class="col-sm-8 gray">
+							<span translate="accept_policy">Press "Register" represents you accept the <a href="">Privacy Policy</a> and<br/> <a href="">Terms of Usage</a> of iBabyWorld.com</span>
+						</div>
+    				</div>
+    			</form>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel first">
+				<div class="header-orange-min">
+					<div class="bg-img-duck"></div>
+				</div>
+				
+				<div class="caption rounded-20 text-center">
+					<div ng-include="'<%= asset_path("partials/social-connect.html") %>'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$('#chkIUnderstand').click(function() {
+	$('#btnRegister').attr("disabled", $(this).is(':checked'));
+});
+
+$('.btn-group button').click(function(){
+	$('.btn-group button').removeClass('active');
+	$(this).addClass('active');
+});
+</script>

@@ -1,0 +1,2523 @@
+.bg-img-cloud {
+    position: absolute;
+    right: -150px; top: 70px;
+    width: 150px;
+    height: 102px;
+    background-image: url(asset-path('bg-img-cloud.png'));
+}
+
+.bg-img-balloons {
+    position: absolute;
+    left: -130px; top: 45%;
+    width: 97px;
+    height: 199px;
+    background-image: url(asset-path('bg-img-balloons.png'));
+}
+
+.bg-img-duck {
+    position: absolute;
+    right: 10px; top: -10px;
+    width: 74px;
+    height: 75px;
+    background-image: url(asset-path('bg-img-duck.png'));
+}
+
+.bg-img-car {
+    position: absolute;
+    left: -130px; top: 90%;
+    width: 113px;
+    height: 111px;
+    background-image: url(asset-path('bg-img-car.png'));
+}
+
+.bg-img-trees {
+    position: absolute;
+    right: -120px; top: 80%;
+    width: 88px;
+    height: 143px;
+    background-image: url(asset-path('bg-img-trees.png'));
+}
+
+.bg-img-cat {
+    position: absolute;
+    right: -120px; top: 10%;
+    width: 85px;
+    height: 145px;
+    background-image: url(asset-path('bg-img-cat.png'));
+}
+
+.bg-img-abc {
+    position: absolute;
+    left: -130px; top: 35%;
+    width: 86px;
+    height: 97px;
+    background-image: url(asset-path('bg-img-abc.png'));
+}
+
+/* header banner */
+
+.header {
+    position: relative;
+    z-index: 1000;
+    height: 64px;
+}
+
+.header h2,
+.header h3,
+.header h4 {
+    position: absolute;
+    bottom: 10px;
+    color: #ffffff;
+}
+
+.header .caption h3 {
+    font-size: 1.4em;   
+}
+
+.header.blue {
+    background-image: url(asset-path('header-banner-blue.png'));
+    background-position: -1157px;
+    background-repeat: no-repeat;
+}
+
+.header.blue .caption {
+    margin-left: 25px;
+    position: relative;
+    height: 100%;
+    right: 0px;
+    background-image: url(asset-path('header-banner-blue.png'));
+    background-position: -680px;
+    background-repeat: no-repeat;
+}
+
+.header .icon.mother-child {
+    position: absolute;
+    top: -67px;
+    left: -20px;
+    z-index: 1000;
+    width: 140px;
+    height: 133px;
+    background-image: url(asset-path('header-icon-mother-child.png'));
+}
+
+.header.blue-max {
+    z-index: 1000;
+    position: absolute;
+    margin-left: -21px;
+    padding: 15px 15px 15px 15px;
+    background-image: url(asset-path('header-banner-blue-max.png'));
+    width: 100%;
+    height: 116px;
+}
+
+.header.blue-min {
+    padding: 15px 15px 15px 15px;
+    background-image: url(asset-path('header-banner-blue-min.png'));
+}
+
+.header.blue-max
+
+.header.blue-max h4 {
+    left: 120px;
+}
+
+.header-orange-min {
+    z-index: 1000;
+    position: absolute;
+    margin-left: -1px;
+    background-image: url(asset-path('header-banner-orange-plain-min.png'));
+    background-repeat: no-repeat;
+    width: 332px;
+    height: 67px;
+}
+
+.header-orange-min .duck {
+    height: 80px;
+}
+
+/* body wrapper */
+
+#body-wrapper {
+    background-color: transparent;
+    background-image: url(asset-path('bg-noise.png'));
+}
+
+#top-wrapper {
+    background-image: url(asset-path('bg-header-strip.png'));
+    background-repeat: repeat-x;
+}
+
+#bottom-wrapper {
+    margin-top: 40px;
+    background-color: #8cd9ff;
+}
+
+#header, #content-wrapper, #footer {
+    margin: 0px auto 0px auto;
+    max-width: 1032px;
+}
+
+#header {
+    position: relative;  
+    max-width: 1032px; 
+}
+
+#footer {
+    padding: 20px 0px 20px 0px;
+}
+
+#header .logo {
+    position: relative;
+    display: block;
+    margin-left: -20px;
+    width: 242px;
+    height: 169px;
+    background-image: url(asset-path('ibabyworld-header-logo'));
+    background-repeat: no-repeat;
+}
+
+#header ul.top-menu {
+    float: right;
+    margin: 0px 0px 0px 10px;
+    width: 700px;
+    height: 30px;
+    list-style: none;
+}
+
+#header ul.top-menu li {
+    float: right;
+}
+
+#header ul.top-menu li a {
+    display: block;
+    margin-left: 10px;
+    padding: 5px 5px 5px 30px;
+    background-image: url(asset-path('ico-top-nav-globe'));
+    background-repeat: no-repeat;
+    color: #464646;    
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#header ul.top-menu li span {
+    display: block;
+    padding: 4px 5px 3px 5px;
+}
+
+#header ul.top-menu li a.signup {
+    background-image: url(asset-path('ico-top-nav-signup'));
+    background-position: left 2px;
+}
+
+#header ul.top-menu li a.signin,
+#header ul.top-menu li a.user {
+    background-image: url(asset-path('ico-top-nav-user'));
+    background-position: left 2px;
+}
+
+#header ul.top-menu li a.signout {
+    margin-left: 0px;
+    padding-left: 5px;
+    background-image: none;
+}
+
+/*
+#header ul.top-menu {
+    margin: 0px 0px 0px 0px;
+    width: 500px;
+    height: 30px;
+    list-style: none;
+    background-color: blue;
+}
+
+#header ul.top-menu li {
+    float: right;
+    background-color: yellow;
+}
+
+#header ul.top-menu li a {
+    display: block;
+    margin-left: 30px;
+    padding: 5px 5px 0px 5px;
+    background-image: url(asset-path('ico-top-nav-globe'));
+    background-repeat: no-repeat;
+    color: #464646;    
+    font-size: 0.9em;
+    text-align: center;
+}
+
+#header ul.top-menu li a.signup {
+    padding-left: 30px;
+    background-image: url(asset-path('ico-top-nav-signup'));
+}
+
+#header ul.top-menu li a.signin {
+    background-image: url(asset-path('ico-top-nav-user'));
+    background-position: left 2px;
+}
+
+#header ul.top-menu li a.user {
+    background-image: url(asset-path('ico-top-nav-user'));
+    background-position: left 2px;
+}
+
+#header ul.top-menu li a.signout {
+    padding-left: 20px;
+    background-image: none;
+}
+
+#header ul.top-menu li span {
+    display: block;
+    width: 30px;
+    float: left;
+    background-color: transparent;
+}
+*/
+
+#header .banners {
+    overflow: hidden;
+    height: 300px;
+}
+
+/* start of main navigation */
+
+#header ul.main-menu {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: 105px;
+    list-style: none;
+}
+
+#header ul.main-menu li a {
+    float: right;
+    display: block;
+    margin: 0px 0px 0px 3px;
+    width: 92px;
+    height: 102px;
+    background-image: url(asset-path('menu-ibaby-min.png'));
+}
+
+#header ul.main-menu li a.membership {
+    width: 129px;
+    background-image: url(asset-path('menu-membership-min.png'));
+}
+
+#header ul.main-menu li a.bb-shop {
+    width: 99px;
+    background-image: url(asset-path('menu-bb-shop-min.png'));
+}
+
+#header ul.main-menu li a.kid-world {
+    margin-right: -2px;
+    width: 119px;
+    background-image: url(asset-path('menu-kid-world-min.png'));
+}
+
+#header ul.main-menu li a.toys {
+    width: 97px;
+    background-image: url(asset-path('menu-toys-min.png'));
+}
+
+#header ul.main-menu li a.blog {
+    margin: 0px 3px 0px 10px;
+    width: 91px;
+    background-image: url(asset-path('menu-blog-min.png'));
+}
+
+#header ul.main-menu li a.forum {
+    width: 90px;
+    background-image: url(asset-path('menu-forum-min.png'));
+}
+
+#header ul.main-menu li a:hover {
+    width: 95px;
+    height: 105px;
+    background-image: url(asset-path('menu-ibaby.png'));
+}
+
+#header ul.main-menu li a.membership:hover {
+    margin-left: -1px;
+    width: 133px;
+    background-image: url(asset-path('menu-membership.png'));
+}
+#header ul.main-menu li a.bb-shop:hover {
+    margin-left: 0px;
+    width: 102px;
+    background-image: url(asset-path('menu-bb-shop.png'));
+}
+
+#header ul.main-menu li a.kid-world:hover {
+    margin-left: -1px;
+    width: 123px;
+    background-image: url(asset-path('menu-kid-world.png'));
+}
+#header ul.main-menu li a.toys:hover {
+    margin-right: 3px;
+    width: 94px;
+    background-image: url(asset-path('menu-toys.png'));
+}
+
+#header ul.main-menu li a.blog:hover {
+    margin-left: 7px;
+    width: 94px;
+    background-image: url(asset-path('menu-blog.png'));
+}
+
+#header ul.main-menu li a.forum:hover {
+    margin-left: 0px;
+    width: 93px;
+    background-image: url(asset-path('menu-forum.png'));
+}
+
+/* start of hot news */
+
+#hot-news {
+    position: relative;
+    margin-top: 0px;
+    width: 100%;
+    height: 417px;
+}
+
+#hot-news .col-md-4 {
+    position: relative;
+    margin-right: -4px;
+    height: 459px;
+    font-size: 90%;
+}
+
+#hot-news .col-md-4 .header {
+    position: absolute;
+    top: 0px;
+    width: 333px;
+    height: 91px;
+}
+
+#hot-news .col-md-4 .header h3 {
+    position: absolute;
+    left: 15px; bottom: 15px;
+    margin: 0px 0px 0px 0px;
+    color: #ffffff;
+    font-size: 1.4em;
+}
+
+#hot-news .col-md-4 .header.star {
+    background-image: url(asset-path('hot-news-banner-start.png'));
+}
+
+#hot-news .col-md-4 .header.love-mom {
+    background-image: url(asset-path('hot-news-banner-i-love-mom.png'));
+}
+
+#hot-news .col-md-4 .header.rainbow {
+    background-image: url(asset-path('hot-news-banner-rainbow.png'));
+}
+
+#hot-news .col-md-4 .banner {
+    position: absolute;
+    top: 91px;
+    overflow: hidden;
+    height: 211px;
+    width: 333px;
+    background-image: url(asset-path('hot-news-banner.jpg'));
+}
+
+#hot-news .col-md-4 .banner img {
+    z-index: 1;
+}
+
+#hot-news .col-md-4 .caption {
+    position: absolute;
+    bottom: 0px;
+    width: 333px;
+    height: 172px;
+    background-image: url(asset-path('hot-news-content-blue.png'));
+    color: #555555;
+}
+
+#hot-news .col-md-4 .caption.red {
+    background-image: url(asset-path('hot-news-content-red.png'));
+}
+
+#hot-news .col-md-4 .caption.green {
+    background-image: url(asset-path('hot-news-content-green.png'));
+}
+
+#hot-news .col-md-4 .caption h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 30px 15px 0px 15px;
+    font-size: 1.3em;
+}
+
+#hot-news .col-md-4 .caption span {
+    display: block;
+    padding: 7px 15px 0px 15px;
+    margin-bottom: 10px;
+}
+
+#hot-news .col-md-4 .caption p {
+    padding: 0px 15px 15px 15px;  
+    font-size: 1em;  
+}
+
+#hot-news a.nav-left, #hot-news a.nav-right {
+    position: absolute;
+    display: block;
+    width: 47px;
+    height: 97px;
+}
+
+#hot-news a.nav-left {
+    top: 210px; left: -38px;
+    background-image: url(asset-path('slider-nav-left.png'));
+}
+
+#hot-news a.nav-right {
+    top: 210px; right: -38px;
+    background-image: url(asset-path('slider-nav-right.png'));
+}
+
+/* snd featured products */
+
+#featured-products {
+    position: relative;
+    margin-top: 60px;
+}
+
+#featured-products .header {
+    margin-left: -6px;
+    height: 128px;
+    background-image: url(asset-path('header-featured-products.png'));
+}
+
+#featured-products .header a.more {
+    float: right;
+    margin: 80px 20px 0px 0px;
+    color: #666666;
+    font-size: 0.9em;
+}
+
+#featured-products .row {
+    margin-left: -5px;
+    width: 110%;
+}
+
+#featured-products .row .col-md-3 {
+    margin: 5px 5px 5px 5px;
+    padding: 0px 0px 0px 0px;
+    width: 22.1%;
+    height: 405px;
+    border: solid 1px #4fa7c1;
+    background-color: #ffffff;
+}
+
+#featured-products .row .col-md-3 {
+    padding: 0px 0px 0px 0px;
+}
+
+#featured-products .row .col-md-3 .sale {
+    position: absolute;
+    top: -10px; left: -10px;
+    display: block;
+    width: 83px;
+    height: 85px;
+    background-image: url(asset-path('product-sale-50.png'));
+}
+
+#featured-products .row .col-md-3 .banner {
+    overflow: hidden;
+    width: 100%;
+    height: 238px;
+    border-bottom: solid 1px #cccccc;
+}
+
+#featured-products .row .col-md-3 .banner img {  
+    margin: -5px 0px 0px -5px;
+    width: 105%;
+    height: 242px;
+}
+
+#featured-products .row .col-md-3 .caption {
+    padding: 0px 12px 10px 12px;
+    color: #666666;
+    font-size: 60%;
+}
+
+#featured-products .row .col-md-3 .caption h3,
+#featured-products .row .col-md-3 .caption h4 {
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+#featured-products .row .col-md-3 .caption h3 {
+    margin-top: 12px;
+    color: #555555;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+#featured-products .row .col-md-3 .caption h4 {
+    margin-top: -2px;
+    color: #777777;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+#featured-products .row .col-md-3 .caption p {
+    margin-top: -5px;
+    height: 70px;
+    border-bottom: solid 1px #eeeeee;
+    color: #777777;
+    font-size: 1.3em;
+    line-height: 1.35em;
+}
+
+#featured-products .row .col-md-3 .caption .discount {
+    float: left;
+    padding-top: 6px;
+    padding-right: 5px;
+    color: #cc0000;
+    margin-top: -10px;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+
+#featured-products .row .col-md-3 .caption .amount {
+    color: #cc0000;
+    font-size: 1.8em;
+    font-weight: normal;
+}
+
+#featured-products .row .col-md-3 .caption a.cmd {
+    float: right;
+    display: block;
+    margin-left: 7px;
+    width: 18px;
+    height: 18px;
+    background-image: url(asset-path('post-like.png'));
+}
+
+#featured-products .row .col-md-3 .caption a.cmd.like {
+    background-image: url(asset-path('post-like.png'));
+}
+
+#featured-products .row .col-md-3 .caption a.cmd.like {
+    background-image: url(asset-path('post-add.png'));
+}
+
+/* start of kids world */
+#kids-fashion {
+    margin: 20px 0px 0px 0px;
+    color: #666666;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#kids-fashion .row .col-md-9 .sort-tags {
+    padding: 10px 8px 15px 14px;
+    font-size: 12px;
+}
+
+#kids-fashion .row .col-md-9 .sort-tags .dv-btn-group {
+    float: right;
+    margin-top: -5px;
+    margin-bottom: 4px;
+}
+
+#kids-fashion .row .col-md-9 .products .col-md-4 {
+    padding-right: 0px;
+}
+
+#kids-fashion .row .col-md-9 .products .product {
+    margin-bottom: 20px;
+    border: solid 1px #cccccc;
+}
+
+#kids-fashion .row .col-md-9 .products .product .banner {
+    overflow: hidden;
+    width: 100%;
+    height: 238px;
+    border-bottom: solid 1px #cccccc;
+    cursor: pointer;
+}
+
+#kids-fashion .row .col-md-9 .products .product .banner img {  
+    margin: -5px 0px 0px -5px;
+    width: 105%;
+    height: 242px;
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption {
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    color: #666666;
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption p {
+    padding-bottom: 7px;
+    border-bottom: solid 1px #eeeeee;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1.2em;
+    letter-spacing: 0em;
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption p span {
+    color: #666666;
+    color: #f0626e;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption .amount {
+    color: #f57765;
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption a.cmd {
+    float: right;
+    display: block;
+    margin-left: 7px;
+    width: 18px;
+    height: 18px;
+    background-image: url(asset-path('post-like.png'));
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption a.cmd.like {
+    background-image: url(asset-path('post-like.png'));
+}
+
+#kids-fashion .row .col-md-9 .products .product .caption a.cmd.like {
+    background-image: url(asset-path('post-add.png'));
+}
+
+/* start of featured posts */
+
+#featured-posts {
+    margin-top: 20px;
+    font-size: 95%;
+}
+
+#featured-posts .header {
+    margin: -10px 0px 0px -6px;
+    height: 148px;
+    background-image: url(asset-path('header-featured-posts.png'));
+}
+
+#featured-posts .post {
+    padding-bottom: 10px;
+}
+
+#featured-posts .post .banner {
+    overflow: hidden;
+    margin-bottom: 25px;    
+}
+
+#featured-posts .post h5 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    font-weight: bold;
+}
+
+#featured-posts .post .posted {
+    margin-top: -5px;
+    font-size: 93%;
+    text-align: right;
+    color: #888888;
+}
+
+#featured-posts .post .posted a {
+    color: #de2e91;
+    font-weight: bold;
+}
+
+#featured-posts ul.nav-tabs {
+    width: 100%;
+}
+
+#featured-posts .nav-tabs li {
+    margin: 0px 0px 0px 0px;
+    width: 50%;
+    background-color: #ffe168;
+}
+
+#featured-posts .nav-tabs li a {
+    padding: 15px 0px 0px 0px;
+    height: 50px;
+    font-size: 1.1em;
+    text-align: center;
+    color: #777777;
+}
+
+#featured-posts .nav-tabs li.active a {
+    padding: 15px 0px 0px 0px;
+    border: none;
+    height: 50px;
+    background-color: #ffcc00;
+    color: #555555;
+}
+
+#featured-posts .nav-tabs li a:hover {
+    border: none;
+    background-color: transparent;
+}
+
+#featured-posts .nav-tabs li.active a:hover {
+    background-color: #ffcc00;
+}
+
+#featured-posts .tab-content {
+    background-color: #ffffff;
+}
+
+#featured-posts .tab-pane  ul.posts {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    list-style: none;
+    border: solid 1px #dddddd;
+    border-top: none;
+    border-bottom: none;
+}
+
+#featured-posts .tab-pane  ul.posts li {
+    padding: 15px 10px 0px 10px;
+    height: 88px;
+    border-bottom: solid 1px #dddddd;
+}
+
+#featured-posts .tab-pane  ul.posts li .banner {
+    float: left;
+    margin-left: 5px;
+    width: 56px;
+    height: 56px;
+}
+
+#featured-posts .tab-pane  ul.posts li .caption {
+    float: right;
+    width: 75%;
+    color: #666666;
+}
+
+#featured-posts .tab-pane  ul.posts li .caption h4 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    color: #666666;
+    font-size: 1.1em;
+    font-weight: normal;
+}
+
+#featured-posts .tab-pane  ul.posts li .caption span {
+    font-size: 0.8em;
+    color: #888888;
+}
+
+#featured-posts .tab-pane  ul.posts li .caption p {
+    margin-top: 5px;
+    color: #888888;
+}
+
+#featured-posts .advertisement {
+    margin-top: 10px;
+    width: 100%;
+    border: solid 1px #dddddd;
+}
+
+/* start of footer */
+
+#footer {
+    color: #0d9cec;
+    font-size: 90%;
+}
+
+#footer .col-md-3 .caption {
+    padding-left: 20px;
+}
+
+#footer .col-md-3 .caption h4 {
+    margin-bottom: 20px;
+}
+
+#footer .col-md-3 .caption p {
+    color: #0d9cec;
+    line-height: 1.8em;
+}
+
+#footer .col-md-3 .caption a {
+    color: #0d9cec;
+}
+
+#footer .col-md-3 .caption ul {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    list-style: none;    
+}
+
+#footer .col-md-3 .caption li {
+    padding: 10px 0px 10px 0px;
+    border-bottom: solid 1px #0d9cec;
+}
+
+#footer-nav-wrapper {
+    width: 100%;   
+    min-height: 50px;
+    background-color: #2190e3;
+    font-size: 90%;
+}
+
+#footer-nav-wrapper .caption {
+    margin: 0px auto 0px auto;
+    padding: 15px 0px 20px 20px;
+    max-width: 1032px;
+    color: #efefef;
+}
+
+
+/* pages */
+
+/* membership page*/
+
+#membership {
+    margin: 0px auto 0px auto;
+    width: 80%;
+    font-size: 80%;
+}
+
+#membership .login {
+    position: relative;
+    margin: 20px auto 50px auto;
+    width: 362px;
+    height: 400px;
+}
+
+#membership .login h2.header {
+    z-index: 1;
+    position: absolute;
+    top: 0px;
+    margin-left: -26px;
+    margin-bottom: -20px;
+    width: 400px;
+    height: 160px;
+    background-image: url(asset-path('membership-login-header.png'));
+    background-repeat: no-repeat;
+}
+
+#membership .login .form-horizontal {
+    z-index: 0;
+    position: absolute;
+    bottom: 0px;
+    overflow: hidden; 
+    padding-top: 50px;
+    width: 362px;
+    height: 235px;
+    border: solid 2px #2e96db;
+    background-color: #ffffff;
+    border-top: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+#membership .login .form-control,
+#membership .login .checkbox {
+    margin: 0px auto 0px auto;
+    width: 310px;
+}
+
+#membership .login .checkbox {
+    margin-top: -15px;
+    line-height: 1.8em;
+}
+
+#membership .login .checkbox a {
+    float: right;
+    color: #888888;
+}
+
+#membership .login .btn-primary {
+    margin-top: 20px;
+    width: 310px;
+}
+
+#membership .login .error {
+    display: block;
+    margin-left: 40px;
+    margin-bottom: -10px;
+}
+
+#membership .social {
+    overflow: hidden;
+    margin: 0px auto 50px auto;
+    padding: 10px 0px 0px 0px;
+    width: 80%;
+    height: 250px;
+    border: solid 2px #2e96db;
+}
+
+#membership .social .col-md-5 {
+    text-align: center;
+}
+
+#membership .social ul {
+    margin: 20px 0px 22px 0px;
+    padding: 0px 0px 0px 0px;
+    list-style: none;
+}
+
+#membership .social ul li {
+    margin: 5px 0px 5p 0px;
+}
+
+#membership .social ul li img {
+    margin-right: 7px;
+}
+
+#membership .social ul li .btn-primary {
+    width: 200px;
+}
+
+#membership .social .register img {
+    margin-top: 20px;
+}
+
+#membership .social .register .btn-primary {
+    margin: 15px 0px 15px 0px;
+    width: 180px;
+}
+
+#membership .social .col-md-5 p {
+    font-size: 100%;
+}
+
+/* registration page*/
+
+#registration {
+    
+}
+#registration .row .col-md-4 {
+    padding: 0px;
+}
+
+#registration .row .col-md-8 .caption {
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    margin-top: 95px;
+    padding: 30px 0px 35px 30px;
+    width: 100.6%;
+    border: solid 2px #2e96db;
+    background-color: #ffffff;
+    font-size: 90%;
+}
+
+#registration .row .col-md-8 .caption h5 {
+    padding: 10px 0px 15px 15px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#registration .row .col-md-8 .caption .form-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#registration .row .col-md-8 .caption .control-label {
+    color: #555555;
+    font-weight: normal;
+}
+
+#registration .row .col-md-8 .caption .btn-group {
+    overflow: hidden;
+    border: solid 1px #2e96db;
+}
+
+#registration .row .col-md-8 .caption .form-control {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    max-width: 85.5%;
+    height: 30px;
+    border-color: #c7d8e3;
+    font-size: 100%;
+}
+
+#registration .row .col-md-8 .caption .btn-group button {
+    margin-left: -1px;
+    margin-right: -10px;
+    padding: 5px 20px 5px 20px;
+    border: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    background-color: transparent;
+    color: #777777;
+}
+
+#registration .row .col-md-8 .caption .btn-group button.active {
+    background-color: #2e96db;
+    border: none;
+    color: #ffffff;
+}
+
+#registration .row .col-md-8 .caption .btn-group button:focus {
+    outline: 0;
+}
+
+#registration .row .col-md-8 .caption .btn-group button.active:hover {
+    background-color: #2e96db;
+}
+
+#registration .row .col-md-8 .caption .btn-group button:hover {
+    background-color: transparent;
+}
+
+#registration .row .col-md-4 .panel {
+    margin: 0px auto 15px auto;
+    width: 332px;
+    background-color: transparent;
+}
+
+#registration .row .col-md-4 .panel.first {
+    margin-top: 50px;
+}
+
+#registration .row .col-md-4 .panel .caption {
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    margin-left: -1px;
+    margin-top: 40px;
+    padding: 50px 15px 15px 15px;
+    width: 100.5%;
+    border: solid 2px #f7941d;
+    background-color: #ffffff;
+}
+
+#registration .row .col-md-4 .panel .caption ul.connect {
+    list-style: none;
+    margin: 0px 0px 15px 0px;
+    padding: 0px;
+}
+
+#registration .row .col-md-4 .panel .caption ul.connect li a {
+    margin-left: 5px;
+    width: 160px;
+}
+
+#registration .row .col-md-4 .panel .caption ol.posts {
+    margin: 0px 10px 10px 10px;
+    padding: 0px 0px 0px 10px;
+    text-align: left;
+}
+
+#registration .row .col-md-4 .panel .caption ol.posts li {
+    padding-left: 5px;
+    border-bottom: solid 1px #dddddd;
+    color: #f7941d;
+}
+
+#registration .row .col-md-4 .panel .caption ol.posts li h5 {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 10px 0px;
+    font-weight: normal;
+}
+
+#registration .row .col-md-4 .panel .caption ol.posts li p {
+    line-height: 1.2em;
+}
+
+/* custom buttons */
+#membership .btn-primary,
+#registration .btn-primary {
+    min-width: 180px;
+    background-color: #2e96db;
+    border: none;
+}
+
+#membership .btn-primary:hover,
+#registration .btn-primary:hover {
+    background-color: #0874bc;
+}
+
+/* others */
+.rounded-10 {
+    background-color: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.rounded-20 {
+    background-color: #ffffff;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+/* Kids Fasion */
+
+#kids-fashion .dv-separator {
+    border-bottom: solid 2px #eeeeee;
+}
+
+#kids-fashion .col-md-9 .form-group .dv-pager {
+    width: 308px;
+    height: 34px;
+    float:right;
+}
+#kids-fashion .col-md-9 .form-group .dv-pager ul li a{
+    height: 34px;
+    width: 34px;
+    font-size: 18px;
+    color: #ff8522;
+    padding: 6px 0 0 11px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-color: transparent;
+    background-image: url(asset-path('product/img-pager-default.png'));
+}
+
+#kids-fashion .col-md-9 .form-group .dv-pager ul li:first-child a {
+    height: 34px;
+    width: 34px;
+    font-size: 24px;
+    padding: 0px 0 0 10px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-image: url(asset-path('product/img-orange.png'));
+}
+
+#kids-fashion .col-md-9 .form-group .dv-pager ul li:last-child a {
+    height: 34px;
+    width: 34px;
+    font-size: 24px;
+    padding: 0px 0 0 10px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-image: url(asset-path('product/img-orange.png'));
+}
+
+#kids-fashion .row .col-md-4 .btn-sort-date {
+    width: 140px;
+    height: 30px;
+    margin-left: 20px;
+    background-color: #ff8522;
+    border: none;
+    border-radius: 30px;
+    padding: 4px;
+    padding-left: 19px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+#kids-fashion .row .col-md-4 .btn-sort-price {
+    width: 78px;
+    height: 30px;
+    background-color: #ff8522;
+    border: none;
+    border-radius: 30px;
+    padding: 4px;
+    padding-left: 14px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+#kids-fashion .row .col-md-4 p {
+  font-size: 16px;
+}
+
+#kids-fashion .row .col-md-3 .dv-container-search {
+    margin-top: 30px;
+}
+
+#kids-fashion .row .col-md-3 .dv-container-price-range { 
+    margin-top: 30px;
+}
+
+#kids-fashion .row .col-md-3 .dv-container-history { 
+    margin-top: 30px;
+}
+
+#kids-fashion .row .col-md-3 .dv-container-tag { 
+    margin-top: 17px;
+}
+
+#kids-fashion .row .col-md-3 .dv-container-featured-product { 
+    margin-top: 17px;
+    min-height: 300px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-container-brand {
+    margin-top: 50px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .lbl-orange{
+    color: #ff8522;
+    margin-left: 30px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .lbl-orange-2{
+    color: #ff8522;
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-separator {
+    border-bottom: solid 2px #eeeeee;
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-duck-sm {
+    position: absolute;
+    width: 26px;
+    height: 24px;
+    margin-top: -5px;
+    background-image: url(asset-path('img-duck-small.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-elephant-sm {
+    position: absolute;
+    width: 26px;
+    height: 24px;
+    margin-top: -5px;
+    background-image: url(asset-path('img-elephant-small.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .btn-search-small {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url(asset-path('img-search-small.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .btn-sort-small {
+    position: absolute;  
+    width: 28px;
+    height: 28px;
+    background-image: url(asset-path('img-sort-small.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .fld-sort {
+    border-radius: 0px !important;
+    height: 30px;
+    width: 214px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .fld-search {
+    border-radius: 0px !important;
+    height: 30px;
+    width: 214px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-tag-small {
+    position: absolute;
+    width: 20px;
+    height: 24px;
+    margin-top: -1px;
+    background-image: url(asset-path('img-tag-small.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .lbl-orange{
+    color: #ff8522;
+    margin-left: 30px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-scroll{  
+    position: absolute;
+    width: 233px;
+    height: 19px;
+    margin-left: 9px;
+    background-image: url(asset-path('image-scroll.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-price-range{  
+    position: absolute;
+    width: 220px;
+    height: 29px;
+    margin-left: 16px;
+    margin-top: 30px;
+    background-image: url(asset-path('img-price-range.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .icon-price-range{  
+    position: absolute;
+    width: 220px;
+    height: 29px;
+    margin-left: 16px;
+    margin-top: 30px;
+    background-image: url(asset-path('img-price-range.png'));
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-history-item-container {
+     min-height: 100px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-history-item-container .col-md-8 p {
+  min-height: 55px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-history-image-container {
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    margin-left: 5px;
+    margin-top: 3px;
+    border:1px solid blue;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-top-featured-product-container {
+    position: absolute;
+    width: 228px;
+    height: 294px;
+    margin-top: 3px;
+}
+
+#kids-fashion .row .col-md-3 .form-group .dv-brand-container {
+    border: 1px solid #05aecc;
+    width: 73px;
+    height: 72px;
+    margin-left: -14px;
+    margin-bottom: 5px;
+}
+
+
+/* Product */
+
+#product .row .col-md-3 .dv-container-sort {
+    margin-top: 30px;
+}
+
+#product .row .col-md-3 .dv-container-search {
+    margin-top: 30px;
+}
+
+#product .row .col-md-3 .dv-container-price-range { 
+    margin-top: 30px;
+}
+
+#product .row .col-md-3 .dv-container-history { 
+    margin-top: 30px;
+}
+
+#product .row .col-md-3 .dv-container-tag { 
+    margin-top: 17px;
+}
+
+#product .row .col-md-3 .dv-container-featured-product { 
+    margin-top: 17px;
+    min-height: 300px;
+}
+
+#product .row .col-md-3 .form-group .dv-container-brand {
+    margin-top: 50px;
+}
+
+#product .row .col-md-3 .form-group .lbl-orange{
+    color: #ff8522;
+    margin-left: 30px;
+}
+
+#product .row .col-md-3 .form-group .lbl-orange-2{
+    color: #ff8522;
+}
+
+#product .row .col-md-3 .form-group .dv-separator {
+    border-bottom: solid 2px #eeeeee;
+}
+
+#product .row .col-md-3 .form-group .icon-duck-sm {
+    position: absolute;
+    width: 26px;
+    height: 24px;
+    margin-top: -5px;
+    background-image: url(asset-path('img-duck-small.png'));
+}
+
+#product .row .col-md-3 .form-group .icon-elephant-sm {
+    position: absolute;
+    width: 26px;
+    height: 24px;
+    margin-top: -5px;
+    background-image: url(asset-path('img-elephant-small.png'));
+}
+
+#product .row .col-md-3 .form-group .btn-search-small {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    background-image: url(asset-path('img-search-small.png'));
+}
+
+#product .row .col-md-3 .form-group .btn-sort-small {
+    position: absolute;  
+    width: 28px;
+    height: 28px;
+    background-image: url(asset-path('img-sort-small.png'));
+}
+
+#product .row .col-md-3 .form-group .fld-sort {
+    border-radius: 0px !important;
+    height: 30px;
+    width: 214px;
+}
+
+#product .row .col-md-3 .form-group .fld-search {
+    border-radius: 0px !important;
+    height: 30px;
+    width: 214px;
+}
+
+#product .row .col-md-3 .form-group .icon-tag-small {
+    position: absolute;
+    width: 20px;
+    height: 24px;
+    margin-top: -1px;
+    background-image: url(asset-path('img-tag-small.png'));
+}
+
+#product .row .col-md-3 .form-group .lbl-orange{
+    color: #ff8522;
+    margin-left: 30px;
+}
+
+#product .row .col-md-3 .form-group .icon-scroll{  
+    position: absolute;
+    width: 233px;
+    height: 19px;
+    margin-left: 9px;
+    background-image: url(asset-path('image-scroll.png'));
+}
+
+#product .row .col-md-3 .form-group .icon-price-range{  
+    position: absolute;
+    width: 220px;
+    height: 29px;
+    margin-left: 16px;
+    margin-top: 30px;
+    background-image: url(asset-path('img-price-range.png'));
+}
+
+#product .row .col-md-3 .form-group .icon-price-range{  
+    position: absolute;
+    width: 220px;
+    height: 29px;
+    margin-left: 16px;
+    margin-top: 30px;
+    background-image: url(asset-path('img-price-range.png'));
+}
+
+#product .row .col-md-3 .form-group .dv-history-item-container {
+    padding: 10px 0px 10px 0px;
+}
+
+#product .row .col-md-3 .form-group .dv-history-item-container .col-md-8 p {
+    min-height: 70px;
+    margin: 0px 0px 0px 0px;
+    font-size: 0.9em;
+}
+
+#product .row .col-md-3 .form-group .dv-history-item-container .col-md-8 p .amount {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+#product .row .col-md-3 .form-group .dv-history-image-container {
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    margin-left: 5px;
+    margin-top: 3px;
+    border:1px solid blue;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+#product .row .col-md-3 .form-group .dv-top-featured-product-container {
+    position: absolute;
+    width: 228px;
+    height: 294px;
+    margin-top: 3px;
+}
+
+#product .row .col-md-3 .form-group .dv-brand-container {
+    border: 1px solid #05aecc;
+    width: 73px;
+    height: 72px;
+    margin-left: -14px;
+    margin-bottom: 5px;
+}
+
+#product .row .col-md-3 .dv-container-main {
+    margin-top: 30px;
+}
+
+#product {
+    margin: 20px 0px 0px 0px;
+    color: #666666;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#product .row .col-md-7 .sort-tags {
+    padding: 10px 0px 15px 0px;
+    font-size: 16px;
+    margin-top: 18px;
+    margin-left: 14px;
+}
+
+#product .row .col-md-7 .sort-tags p{
+    color: white;
+}
+
+#product .row .col-md-7 .sort-tags .dv-btn-group {
+    margin-top: -6px;
+}
+
+#product .row .col-md-7 .products {
+    padding: 0 2px 0 2px;
+}
+
+#product .row .col-md-7 .products .col-md-4 {
+    padding-right: 0px;
+}
+
+#product .row .col-md-7 .products .product {
+    margin-bottom: 20px;
+    border: solid 1px #cccccc;
+}
+
+#product .row .col-md-7 .products .product .banner {
+    overflow: hidden;
+    width: 100%;
+    height: 206px;
+    border-bottom: solid 1px #cccccc;
+    cursor: pointer
+}
+
+#product .row .col-md-7 .products .product .banner img {  
+    margin: 0px -2px 0px -2px;
+    width: 105%;
+    height: auto;
+}
+
+#product .row .col-md-7 .products .product .caption {
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    color: #666666;
+}
+
+#product .row .col-md-7 .caption h4 {
+    margin-top: -8px;
+    color: #777777;
+    font-size: 0.8em;
+    font-weight: normal;
+}
+
+#product .row .col-md-7 .caption h3 {
+    margin-top: 0px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+#product .row .col-md-7 .caption h3 a {
+    color: #555555;
+}
+
+#product .row .col-md-7 .products .product .caption p {
+    margin-top: -5px;
+    border-bottom: solid 1px #eeeeee;
+    color: #777777;
+    font-size: 0.7em;
+    line-height: 1.10em;
+    min-height: 55px;
+}
+
+#product .row .col-md-7 .products .product .caption p span {
+    color: #666666;
+    color: #f0626e;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+#product .row .col-md-7 .products .product .caption .amount {
+    color: #f57765;
+}
+
+#product .row .col-md-7 .products .product .caption a.cmd {
+    float: right;
+    display: block;
+    margin-left: 7px;
+    width: 18px;
+    height: 18px;
+    background-image: url(asset-path('post-like.png'));
+}
+
+#product .row .col-md-7 .products .product .caption a.like {
+    background-image: url(asset-path('post-like.png'));
+}
+
+#product .row .col-md-7 .products .product .caption a.liked {
+    background-image: url(asset-path('post-liked.png'));
+}
+
+#product .row .col-md-7 .products .product .caption a.add {
+    background-image: url(asset-path('post-add.png'));
+}
+
+#product .dv-separator {
+    margin-top:5px;
+    border-bottom: solid 2px #eeeeee;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-quick-check.png'));
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd0aa;
+    margin-left: -16px;
+    margin-top: -7px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body ul {
+    list-style-type: none;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li {
+    border-bottom: 1px solid white;
+    padding: 3px 0px 3px 0px;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li a {
+    margin: 0px 0 0px 10px;
+    color: #666666;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li span {
+    display: block;
+    float:right;
+}
+
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-what-kids-love.png'));
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd9f0;
+    margin-left: -16px;
+    margin-top: 4px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul {
+    list-style-type: none;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li {
+    border-bottom: 1px solid white;
+    padding: 3px 0px 3px 0px;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li a {
+    color: #666666;
+}
+
+#product .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li span {
+    float:right;
+}
+
+#product .row .col-md-7 .btn-sort-date {
+    width: 140px;
+    height: 30px;
+    margin-left: 4px;
+    background-color: #ff8522;
+    border: none;
+    border-radius: 30px;
+    padding: 4px;
+    padding-left: 19px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+#product .row .col-md-7 .btn {
+    height: 30px;
+    background-color: #ff8522;
+    border: none;
+    border-radius: 30px;
+    padding-left: 14px;
+    padding-top: 5px;
+    padding-right: 14px;
+    cursor: pointer;
+}
+
+
+#product .row .col-md-7 .btn-sort-price {
+    width: 78px;
+    height: 30px;
+    background-color: #ff8522;
+    border: none;
+    border-radius: 30px;
+    padding: 4px;
+    padding-left: 14px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+
+#product .col-md-7 .form-group .dv-pager {
+    width: 308px;
+    height: 34px;
+    float:right;
+}
+#product .col-md-7 .form-group .dv-pager ul li a{
+    height: 34px;
+    width: 34px;
+    font-size: 18px;
+    color: #ff8522;
+    padding: 6px 0 0 11px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-color: transparent;
+    background-image: url(asset-path('product/img-pager-default.png'));
+}
+
+#product .col-md-7 .form-group .dv-pager ul li:first-child a {
+    height: 34px;
+    width: 34px;
+    font-size: 24px;
+    color: white;
+    padding: 0px 0 0 10px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-image: url(asset-path('product/img-orange.png'));
+}
+
+#product .col-md-7 .form-group .dv-pager ul li:last-child a {
+    height: 34px;
+    width: 34px;
+    font-size: 24px;
+    color: white;
+    padding: 0px 0 0 10px;
+    margin: 5px 5px 5px 5px;
+    border: 0px;
+    background-image: url(asset-path('product/img-orange.png'));
+}
+
+
+/* Product Details */
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-quick-check.png'));
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd0aa;
+    margin-left: -16px;
+    margin-top: -7px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul {
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li {
+    border-bottom: 1px solid white;
+}
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li p{
+    margin: 2px 0 2px 16px;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li span {
+    float:right;
+}
+
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-what-kids-love.png'));
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd9f0;
+    margin-left: -16px;
+    margin-top: 4px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul {
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li {
+    border-bottom: 1px solid white;
+}
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li p{
+    margin: 2px 0 2px 5px;
+}
+
+#product-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li span {
+    float:right;
+}
+
+#product-details .row .col-md-10 .sort-tags {
+    padding: 46px 8px 15px 24px;
+    font-size: 20px;
+    color: #777777;
+    margin-left: -9px;
+}
+
+
+#product-details .row .col-md-10 .products {
+    padding:  0 10px 0 10px;
+}
+
+#product-details .row .col-md-10 .products .col-md-4 {
+    padding-right: 0px;
+}
+
+#product-details .row .col-md-10 .products .product {
+    margin-bottom: 20px;
+    border: solid 1px #cccccc;
+}
+
+#product-details .row .col-md-10 .products .product .banner {
+    overflow: hidden;
+    width: 100%;
+    height: 206px;
+    border-bottom: solid 1px #cccccc;
+}
+
+#product-details .row .col-md-10 .products .product .banner img {  
+    margin: 0px -10px 0px -5px;
+    width: 102%;
+   height: 208px;
+}
+
+#product-details .row .col-md-10 .products .product .caption {
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    color: #666666;
+}
+
+#product-details .row .col-md-10 .caption h4 {
+    margin-top: -2px;
+    color: #777777;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+#product-details .row .col-md-10 .caption h3 {
+    margin-top: 0px;
+    color: #555555;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#product-details .row .col-md-10 .products .product .caption p {
+    margin-top: -5px;
+    border-bottom: solid 1px #eeeeee;
+    color: #777777;
+    font-size: 0.7em;
+    line-height: 1.10em;
+    min-height: 55px;
+}
+
+#product-details .row .col-md-10 .products .product .caption p span {
+    color: #666666;
+    color: #f0626e;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+#product-details .row .col-md-10 .products .product .caption .amount {
+    color: #f57765;
+}
+
+#product-details .row .col-md-10 .products .product .caption a.cmd {
+    float: right;
+    display: block;
+    margin-left: 7px;
+    width: 18px;
+    height: 18px;
+    background-image: url(asset-path('post-like.png'));
+}
+
+#product-details .row .col-md-10 .products .product .caption a.like {
+    background-image: url(asset-path('post-like.png'));
+}
+
+#product-details .row .col-md-10 .products .product .caption a.liked {
+    background-image: url(asset-path('post-liked.png'));
+}
+
+#product-details .row .col-md-10 .products .product .caption a.like {
+    background-image: url(asset-path('post-add.png'));
+}
+
+#product-details .row .col-md-10 h4 {
+    color: #777777;
+    margin-left: 14px;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+#product-details .row .col-md-10 .dv-selected-image {
+    border: 1px solid #348097;
+    margin-left: 16px;
+}
+
+#product-details .row .col-md-10 .dv-selected-image {
+    border: 1px solid #348097;
+    margin-left: 16px;
+}
+
+#product-details .row .col-md-10 .dv-thumb-images {
+    margin: 15px -53px 0 16px;
+}
+  
+#product-details .row .col-md-10 .dv-thumb-images img {
+    border: 1px solid #348097;
+    width:150%;
+}
+
+#product-details .row .col-md-10 .dv-social {
+    width: 144px;
+    height: 29px;
+    margin: 15px 10px 10px 15px;
+    background-image: url(asset-path('product/img-social.png'));
+}
+
+#product-details .row .col-md-10 .btn-facebook {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 8px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-social-facebook.png'));
+}
+
+#product-details .row .col-md-10 .btn-twitter {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 -11px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-social-twitter.png'));
+}
+
+#product-details .row .col-md-10 .btn-email {
+    width: 41px;
+    height: 30px;
+    margin: 0 0 0 -25px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-email.png'));
+}
+
+#product-details .row .col-md-10 .products h1 {
+    font-size: 29px;
+    font-weight: bold;
+    color: #ff8522;
+}
+
+#product-details .row .col-md-10 .products h3{
+    color: #ff8522;
+    font-size: 18px;
+    margin: 10px 0 0 0px;
+}
+
+#product-details .row .col-md-10 .dv-product-description-header {
+    margin-top: -24px;
+    min-height: 128px;
+}
+
+#product-details .row .col-md-10 .dv-separator {
+    border-bottom: solid 2px #eeeeee;
+}
+
+#product-details .row .col-md-10 .dv-product-description-body {
+    margin-top:10px;
+    margin-bottom: 10px;
+    height:250px;
+    overflow-y: auto;
+}
+
+#product-details .row .col-md-10 .dv-others table {
+    margin-top:10px;
+}
+
+#product-details .row .col-md-10 .dv-others table tr td {
+    min-width: 100px;
+}
+
+#product-details .row .col-md-10 .btn-add-to-bag {
+    width:334px;
+    height:125px;
+    margin: -70px 0 0 74px;
+    background-image: url(asset-path('product/img-add-to-bag.png'));
+    cursor:pointer;
+}
+  
+/* Kids Fashion Details */
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-quick-check.png'));
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd0aa;
+    margin-left: -16px;
+    margin-top: -7px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul {
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li {
+    border-bottom: 1px solid white;
+}
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li p {
+    margin: 2px 0 2px 16px;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-quick-check-body ul li span {
+    float:right;
+}
+
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-header {
+    width: 178px;
+    height: 81px;
+    margin-left: -16px;
+    background-image: url(asset-path('product/img-what-kids-love.png'));
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body {
+    width: 178px;
+    min-height: 240px;
+    background-color: #ffd9f0;
+    margin-left: -16px;
+    margin-top: 4px;
+    padding-right: 14px;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul {
+    list-style-type: none;
+    font-size: 15px;
+    line-height: 1.8;  
+    padding-top: 9px;
+    padding-left: 15px;
+    padding-bottom: 10px;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li {
+    border-bottom: 1px solid white;
+}
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li:last-child {
+    border-bottom: 0px solid #ffe8d5;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li p{
+    margin: 2px 0 2px 5px;
+}
+
+#kids-fashion-details .row .col-md-2 .dv-continer-left .dv-what-kids-love-body ul li span {
+    float:right;
+}
+
+#kids-fashion-details .row .col-md-10 .sort-tags {
+    padding: 46px 8px 15px 24px;
+    font-size: 20px;
+    color: #777777;
+    margin-left: -9px;
+}
+
+#kids-fashion-details .row .col-md-10 h4 {
+    color: #777777;
+    font-size: 1.5em;
+    font-weight: normal;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-selected-image {
+    border: 1px solid #348097;
+    margin-left: 16px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-selected-image {
+    border: 1px solid #348097;
+    margin-left: 16px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-thumb-images {
+    margin: 15px -53px 0 16px;
+}
+  
+#kids-fashion-details .row .col-md-10 .dv-thumb-images img {
+    border: 1px solid #348097;
+    width:150%;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-social {
+    width: 144px;
+    height: 29px;
+    margin: 15px 10px 10px 15px;
+    background-image: url(asset-path('product/img-social.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .btn-facebook {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 8px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-social-facebook.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .btn-twitter {
+    width: 30px;
+    height: 30px;
+    margin: 0 0 0 -11px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-social-twitter.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .btn-email {
+    width: 41px;
+    height: 30px;
+    margin: 0 0 0 -25px;
+    cursor: pointer;
+    background-image: url(asset-path('product/img-btn-email.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products h1 {
+    font-size: 29px;
+    font-weight: bold;
+    color: #ff8522;
+}
+
+#kids-fashion-details .row .col-md-10 .products h3{
+    color: #ff8522;
+    font-size: 18px;
+    margin: 10px 0 0 0px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-product-description-header {
+    margin-top: -24px;
+    min-height: 141px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-separator {
+    border-bottom: solid 2px #eeeeee;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-product-description-body {
+    margin-top:10px;
+    margin-bottom: 10px;
+    height:250px;
+    overflow-y: auto;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-others table {
+    margin-top:10px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-others table tr td {
+    min-width: 100px;
+}
+
+#kids-fashion-details .row .col-md-10 .btn-add-to-bag {
+    width:334px;
+    height:125px;
+    margin: -70px 0 0 74px;
+    background-image: url(asset-path('product/img-add-to-bag.png'));
+    cursor:pointer;
+}
+
+#kids-fashion-details .row .col-md-10 .discount {
+    padding-right: 5px;
+    color: #cc0000;
+    margin-top: -10px;
+    font-size: 1.4em;
+    font-weight: normal;
+    text-decoration: line-through;
+}
+
+#kids-fashion-details .row .col-md-10 .amount {
+    color: #cc0000;
+    font-size: 1.4em;
+    margin-top: -12px;
+    font-weight: normal;
+}
+
+#kids-fashion-details .row .col-md-10 .row .col-md-2 #btn-add-all {
+    width: 147px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#kids-fashion-details .row .col-md-10 .row .col-md-2 #btn-add-to-wist-list {
+    margin-top:10px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 147px;
+}
+
+#kids-fashion-details .row .col-md-10 .row .col-md-2 .availability {
+    font-size:11px;
+    text-decoration: underline;
+}
+
+
+#kids-fashion-details .row .col-md-10 .products {
+    padding:  0 10px 0 10px;
+}
+
+#kids-fashion-details .row .col-md-10 .products .col-md-4 {
+    padding-right: 0px;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product {
+    margin-bottom: 20px;
+    border: solid 1px #cccccc;  
+    width: 190px;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .banner {
+    overflow: hidden;
+    width: 100%;
+    height: 190px;
+    border-bottom: solid 1px #cccccc;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .banner img {  
+    margin: 0px -10px 0px -5px;
+    width: 104%;
+    height: 190px;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption {
+    background-color: #ffffff;
+    padding: 10px 10px 10px 10px;
+    color: #666666;
+}
+
+#kids-fashion-details .row .col-md-10 .caption h4 {
+    margin-top: -2px;
+    color: #777777;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+#kids-fashion-details .row .col-md-10 .caption h3 {
+    margin-top: 0px;
+    color: #555555;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption p {
+    margin-top: -5px;
+    border-bottom: solid 1px #eeeeee;
+    color: #777777;
+    font-size: 0.7em;
+    line-height: 1.10em;
+    min-height: 55px;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption p span {
+    color: #666666;
+    color: #f0626e;
+    font-size: 0.85em;
+    font-weight: normal;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption .amount {
+    color: #f57765;
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption a.cmd {
+    float: right;
+    display: block;
+    margin-left: 7px;
+    width: 18px;
+    height: 18px;
+    background-image: url(asset-path('post-like.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption a.cmd.like {
+    background-image: url(asset-path('post-like.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products .product .caption a.cmd.like {
+    background-image: url(asset-path('post-add.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products .plus {
+    width: 41px;
+    height: 41px;
+    margin: 130px 0 0 16px;
+    background-image: url(asset-path('product/img-plus.png'));
+}
+#kids-fashion-details a.arrow-left, #kids-fashion-details a.arrow-right {
+    position: absolute;
+    display: block;
+    width: 27px;
+    height: 62px;
+}
+
+#kids-fashion-details .row .col-md-10 .products a.arrow-left {  
+    left: -29px;
+    top: 119px;
+    background-image: url(asset-path('product/img-arrow-left.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products a.arrow-right {
+    right: -12px;
+    top: 119px;
+    background-image: url(asset-path('product/img-arrow-right.png'));
+}
+
+#kids-fashion-details .row .col-md-10 .products .dv-products {
+    position: relative;
+    margin-left: 17px;
+}
+
+
+#kids-fashion-details .row .col-md-10 .products .dv-header {
+    margin-left: 17px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-main-discussion {
+    margin-left: 13px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-main-discussion .message-container{
+    margin-left: 23px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-main-discussion .message-container .user{
+    color:#d60b23;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-main-discussion .message-container .status{
+    font-weight:bold;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-main-discussion .message-container .messages {
+    font-size: 11px;
+    margin-top: 20px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-header {
+    margin-left: 17px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-feedback {
+    margin-left: 108px;
+    margin-top: 20px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-feedback .message-container{
+    margin-left: 30px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-feedback .message-container .user{
+    color:#d60b23;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-feedback .message-container .status{
+    font-weight:bold;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-feedback .message-container .messages {
+    font-size: 11px;
+    margin-top: 20px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-comment-form #comment {
+    margin-top: 20px;
+}
+
+#kids-fashion-details .row .col-md-10 .dv-comment-form #btn-comment {
+    margin-top: 20px;
+}
+
+#kids-fashion-details .row .col-md-10 .brand {
+    background-image: url(asset-path('product/img-brands.png'));
+}

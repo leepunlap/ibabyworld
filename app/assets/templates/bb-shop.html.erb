@@ -1,0 +1,270 @@
+
+<div id="product" class="container-fluid">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="dv-continer-left">
+						<div class="form-group">
+							<div class="dv-quick-check-header"></div>
+							<div class="dv-quick-check-body">
+								<ul>
+									<li ng-repeat="o in ageselect"><a ng-click="setTag(1,o)">{{o.desc}}<span>></span></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="dv-what-kids-love-header"></div>
+							<div class="dv-what-kids-love-body">
+								<ul>
+									<li ng-repeat="i in whatkidslove"><a ng-click="setTag(2,i)">{{i.desc}}<span>></span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="products row">
+				<div class="sort-tags">
+					<div class="row">
+						<div class="col-md-7">
+							<strong>
+								<span ng-repeat="c in crumbs">
+									<span ng-if="$first == false">&nbsp;>&nbsp;</span>{{c}}
+								</span>
+							</strong>
+						</div>
+						<div class="col-md-5">
+							<div class="dv-btn-group">
+								<div class="row">
+									<div ng-show="filter" class="col-md-12" style="text-align: right;"><div class="btn" ng-click="showAll()"><p>Show All</p></div></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="dv-separator"></div>
+				</div>
+				
+				<div class="col-xs-4 col-md-4" ng-repeat="p in products | filter:filter">
+					<div class="product">
+						<div class="banner">
+							<img ng-src="uploads/products/{{p.sku}}.png">
+	<!-- 					<a ui-sref="bb_shop_product"></a> -->
+						</div>
+						<div class="caption">
+							<h3><a ui-sref="bb_shop_product">{{p.title}}</a></h3>
+							<h4>{{p.shortdesc}}</h4>
+							<p>{{p.longdesc}}</p>
+							<span class="amount">${{p.price}}</span>
+							<a class="cmd add" ng-click="AddToCart(p)"></a>
+							<a class="cmd like" ng-hide="p.like" ng-click="likeProduct(p)"></a>
+							<a class="cmd liked" ng-show="p.like" ng-click="likeProduct(p)"></a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+<!-- 			<div class="form-group">
+				<div class="col-md-12">
+					<div class="dv-pager">
+						<nav>
+						  <ul class="pagination">
+						    <li>
+						      <a href="#" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+						    </li>
+						    <li ng-repeat="i in pages"><a href="#">{{i}}</a></li>
+						    <li>
+						      <a href="#" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+					</div>
+				</div>
+			</div> -->
+		</div>
+		<div class="col-md-3">
+			<div class="dv-filter-container">
+				<div class="dv-container-sort">
+					<div class="form-group">
+						<div class="icon-elephant-sm"></div>
+						<h4 class="lbl-orange">Search</h4>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-10">
+								<input type="text" class="form-control fld-sort" ng-model="filtertext" placeholder="" >
+							</div>
+							<div class="col-md-2">
+								<div class="btn-search-small"></div>
+							</div>
+						</div>
+					<div>
+				</div>
+<!-- 	
+				<div class="dv-container-search">
+					<div class="form-group">
+						<div class="icon-duck-sm"></div>
+						<h4 class="lbl-orange">Search Brand</h4>
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-10">
+								<input type="text" class="form-control fld-search"  placeholder="Search by Brand" >
+							</div>
+							<div class="col-md-2">
+								<div class="btn-sort-small"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="dv-container-price-range">
+					<div class="form-group">
+						<div class="icon-tag-small"></div>
+						<h4 class="lbl-orange">Price Range</h4>
+					</div>
+					<div class="form-group">
+						<div class="icon-scroll"></div>
+						<div class="icon-price-range"></div>
+					</div>
+				</div> -->
+
+				<div class="dv-container-history">
+					<div class="form-group">
+						<div class="icon-duck-sm"></div>
+						<h4 class="lbl-orange">Cart</h4>
+					</div>
+					<div class="form-group">
+						<div class="row" ng-repeat="c in cart">
+							<div class="dv-history-item-container">
+								<div class="col-md-8">
+									<p>
+										{{c.desc}}<span ng-show="c.qty > 1"> x {{c.qty}}</span>
+										<br/>
+										<span class="amount">$ {{c.price * c.qty}}</span>
+										<a ng-show="c.qty > 1" class="btn btn-xs btn-default" ng-click="MinusOneFromCart(c)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
+										<a class="btn btn-xs btn-default" ng-click="AddOneFromCart(c)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+										<a class="btn btn-xs btn-default" ng-click="RemoveFromCart(c)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+									</p>
+								</div>
+								<div class="col-md-4">
+									<div class="dv-history-image-container">
+										<img ng-src="uploads/products/{{c.sku}}.png" style="width:100%">
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div ng-show="cart.length">
+							<div class="clear"></div>
+							<div class="col-md-12">
+								<div class="dv-separator"></div>
+							</div>
+							<div class="clear"></div>
+							<h4>Total : $ {{total}}</h4>
+						</div>
+						<div ng-hide="cart.length">
+							<div class="clear"></div>
+							<div class="col-md-12">
+								<div class="dv-separator"></div>
+							</div>
+							<div class="clear"></div>
+							<h4>No item in cart</h4>
+						</div>
+
+<!-- 						<div class="row">
+							<div class="dv-history-item-container">
+								<div class="col-md-8">
+									<p>
+										LEGO CITY - Demo lition Site
+										<br/>
+										<span class="amount">$ 1,190</span>
+									</p>
+								</div>
+								<div class="col-md-4">
+									<div class="dv-history-image-container">
+										<img src="<%= asset_path("img-0002.png") %>" width="100%">
+									</div>
+								</div>
+								<div class="clear"></div>
+								<div class="col-md-12">
+									<div class="dv-separator"></div>
+								</div>
+							</div>
+						</div> -->
+
+					</div>
+				</div>
+<!-- 
+				<div class="dv-container-tag">
+					<div class="form-group">
+						<h4 class="lbl-orange-2">Tag</h4>
+					</div>
+					<div class="form-group">
+					</div>
+				</div>
+
+				<div class="dv-container-featured-product">
+					<div class="form-group">
+						<h4 class="lbl-orange-2">Featured Product</h4>
+					</div>
+					<div class="form-group">
+						<div class="dv-featured-product-container">
+							<div class="dv-top-featured-product-container">
+								<img src="<%= asset_path("img-featured-product.png") %>" width="100%">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="dv-container-brand">
+					<div class="form-group">
+						<h4 class="lbl-orange-2">Featured Product</h4>
+					</div>
+					<div class="form-group">
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-petit-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-levis-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-blank-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-blank-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-blank-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="dv-brand-container">
+								<img src="<%= asset_path("img-blank-brand.png") %>" width="71px" height="70px">
+							</div>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
