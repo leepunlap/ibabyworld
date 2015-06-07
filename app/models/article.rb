@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
-
+  acts_as_taggable
+  
   include GlobalHelper
 
   attr_accessor :file

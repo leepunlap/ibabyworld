@@ -11,21 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602123525) do
+ActiveRecord::Schema.define(version: 20150605165758) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "language",     limit: 10
     t.string   "title",        limit: 150
-    t.text     "tags",         limit: 65535
-    t.text     "description",  limit: 65535
-    t.text     "content",      limit: 65535
+    t.text     "tags",         limit: 16777215
+    t.text     "description",  limit: 16777215
+    t.text     "content",      limit: 16777215
     t.string   "poster",       limit: 70
-    t.text     "slug",         limit: 65535
+    t.text     "slug",         limit: 16777215
     t.integer  "status",       limit: 1
     t.integer  "created_by",   limit: 4
     t.integer  "published_by", limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string   "name_en_US",         limit: 255
+    t.string   "name_zh_CN",         limit: 255
+    t.string   "name_zh_HK",         limit: 255
+    t.string   "cover_file_name",    limit: 255
+    t.string   "cover_content_type", limit: 255
+    t.integer  "cover_file_size",    limit: 4
+    t.datetime "cover_updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string   "name_en_US",         limit: 255
+    t.string   "name_zh_CN",         limit: 255
+    t.string   "name_zh_HK",         limit: 255
+    t.string   "cover_file_name",    limit: 255
+    t.string   "cover_content_type", limit: 255
+    t.integer  "cover_file_size",    limit: 4
+    t.datetime "cover_updated_at"
+    t.text     "desciption_en_US",   limit: 65535
+    t.text     "description_zh_CN",  limit: 65535
+    t.text     "description_zh_HK",  limit: 65535
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -80,6 +107,78 @@ ActiveRecord::Schema.define(version: 20150602123525) do
     t.datetime "recovery_at"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "product_images", force: :cascade do |t|
+    t.integer  "product_id",         limit: 4
+    t.string   "cover_file_name",    limit: 255
+    t.string   "cover_content_type", limit: 255
+    t.integer  "cover_file_size",    limit: 4
+    t.datetime "cover_updated_at"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "sku",                        limit: 255
+    t.text     "desciption_en_US",           limit: 65535
+    t.text     "description_zh_CN",          limit: 65535
+    t.text     "description_zh_HK",          limit: 65535
+    t.string   "name_en_US",                 limit: 255
+    t.string   "name_zh_CN",                 limit: 255
+    t.string   "name_zh_HK",                 limit: 255
+    t.integer  "brand_id",                   limit: 4
+    t.text     "short_description_en_US",    limit: 65535
+    t.text     "short_description_zh_CN",    limit: 65535
+    t.text     "short_description_zh_HK",    limit: 65535
+    t.float    "unit_price",                 limit: 24
+    t.float    "discounted_price",           limit: 24
+    t.string   "discount_description_en_US", limit: 255
+    t.string   "discount_description_zh_CN", limit: 255
+    t.string   "discount_description_zh_HK", limit: 255
+    t.integer  "status",                     limit: 4
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  create_table "shopping_cart_items", force: :cascade do |t|
+    t.integer  "product_id",       limit: 4
+    t.float    "unit_price",       limit: 24
+    t.integer  "qty",              limit: 4
+    t.integer  "shopping_cart_id", limit: 4
+    t.integer  "coupon_id",        limit: 4
+    t.float    "sub_total",        limit: 24
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "shopping_carts", force: :cascade do |t|
+    t.integer  "member_id",  limit: 4
+    t.text     "cookies",    limit: 65535
+    t.float    "total",      limit: 24
+    t.integer  "status",     limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id",        limit: 4
+    t.integer  "taggable_id",   limit: 4
+    t.string   "taggable_type", limit: 255
+    t.integer  "tagger_id",     limit: 4
+    t.string   "tagger_type",   limit: 255
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "taggings_count", limit: 4,   default: 0
   end
 
 end
