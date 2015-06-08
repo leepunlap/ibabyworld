@@ -40,6 +40,18 @@ Rails.application.routes.draw do
           post 'create', :to => 'articles#create', :as => :create_article
         end
       end
+
+      resource :carts do
+        member do
+          get 'products', :to => 'carts#allproducts', :as => :products
+          get 'addproduct', :to => 'carts#addproduct', :as => :addproduct
+          get 'mycart', :to => 'carts#mycart', :as => :mycart
+          get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
+          get 'changecartitemqty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
+          get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
+        end
+      end
+
     end
   end
   

@@ -1,63 +1,53 @@
-app.controller('BBShopController', function($rootScope, $scope, $state) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies) {
 	$scope.viewItem = function() {
 		$state.go('product-details');
 	}
 
+	$scope.createCartID = function() {
+		var lowerCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+		var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+		var finalCharacters = lowerCharacters;
+		finalCharacters = finalCharacters.concat(numbers);
+		var passwordArray = [];
+		for (var i = 1; i < 16; i++) {
+			passwordArray.push(finalCharacters[Math.floor(Math.random() * finalCharacters.length)]);
+		};
+		return passwordArray.join("");
+	};
+
 	//
-	//	Products Dummy Data
+	//	TODO : Hard coded, need to change
 	//
-	$scope.products = []
-	$scope.products.push({
-		sku: 'product-001',
-		tags: '6mo,thomas,',
-		title: 'Thomas the Tank Engine',
-		shortdesc: 'Best Learning Kit',
-		longdesc: 'Explore the fascinating world of Thomas & Friends, Through the exciting adventures of Thomas the Tank Engine and his ...',
-		price: 123.50
-	})
-	$scope.products.push({
-		sku: 'product-002',
-		tags: '11mo,9yo,lego,',
-		title: 'Bandai Kyoryuger DX K...',
-		shortdesc: 'Best Learning Kit',
-		longdesc: 'Ages: 4+; Exclusive offer - FREE Kyoryuger Watch with purchase of any Kyoryuger items over $500. Please refer to in-store poster for details, While stock lasts...',
-		price: 336.50
-	})
-	$scope.products.push({
-		sku: 'product-003',
-		tags: '24mo,mylittlepony,',
-		title: 'Digital learning card',
-		shortdesc: 'Best Learning Kit',
-		longdesc: "The Nike Tailwind Loose Women's Running Tank Top is made with sweat-wicking fabric to help you stay dry and comfortable on your run.",
-		price: 456.50
-	})
-	$scope.products.push({
-		sku: 'product-004',
-		tags: '24mo,10yo,frozen,monstersuniversity,',
-		title: 'Thomas the Tank Engine',
-		shortdesc: 'Best Learning Kit',
-		longdesc: 'Explore the fascinating world of Thomas & Friends, Through the exciting adventures of Thomas the Tank Engine and his ...',
-		price: 123.50
-	})
-	$scope.products.push({
-		sku: 'product-005',
-		tags: '2yo,barbie,',
-		title: 'Bandai Kyoryuger DX K...',
-		shortdesc: 'Best Learning Kit',
-		longdesc: 'Ages: 4+; Exclusive offer - FREE Kyoryuger Watch with purchase of any Kyoryuger items over $500. Please refer to in-store poster for details, While stock lasts...',
-		price: 336.50
-	})
-	$scope.products.push({
-			sku: 'product-006',
-			tags: '5yo,hotwheels,',
-			title: 'Digital learning card',
-			shortdesc: 'Best Learning Kit',
-			longdesc: "The Nike Tailwind Loose Women's Running Tank Top is made with sweat-wicking fabric to help you stay dry and comfortable on your run.",
-			price: 456.50
-		})
+	$scope.isLoggedIn = false
+
+	//
+	//	If logged in, get cart from member id
+	//	If not logged in, get cartid, generate one and store in cookie if not exists.  Then get cart from cartid
+	//
+	if ($scope.isLoggedIn) {
 		//
-		//	Ageselect Tags
+		//	TODO : get shopping cart from member id
 		//
+	} else {
+		var cartid = $cookies['cartid']
+		if (cartid) {
+			console.log("got cartid " + cartid)
+			$scope.cartid = cartid
+		} else {
+			$cookies['cartid'] = $scope.createCartID()
+			console.log("new cartid " + $cookies['cartid'])
+		}
+	}
+
+
+	$http.get('/api/v1/carts/products').
+	success(function(data, status, headers, config) {
+		$scope.products = data.products
+	})
+
+	//
+	//	Ageselect Tags
+	//
 	$scope.ageselect = []
 	$scope.ageselect.push({
 		tag: '6mo',
@@ -171,8 +161,8 @@ app.controller('BBShopController', function($rootScope, $scope, $state) {
 	//
 	//	Shopping Cart
 	//
-	$scope.cart=[]
-	
+	$scope.cart = []
+
 	$scope.Recalc = function() {
 		$scope.total = 0
 		for (var i in $scope.cart) {
@@ -181,7 +171,7 @@ app.controller('BBShopController', function($rootScope, $scope, $state) {
 		}
 	}
 	$scope.AddToCart = function(p) {
-		var found=false
+		var found = false
 		for (var i in $scope.cart) {
 			var item = $scope.cart[i]
 			if (item.sku == p.sku) {
@@ -191,11 +181,11 @@ app.controller('BBShopController', function($rootScope, $scope, $state) {
 		}
 		if (!found) {
 			$scope.cart.push({
-				sku:p.sku,
-				desc:p.shortdesc,
-				qty:1,
-				price:p.price
-			})				
+				sku: p.sku,
+				desc: p.shortdesc,
+				qty: 1,
+				price: p.price
+			})
 		}
 		$scope.Recalc()
 	}
@@ -219,7 +209,7 @@ app.controller('BBShopController', function($rootScope, $scope, $state) {
 		for (var i in $scope.cart) {
 			var item = $scope.cart[i]
 			if (item.sku == p.sku) {
-				$scope.cart.splice(i,1)
+				$scope.cart.splice(i, 1)
 			}
 		}
 		$scope.Recalc()

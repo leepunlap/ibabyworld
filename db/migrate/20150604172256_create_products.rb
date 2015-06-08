@@ -2,7 +2,7 @@ class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
       t.string :sku
-      t.text :desciption_en_US
+      t.text :description_en_US
       t.text :description_zh_CN
       t.text :description_zh_HK
       t.string :name_en_US

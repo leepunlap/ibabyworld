@@ -55,10 +55,10 @@
 	<!-- 					<a ui-sref="bb_shop_product"></a> -->
 						</div>
 						<div class="caption">
-							<h3><a ui-sref="bb_shop_product">{{p.title}}</a></h3>
-							<h4>{{p.shortdesc}}</h4>
-							<p>{{p.longdesc}}</p>
-							<span class="amount">${{p.price}}</span>
+							<h3><a ui-sref="bb_shop_product">{{p.short_description_en_US}}</a></h3>
+							<h4>{{p.short_description_en_US}}</h4>
+							<p>{{p.description_en_US}}</p>
+							<span class="amount">${{p.unit_price}}</span>
 							<a class="cmd add" ng-click="AddToCart(p)"></a>
 							<a class="cmd like" ng-hide="p.like" ng-click="likeProduct(p)"></a>
 							<a class="cmd liked" ng-show="p.like" ng-click="likeProduct(p)"></a>

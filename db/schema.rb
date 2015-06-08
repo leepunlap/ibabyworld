@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 20150605165758) do
 
   create_table "products", force: :cascade do |t|
     t.string   "sku",                        limit: 255
-    t.text     "desciption_en_US",           limit: 65535
+    t.text     "description_en_US",          limit: 65535
     t.text     "description_zh_CN",          limit: 65535
     t.text     "description_zh_HK",          limit: 65535
     t.string   "name_en_US",                 limit: 255
