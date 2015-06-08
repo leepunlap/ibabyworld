@@ -24,18 +24,41 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
             if (results.code == 200) {
                 $scope.article = results.body.article;
+                $scope.article.tags = results.body.tags;
+                //console.log($scope.article);
+                
+                // if ($scope.article.tags.length > 0) {
+                //     var strings = $scope.article.tags.split(', ');
+                //     var tags = [];
 
-                if ($scope.article.tags.length > 0) {
-                    var strings = $scope.article.tags.split(', ');
-                    var tags = [];
+                //     $.each(strings, function(index, string){
+                //         tags.push({ text: string });
+                //         // console.log('Tag: '+ string);
+                //     });
 
-                    $.each(strings, function(index, string){
-                        tags.push({ text: string });
-                        // console.log('Tag: '+ string);
-                    });
+                //     $scope.article.tags = tags;
+                // }
+                // var tags = [];  
+                // var str = "";
+                // for (var i = 0; i < $scope.article.tags.length; i++){
+                //     //console.log($scope.article.tags);
+                //     tags.push($scope.article.tags[i].name[0].text);
+                // //     $.each(strings, function(index, string){
+                // //         tags.push({ text: string });
+                // //         // console.log('Tag: '+ string);
+                // //     });
 
-                    $scope.article.tags = tags;
-                }
+                    
+                //     if (i + 1 == $scope.article.tags.length)
+                //     {
+                //         str += $scope.article.tags[i].name;
+                //     }else
+                //     {
+                //         str += $scope.article.tags[i].name + ',';
+                //     }
+                // }
+                // //console.log(JSON.parse(str));
+                // $scope.article.tags = JSON.parse(str);
             }
         });
     }
@@ -51,9 +74,9 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         return "Published";
     }
 
-    $scope.getTags = function(string) {
-        return string.split(', ');
-    }
+    // $scope.getTags = function(string) {
+    //     return string.split(', ');
+    // }
 
     $scope.doDeleteArticle = function () {
         // console.log("I'm being clicked: "+ $scope.checkedArticleIds);
@@ -95,6 +118,15 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
             //         console.log('success registration!');
             //     }
             // });
+
+            var temp_str = '';
+            article.tags.forEach(function(p){
+                temp_str += p.text + ',';
+                console.log(p);
+            });
+            article.tags = temp_str;
+
+
             Upload.upload({
                 url: urlService + requestPath.articles +'/'+ $scope.articleId +'/update',
                 fields: article,
@@ -138,6 +170,14 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         $scope.submitted = true;
     
         console.log('Submitting article form');
+
+        var temp_str = '';
+        article.tags.forEach(function(p){
+            temp_str += p.text + ',';
+            console.log(p);
+        });
+        article.tags = temp_str;
+
         
         // if (!$scope.articleForm.$invalid) {
             Upload.upload({

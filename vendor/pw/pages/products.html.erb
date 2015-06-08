@@ -36,7 +36,7 @@
 								<th style="width:1%">
 									<button class="btn" ng-click="doDeleteProduct()"><i class="pg-trash"></i></button>
 								</th>
-								<th style="width:20%">Title</th>
+								<th style="width:20%">Name</th>
 								<th style="width:15%">Status</th>
 								<th style="width:20%">Tags</th>
 								<th style="width:15%">Last Update</th>
@@ -52,7 +52,7 @@
 										</div>
 									</td>
 									<td class="v-align-middle ">
-										<p><a ui-sref="admin.products-edit({ id: {{product.id}} })">{{product.title}}</a></p>
+										<p><a ui-sref="admin.products-edit({ id: {{product.id}} })">{{product.name_en_US}} {{product.name_zh_CN}} {{product.name_zh_HK}}</a></p>
 									</td>
 									<!-- <td class="v-align-middle">
 										{{product.content | limitTo: 150}}
@@ -61,7 +61,7 @@
 										<p>{{checkStatus(product.status)}}</p>
 									</td>
 									<td>
-										<a href="" ng-repeat="tag in getTags(product.tags)">{{tag}}{{$last ? '' : ',' }} </a>
+										<a href="" ng-repeat="tag in product.tags">{{tag}}{{$last ? '' : ',' }} </a>
 									</td>
 									<td class="v-align-middle">
 										<p>{{product.created_at| cmdate:'MMMM dd, yyyy HH:mm'}}</p>

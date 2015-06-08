@@ -49,36 +49,91 @@
 							</div> -->
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Title</label>
-								<input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="product.title">
+								<label><strong class="red">*</strong> Sku</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a sku here" ng-model="product.sku">
+							</div>	
+
+							<div class="form-group">
+								<label><strong class="red">*</strong> Name</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a name EN here" ng-model="product.name_en_US"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name CN here" ng-model="product.name_zh_CN"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name HK here" ng-model="product.name_zh_HK">
 							</div>
 
 							<div class="form-group">
 								<label><strong class="red">*</strong> Short Description</label>
 								<span class="help">"Must be 100 characters long"</span>
-								<textarea class="form-control" placeholder="Enter a short description" ng-model="product.description"></textarea>
+								<textarea class="form-control" placeholder="Enter a short description EN" ng-model="product.short_description_en_US"></textarea><br/>
+								<textarea class="form-control" placeholder="Enter a short description CN" ng-model="product.short_description_zh_CN"></textarea><br/>
+								<textarea class="form-control" placeholder="Enter a short description HK" ng-model="product.short_description_zh_HK"></textarea>
 							</div>
 	
 							<div class="form-group">
-								<label><strong class="red">*</strong> Content Body</label>
-								<textarea id="content" name="content" ng-model="product.content" placeholder="Enter your product content here" required="" ckeditor="editorOptions" ng-model="product.content"></textarea>
+								<label><strong class="red">*</strong> Full Description Body (EN)</label>
+								<textarea name="content" ng-model="product.desciption_en_US" placeholder="Enter your product content EN here" required="" ckeditor="editorOptions"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label><strong class="red">*</strong> Full Description Body (CN)</label>
+								<textarea name="content" ng-model="product.desciption_zh_CN" placeholder="Enter your product content CN here" required="" ckeditor="editorOptions"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label><strong class="red">*</strong> Full Description Body (HK)</label>
+								<textarea name="content" ng-model="product.desciption_zh_HK" placeholder="Enter your product content ZH here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- <div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">Poster Attachment</div>
+							<div class="panel-title">Image Attachment</div>
 						</div>
+						<div class="panel-body no-scroll no-padding">
+							<div class="dropzone" dropzone="dropzoneConfig">
+						    </div>
+						</div>
+					</div>
+ 				</div> -->
+
+ 				
+
+				<div class="col-md-4">
+					<div class="panel panel-default">
 						<div class="panel-body">
-<ng-dropzone dropzone="dropzone" dropzone-config="dropzoneConfig">
-  <input name="file" type="file" multiple />
-</ng-dropzone>
+							<div class="form-group">
+								<label>Brand</label>
+								<input type="text" class="form-control" ng-model="product.brand_id" placeholder="Enter your brand id here"></input>
+							</div>
+
+							<div class="form-group">
+								<label>Unit Price</label>
+								<input type="text" class="form-control" ng-model="product.unit_price" placeholder="Enter your unit price here"></input>
+							</div>
 						</div>
-</div>
-</div>
+					</div>
+ 				</div>
+
+ 				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label>Discounted Price</label>
+								<input type="text" class="form-control" ng-model="product.discounted_price" placeholder="Enter your discounted price here"></input>
+							</div>
+
+							<div class="form-group">
+								<label>Discount description</label>
+								<input type="text" class="form-control" ng-model="product.discount_description_en_US" placeholder="Enter your discount description EN here"></input><br/>
+								<input type="text" class="form-control" ng-model="product.discount_description_zh_CN" placeholder="Enter your discount description CN here"></input><br/>
+								<input type="text" class="form-control" ng-model="product.discount_description_zh_HK" placeholder="Enter your discount description HK here"></input>
+							</div>
+						</div>
+					</div>
+ 				</div>
+
  				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
@@ -87,6 +142,8 @@
 								<span class="help">"Separate tags with commas"</span>
 								<tags-input ng-model="product.tags" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
 							</div>
+
+							
 						</div>
 					</div>
  				</div>
@@ -112,5 +169,7 @@
  				</div>
 			</div>
 		</form>
+
+		
 	</div>
 </div>

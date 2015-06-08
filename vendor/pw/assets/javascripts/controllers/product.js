@@ -5,24 +5,23 @@ app.controller('ProductController', function ($rootScope, $scope, $state, $state
     $scope.product = {
         status: 0
     };
+
+
     $scope.dropzoneConfig = {
-      url: '/products-upload',
-      parallelUploads: 3,
-      maxFilesize: 30
-    };
-$scope.dzevent = {  init: function() {
-          $scope.files.push({file: 'added'}); // here works
-          this.on('success', function(file, json) {
-          });
-          
-          this.on('addedfile', function(file) {
-            $scope.$apply(function(){
-              alert(file);
-              $scope.files.push({file: 'added'});
-            });
-          });
-}
- };
+    'options': { // passed into the Dropzone constructor
+        'paramName': 'cover',
+        'url': '/' + urlService + requestPath.productImages + '?product_id=' + $stateParams.id
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        //console.log(file, xhr, formData);
+
+      },
+      'success': function (file, response) {
+      }
+    }
+  };
+
     if ($state.current.name == "admin.products") {
         // Get products
         Data.get(requestPath.products +'/all').then(function (results) {
@@ -33,26 +32,33 @@ $scope.dzevent = {  init: function() {
 
     } else if ($state.current.name == "admin.products-edit") {
         // Get product details
-        $scope.productId = $stateParams.id;        
+        $scope.productId = $stateParams.id;
 
         console.log('Get product Id: '+ requestPath.products +'/'+ $scope.productId);
 
         Data.get(requestPath.products +'/'+ $scope.productId).then(function (results) {
-
+            console.log(results.body);
             if (results.code == 200) {
                 $scope.product = results.body.product;
+                $scope.product.tags = results.body.tags;
 
-                if ($scope.product.tags.length > 0) {
-                    var strings = $scope.product.tags.split(', ');
-                    var tags = [];
+                Data.get(requestPath.products + '/' + $scope.productId + '/medium-images').then(function (data){
+                  $scope.product_images = data.body;
+                });
+                // var tags = [];
+                // var str = "";
+                // for (var i = 0; i < $scope.product.tags.length; i++){
 
-                    $.each(strings, function(index, string){
-                        tags.push({ text: string });
-                        // console.log('Tag: '+ string);
-                    });
-
-                    $scope.product.tags = tags;
-                }
+                //     if (i + 1 == $scope.product.tags.length)
+                //     {
+                //         str += $scope.product.tags[i].name;
+                //     }else
+                //     {
+                //         str += $scope.product.tags[i].name + ',';
+                //     }
+                // }
+                //console.log(JSON.parse(str));
+                //$scope.product.tags = JSON.parse(str);
             }
         });
     }
@@ -96,40 +102,52 @@ $scope.dzevent = {  init: function() {
 
     $scope.doUpdateProduct = function (product) {
         $scope.submitted = true;
-    
-        if (!$scope.productForm.$invalid) {
-            // Data.post(requestPath.products +'/'+ $scope.productId +'/update', {
-            //     product: product
 
-            // }).then(function (results) {
-            //     if (results.code == 200) {
-            //         $state.go('admin.products');
-                    
-            //         // $.each(body.member, function(key, value){
-            //         //     console.log('Parameters: '+ key +' : '+ value);
-            //         // });
+        // if (!$scope.productForm.$invalid) {
+        //     // Data.post(requestPath.products +'/'+ $scope.productId +'/update', {
+        //     //     product: product
 
-            //         console.log('success registration!');
-            //     }
-            // });
-            Upload.upload({
-                url: urlService + requestPath.products +'/'+ $scope.productId +'/update',
-                fields: product,
-                file: $scope.file
-            }).progress(function (evt) {
-                // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+        //     // }).then(function (results) {
+        //     //     if (results.code == 200) {
+        //     //         $state.go('admin.products');
 
-            }).error(function (data, status, headers, config) {
-                console.log('Error data Response: '+ data);
+        //     //         // $.each(body.member, function(key, value){
+        //     //         //     console.log('Parameters: '+ key +' : '+ value);
+        //     //         // });
 
-            }).success(function (data, status, headers, config) {
-                // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+        //     //         console.log('success registration!');
+        //     //     }
+        //     // });
+        //     Upload.upload({
+        //         url: urlService + requestPath.products +'/'+ $scope.productId +'/update',
+        //         fields: product,
+        //         file: $scope.file
+        //     }).progress(function (evt) {
+        //         // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+        //         // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
 
-                console.log('Success data Response: '+ data);
-                $state.go('admin.products');
-            });
-        }
+        //     }).error(function (data, status, headers, config) {
+        //         console.log('Error data Response: '+ data);
+
+        //     }).success(function (data, status, headers, config) {
+        //         // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+
+        //         console.log('Success data Response: '+ data);
+        //         $state.go('admin.products');
+        //     });
+        // }
+        //console.log(product.tags);
+        var temp_str = '';
+        product.tags.forEach(function(p){
+            temp_str += p.text + ',';
+           // console.log(p);
+        });
+        // console.log(temp_str);
+        product.tags = temp_str;
+
+        Data.post(requestPath.products+'/' + $scope.productId + '/update', product).then(function(data, status) {
+            $state.go('admin.products');
+        });
     };
 
     $scope.$watch('files', function () {
@@ -153,28 +171,50 @@ $scope.dzevent = {  init: function() {
 
     $scope.doCreateProduct = function (product) {
         $scope.submitted = true;
-    
+
         console.log('Submitting product form');
-        
+
         // if (!$scope.productForm.$invalid) {
-            Upload.upload({
-                url: urlService + requestPath.products +'/create',
-                fields: product,
-                file: $scope.file
-            }).progress(function (evt) {
-                // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+            // Upload.upload({
+            //     url: urlService + requestPath.products +'/create',
+            //     fields: product,
+            //     //file: $scope.file
+            // }).progress(function (evt) {
+            //     // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            //     // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
 
-            }).error(function (data, status, headers, config) {
-                $.each(data, function(key, value){
-                    console.log('Parameters: '+ key +' : '+ value);
-                });
+            // }).error(function (data, status, headers, config) {
+            //     $.each(data, function(key, value){
+            //         //console.log('Parameters: '+ key +' : '+ value);
+            //         console.log(data);
+            //     });
 
-            }).success(function (data, status, headers, config) {
-                // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+            // }).success(function (data, status, headers, config) {
+            //     // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
 
-                console.log('Success data Response: '+ data);
-                $state.go('admin.products');
-            });
+            //     console.log('Success data Response: '+ data);
+            //     $state.go('admin.products');
+            // });
+
+        // console.log(product.tags);
+        var temp_str = '';
+        product.tags.forEach(function(p){
+            temp_str += p.text + ',';
+            console.log(p);
+        });
+        // console.log(temp_str);
+        product.tags = temp_str;
+
+        Data.post(requestPath.products+'/create', product).then(function(data, status) {
+            $state.go('admin.products-edit', {id: data.body.product.id});
+        });
     };
+
+    $scope.deleteProductImage = function (id){
+      Data.delete(requestPath.productImages + '/' + id).then(function(data,status){
+        Data.get(requestPath.products + '/' + $scope.productId + '/medium-images').then(function (data){
+          $scope.product_images = data.body;
+        });
+      });
+    }
 });
