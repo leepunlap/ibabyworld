@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
       resource :articles do
         member do
+          get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
           get '', :to => 'articles#list', :as => :articles
           get 'all', :to => 'articles#all', :as => :all_articles
           get ':id', :to => 'articles#detail', :as => :article_detail
@@ -41,20 +42,23 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :carts do
+      resource :products do
         member do
-          get 'products', :to => 'carts#allproducts', :as => :products
-          get 'addproduct', :to => 'carts#addproduct', :as => :addproduct
-          get 'mycart', :to => 'carts#mycart', :as => :mycart
-          get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
-          get 'changecartitemqty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
-          get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
+          get 'get_tag_list', :to => 'products#get_tag_list', :as => :get_tag_list
+          get ':id/medium-images', to: 'products#get_medium_images'
+          get '', :to => 'products#list', :as => :products
+          get 'all', :to => 'products#all', :as => :all_products
+          get ':id', :to => 'products#detail', :as => :product_detail
+          post ':id/update', :to => 'products#update', :as => :update_product
+          delete ':id/delete', :to => 'products#delete', :as => :delete_product
+          post 'create', :to => 'products#create', :as => :create_product
         end
       end
 
+      resources :product_images
     end
   end
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
