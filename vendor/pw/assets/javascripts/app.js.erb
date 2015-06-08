@@ -3,12 +3,10 @@ var requestToken = null;
 var requestPath = {
     sessions: 'sessions/user',
 	members: 'members',
-	articles: 'articles',
-    products: 'products',
-    productImages: 'product_images',
+	articles: 'articles'
 };
 
-var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngCkeditor', 'ngTagsInput', 'ngFileUpload', 'ui.router', 'ngActivityIndicator', 'ui.bootstrap.modal', 'dropzone'])
+var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngCkeditor', 'ngTagsInput', 'ngFileUpload', 'ui.router', 'ngActivityIndicator', 'ui.bootstrap.modal'])
 
 	.run(function ($window, $rootScope, $location, $state, $cookies, Data, AuthService, Session) {
 		$rootScope.$on('$stateChangeStart', function (event, next) {
@@ -37,19 +35,4 @@ var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 
   		});
     });
 
-
-angular.module('dropzone', []).directive('dropzone', function () {
-  return function (scope, element, attrs) {
-    var config, dropzone;
- 
-    config = scope[attrs.dropzone];
- 
-    // create a Dropzone for the element with the given options
-    dropzone = new Dropzone(element[0], config.options);
- 
-    // bind the given event handlers
-    angular.forEach(config.eventHandlers, function (handler, event) {
-      dropzone.on(event, handler);
-    });
-  };
-});
+	

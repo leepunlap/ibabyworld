@@ -19,7 +19,7 @@ class Api::V1::ArticlesController < ApplicationController
   end
 
   def detail
-    article = Article.find_by_id(params[:id])
+    article = Article.find_by_id(params[:id]);
 
     if article == nil
       response_error_by_code(404)
@@ -28,12 +28,7 @@ class Api::V1::ArticlesController < ApplicationController
 
     article[:poster] = "uploads/articles/#{article[:poster]}"
 
-    response_success({ :article => article, tags: article.tag_list })
-  end
-
-  def get_tag_list
-    @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: 'Article').map { |tagging| { 'id' => tagging.tag_id.to_s, 'name' => tagging.tag.name } }.uniq
-    response_success({ :tags => @tags })
+    response_success({ :article => article })
   end
 
   def create
@@ -44,8 +39,7 @@ class Api::V1::ArticlesController < ApplicationController
         a.description = params[:description]
         a.content = params[:content]
         a.file = params[:file]
-        #a.tags = tags_only(params[:tags])
-        a.tag_list = params[:tags]
+        a.tags = tags_only(params[:tags])
         a.status =  params[:status]
         a.published_by = params[:status] == "0" ? nil : 0
         a.created_by = 0
@@ -86,8 +80,7 @@ class Api::V1::ArticlesController < ApplicationController
       article.title = params[:title]
       article.description = params[:description]
       article.content = params[:content]
-      #article.tags = tags_only(params[:tags])
-      article.tag_list = params[:tags]
+      article.tags = tags_only(params[:tags])
       article.status =  params[:status]
 
       article.save
