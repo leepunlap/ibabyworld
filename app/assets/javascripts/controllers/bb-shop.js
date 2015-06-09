@@ -40,7 +40,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	}
 
 
-	$http.get('/api/v1/carts/products').
+	$http.get('/api/v1/products/all').
 	success(function(data, status, headers, config) {
 		$scope.products = data.products
 	})
@@ -182,9 +182,9 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		if (!found) {
 			$scope.cart.push({
 				sku: p.sku,
-				desc: p.shortdesc,
+				desc: p.short_description_en_US,
 				qty: 1,
-				price: p.price
+				price: p.unit_price
 			})
 		}
 		$scope.Recalc()
