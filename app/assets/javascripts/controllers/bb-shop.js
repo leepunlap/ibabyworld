@@ -51,11 +51,22 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	//
 	//	Shopping Cart
 	//
+	$scope.Recalc = function() {
+		$scope.total = 0
+		for (var i in $scope.cart.shopping_cart_items) {
+			var item = $scope.cart.shopping_cart_items[i]
+			$scope.total += item.unit_price * item.qty
+		}
+	}
 	$scope.cart = []
-	$http.get('/api/v1/carts/mycart').
-	success(function(data) {
-		$scope.cart = data.shopping_cart_items
-	})
+	$scope.refreshCart = function() {
+		$http.get('/api/v1/carts/mycart').
+		success(function(data) {
+			$scope.cart = data
+			$scope.Recalc()
+		})
+	}
+	$scope.refreshCart()
 
 
 	//
@@ -171,60 +182,50 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 
 	$scope.showAll()
 
-
-	$scope.Recalc = function() {
-		$scope.total = 0
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			$scope.total += item.price * item.qty
-		}
-	}
 	$scope.AddToCart = function(p) {
 		var found = false
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			if (item.sku == p.sku) {
+		for (var i in $scope.cart.shopping_cart_items) {
+			var item = $scope.cart.shopping_cart_items[i]
+			if (item.product_id == p.id) {
 				item.qty += 1
 				found = true;
 			}
 		}
 		if (!found) {
-			$scope.cart.push({
-				sku: p.sku,
-				desc: p.short_description_en_US,
-				qty: 1,
-				price: p.unit_price
-			})
-			$http.get('/api/v1/carts/additemtocart').
+			$http.get('/api/v1/carts/additemtocart?cartid='+$scope.cart.id+"&productid="+p.id).
 			success(function(data) {
-				$scope.cart = data.shopping_cart_items
+				$scope.refreshCart()
 			})
 		}
-		$scope.Recalc()
 	}
 	$scope.MinusOneFromCart = function(p) {
 		if (!p.qty) {
-			p.qty = 1
+			newqty = 1
 		} else if (p.qty > 1) {
-			p.qty--;
+			newqty = p.qty - 1
 		}
-		$scope.Recalc()
+		$http.get('/api/v1/carts/changecartitemqty/'+p.id+"/"+newqty).
+		success(function(data) {
+			console.log(data)
+			$scope.refreshCart()
+		})
 	}
 	$scope.PlusOneFromCart = function(p) {
 		if (!p.qty) {
-			p.qty = 1
+			newqty = 1
 		} else {
-			p.qty++
+			newqty = p.qty + 1
 		}
-		$scope.Recalc()
+		$http.get('/api/v1/carts/changecartitemqty/'+p.id+"/"+newqty).
+		success(function(data) {
+			console.log(data)
+			$scope.refreshCart()
+		})
 	}
 	$scope.RemoveFromCart = function(p) {
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			if (item.sku == p.sku) {
-				$scope.cart.splice(i, 1)
-			}
-		}
-		$scope.Recalc()
+		$http.get('/api/v1/carts/removecartitem?cartitemid='+p.id).
+		success(function(data) {
+			$scope.refreshCart()
+		})
 	}
 });

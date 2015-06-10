@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         member do
           get 'mycart', :to => 'carts#mycart', :as => :mycart
           get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
-          get 'changecartitemqty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
+          get 'changecartitemqty/:cartitemid/:qty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
           get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
         end
       end

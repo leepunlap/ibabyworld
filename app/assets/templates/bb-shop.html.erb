@@ -1,4 +1,3 @@
-{{cart}}
 <div id="product" class="container-fluid">
 	<div class="row">
 		<div class="col-md-2">
@@ -60,8 +59,8 @@
 							<p>{{p.description_en_US}}</p>
 							<span class="amount">${{p.unit_price}}</span>
 							<a class="cmd add" ng-click="AddToCart(p)"></a>
-							<a class="cmd like" ng-hide="p.like" ng-click="likeProduct(p)"></a>
-							<a class="cmd liked" ng-show="p.like" ng-click="likeProduct(p)"></a>
+<!-- 							<a class="cmd like" ng-hide="p.like" ng-click="likeProduct(p)"></a>
+							<a class="cmd liked" ng-show="p.like" ng-click="likeProduct(p)"></a> -->
 						</div>
 					</div>
 				</div>
@@ -142,10 +141,9 @@
 						<h4 class="lbl-orange">Cart</h4>
 					</div>
 					<div class="form-group">
-						<div class="row" ng-repeat="c in cart">
+						<div class="row" ng-repeat="c in cart.shopping_cart_items">
 							<div class="dv-history-item-container">
 								<div class="col-md-8">
-								
 									<p>
 										{{(products | filter:{ id: c.product_id })[0].short_description_en_US}}<span ng-show="c.qty > 1"> x {{c.qty}}</span>
 										<br/>
@@ -157,13 +155,13 @@
 								</div>
 								<div class="col-md-4">
 									<div class="dv-history-image-container">
-										<img ng-src="uploads/products/{{c.sku}}.png" style="width:100%">
+										<img ng-src="uploads/products/{{(products | filter:{ id: c.product_id })[0].sku}}.png" style="width:100%">
 									</div>
 								</div>
 
 							</div>
 						</div>
-						<div ng-show="cart.length">
+						<div ng-show="cart.shopping_cart_items.length">
 							<div class="clear"></div>
 							<div class="col-md-12">
 								<div class="dv-separator"></div>
@@ -173,7 +171,7 @@
 							<br>
 							<a href class="btn defaultbtn">Checkout</a>
 						</div>
-						<div ng-hide="cart.length">
+						<div ng-hide="cart.shopping_cart_items.length">
 							<div class="clear"></div>
 							<div class="col-md-12">
 								<div class="dv-separator"></div>
