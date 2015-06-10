@@ -58,6 +58,10 @@ Rails.application.routes.draw do
 
       resources :product_images
       resources :article_images
+      resources :pages
+      resources :coupons
+      resources :banners
+      resources :brands
     end
   end
 
