@@ -39,7 +39,7 @@
 						</div>
 						<div class="panel-body">
 							<p>Please complete all the <strong class="red">*</strong> required fields</p>
-						
+
 							<!-- <div class="form-group">
 								<select class="cs-select cs-skin-slide" data-init-plugin="cs-select">
 									<option value="sightseeing">Web-safe</option>
@@ -58,7 +58,7 @@
 								<span class="help">"Must be 100 characters long"</span>
 								<textarea class="form-control" placeholder="Enter a short description" ng-model="article.description"></textarea>
 							</div>
-	
+
 							<div class="form-group">
 								<label><strong class="red">*</strong> Content Body</label>
 								<textarea id="content" name="content" ng-model="article.content" placeholder="Enter your article content here" required="" ckeditor="editorOptions" ng-model="article.content"></textarea>
@@ -67,7 +67,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<!-- <div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="panel-title">Poster Attachment</div>
@@ -82,6 +82,32 @@
 							</div>
 						</div>
 					</div>
+ 				</div> -->
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Image Attachment</div>
+						</div>
+						<div class="panel-body no-scroll no-padding">
+							<div class="dropzone" dropzone="dropzoneConfig">
+						    </div>
+
+						</div>
+					</div>
+ 				</div>
+
+				<div class="col-md-2" ng-repeat="ai in article_images">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<a href="" ng-click="deleteArticleImage(ai.id)" class="btn btn-danger">Delete</a>
+							</div>
+
+							<div class="form-group">
+								<img ng-src="{{ai.image_url_medium}}" class="img-responsive" />
+							</div>
+						</div>
+					</div>
  				</div>
 
  				<div class="col-md-4">
@@ -91,7 +117,7 @@
 								<label>Tags</label>
 								<span class="help">"Separate tags with commas"</span>
 								<tags-input ng-model="article.tags" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
-								
+
 							</div>
 						</div>
 					</div>
@@ -104,7 +130,7 @@
 						</div>
 						<div class="panel-body">
 							<p>Do you want to publish your new article?</p>
-					
+
 							<div class="radio radio-success">
 								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="article.status" ng-disabled="article.status == 2">
 								<label for="yes">Draft</label>

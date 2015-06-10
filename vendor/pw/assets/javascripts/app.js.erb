@@ -2,10 +2,11 @@ var urlService = 'api/v1/';
 var requestToken = null;
 var requestPath = {
     sessions: 'sessions/user',
-	members: 'members',
-	articles: 'articles',
+  	members: 'members',
+  	articles: 'articles',
     products: 'products',
     productImages: 'product_images',
+    articleImages: 'article_images',
 };
 
 var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngCkeditor', 'ngTagsInput', 'ngFileUpload', 'ui.router', 'ngActivityIndicator', 'ui.bootstrap.modal', 'dropzone'])
@@ -24,7 +25,7 @@ var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 
             $rootScope.pageTitle = next.title;
             $rootScope.pageClass = next.data.pageClass;
             $rootScope.isAuthorized = AuthService.isAuthorized();
-    
+
             // If no authorize token exist, we must redirect user to our public page
             if (isSecure) {
                 if (AuthService.isAuthorized() == false) {
@@ -41,12 +42,12 @@ var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 
 angular.module('dropzone', []).directive('dropzone', function () {
   return function (scope, element, attrs) {
     var config, dropzone;
- 
+
     config = scope[attrs.dropzone];
- 
+
     // create a Dropzone for the element with the given options
     dropzone = new Dropzone(element[0], config.options);
- 
+
     // bind the given event handlers
     angular.forEach(config.eventHandlers, function (handler, event) {
       dropzone.on(event, handler);

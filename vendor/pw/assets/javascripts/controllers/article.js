@@ -6,6 +6,21 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         status: 0
     };
 
+    $scope.dropzoneConfig = {
+    'options': { // passed into the Dropzone constructor
+        'paramName': 'image',
+        'url': '/' + urlService + requestPath.articleImages + '?article_id=' + $stateParams.id
+    },
+    'eventHandlers': {
+      'sending': function (file, xhr, formData) {
+        //console.log(file, xhr, formData);
+
+      },
+      'success': function (file, response) {
+      }
+    }
+  };
+
     if ($state.current.name == "admin.articles") {
         // Get articles
         Data.get(requestPath.articles +'/all').then(function (results) {
@@ -16,7 +31,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
     } else if ($state.current.name == "admin.articles-edit") {
         // Get article details
-        $scope.articleId = $stateParams.id;        
+        $scope.articleId = $stateParams.id;
 
         console.log('Get article Id: '+ requestPath.articles +'/'+ $scope.articleId);
 
@@ -26,7 +41,11 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
                 $scope.article = results.body.article;
                 $scope.article.tags = results.body.tags;
                 //console.log($scope.article);
-                
+                Data.get(requestPath.articles + '/' + $scope.articleId + '/medium-images').then(function (data){
+                  $scope.article_images = data.body;
+                  console.log(data);
+                });
+
                 // if ($scope.article.tags.length > 0) {
                 //     var strings = $scope.article.tags.split(', ');
                 //     var tags = [];
@@ -38,7 +57,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
                 //     $scope.article.tags = tags;
                 // }
-                // var tags = [];  
+                // var tags = [];
                 // var str = "";
                 // for (var i = 0; i < $scope.article.tags.length; i++){
                 //     //console.log($scope.article.tags);
@@ -48,7 +67,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
                 // //         // console.log('Tag: '+ string);
                 // //     });
 
-                    
+
                 //     if (i + 1 == $scope.article.tags.length)
                 //     {
                 //         str += $scope.article.tags[i].name;
@@ -102,7 +121,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
     $scope.doUpdateArticle = function (article) {
         $scope.submitted = true;
-    
+
         if (!$scope.articleForm.$invalid) {
             // Data.post(requestPath.articles +'/'+ $scope.articleId +'/update', {
             //     article: article
@@ -110,7 +129,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
             // }).then(function (results) {
             //     if (results.code == 200) {
             //         $state.go('admin.articles');
-                    
+
             //         // $.each(body.member, function(key, value){
             //         //     console.log('Parameters: '+ key +' : '+ value);
             //         // });
@@ -168,7 +187,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
     $scope.doCreateArticle = function (article) {
         $scope.submitted = true;
-    
+
         console.log('Submitting article form');
 
         var temp_str = '';
@@ -178,7 +197,7 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         });
         article.tags = temp_str;
 
-        
+
         // if (!$scope.articleForm.$invalid) {
             Upload.upload({
                 url: urlService + requestPath.articles +'/create',
