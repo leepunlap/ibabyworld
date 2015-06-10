@@ -26,3 +26,17 @@ app.directive('focus', function() {
             }
         };
     })
+
+    .directive('ibabyBanner', function (Data) {
+        return {
+            restrict: 'E',
+            link: function (scope, element, attr, ctrl) {
+                Data.get('/api/v1/banners').success(function(result) {
+                    if (result.code == 'Success') {
+                        element.append(result.body);
+                    }
+                })
+                
+            }
+        }
+    })
