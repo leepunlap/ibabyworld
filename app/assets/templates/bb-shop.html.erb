@@ -150,7 +150,7 @@
 										<br/>
 										<span class="amount">$ {{c.price * c.qty}}</span>
 										<a ng-show="c.qty > 1" class="btn btn-xs btn-default" ng-click="MinusOneFromCart(c)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
-										<a class="btn btn-xs btn-default" ng-click="AddOneFromCart(c)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+										<a class="btn btn-xs btn-default" ng-click="PlusOneFromCart(c)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 										<a class="btn btn-xs btn-default" ng-click="RemoveFromCart(c)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
 									</p>
 								</div>
@@ -169,6 +169,8 @@
 							</div>
 							<div class="clear"></div>
 							<h4>Total : $ {{total}}</h4>
+							<br>
+							<a href class="btn defaultbtn">Checkout</a>
 						</div>
 						<div ng-hide="cart.length">
 							<div class="clear"></div>

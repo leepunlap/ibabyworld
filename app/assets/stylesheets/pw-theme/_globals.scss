@@ -2521,3 +2521,21 @@
 #kids-fashion-details .row .col-md-10 .brand {
     background-image: url(asset-path('product/img-brands.png'));
 }
+
+@media (min-width: 768px) {
+    .navbar-collapse.collapse {
+        padding-left:200px
+    }
+}
+
+.defaultbtn {
+  height: 30px;
+  color: white;
+  background-color: #ff8522;
+  border: none;
+  border-radius: 30px !important;
+  padding-left: 14px;
+  padding-top: 5px;
+  padding-right: 14px;
+  cursor: pointer;
+}
