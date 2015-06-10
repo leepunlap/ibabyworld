@@ -1,6 +1,6 @@
 class Api::V1::ArticlesController < ApplicationController
-  
-  # Removing this line causes 422 "Unprocessable Entity Error" 
+
+  # Removing this line causes 422 "Unprocessable Entity Error"
   # It happens if we call the api request below without refreshing the page
   skip_before_action :verify_authenticity_token
 
@@ -26,14 +26,21 @@ class Api::V1::ArticlesController < ApplicationController
       return
     end
 
-    article[:poster] = "uploads/articles/#{article[:poster]}"
+    #article[:poster] = "uploads/articles/#{article[:poster]}"
 
-    response_success({ :article => article, tags: article.tag_list })
+    #response_success({ :article => article, tags: article.tag_list })
+    response_success({article: article, tags: article.tag_list, article_images: article.article_images})
+
   end
 
   def get_tag_list
     @tags = ActsAsTaggableOn::Tagging.includes(:tag).where(taggable_type: 'Article').map { |tagging| { 'id' => tagging.tag_id.to_s, 'name' => tagging.tag.name } }.uniq
     response_success({ :tags => @tags })
+  end
+
+  def get_medium_images
+    @a = Article.find(params[:id])
+    render json: @a.article_images.to_json(methods: [:image_url_medium])
   end
 
   def create
@@ -91,7 +98,7 @@ class Api::V1::ArticlesController < ApplicationController
       article.status =  params[:status]
 
       article.save
-    
+
       response_success({ :article => article })
 
     rescue => error

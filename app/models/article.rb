@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
+  has_many :article_images
   acts_as_taggable
-  
+
   include GlobalHelper
 
   attr_accessor :file

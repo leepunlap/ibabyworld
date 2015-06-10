@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  browser_title: MyString
+  browser_url: MyText
+  locale: MyString
+  content: MyText
+  status: 1
+
+two:
+  title: MyString
+  browser_title: MyString
+  browser_url: MyText
+  locale: MyString
+  content: MyText
+  status: 1

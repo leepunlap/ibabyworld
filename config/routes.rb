@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resource :articles do
         member do
           get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
+          get ':id/medium-images', to: 'articles#get_medium_images'
           get '', :to => 'articles#list', :as => :articles
           get 'all', :to => 'articles#all', :as => :all_articles
           get ':id', :to => 'articles#detail', :as => :article_detail
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
       end
 
       resources :product_images
+      resources :article_images
     end
   end
 

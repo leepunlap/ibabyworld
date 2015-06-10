@@ -42,7 +42,9 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 
 	$http.get('/api/v1/products/all').
 	success(function(data, status, headers, config) {
-		$scope.products = data.products
+		$scope.products = data
+		$scope.tags = data.tags
+		console.log(data)
 	})
 
 	//
