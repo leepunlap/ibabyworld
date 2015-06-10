@@ -56,6 +56,15 @@ Rails.application.routes.draw do
         end
       end
 
+      resource :carts do
+        member do
+          get 'mycart', :to => 'carts#mycart', :as => :mycart
+          get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
+          get 'changecartitemqty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
+          get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
+        end
+      end
+
       resources :product_images
       resources :article_images
       resources :pages

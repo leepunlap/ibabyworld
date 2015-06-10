@@ -1,4 +1,4 @@
-
+{{cart}}
 <div id="product" class="container-fluid">
 	<div class="row">
 		<div class="col-md-2">
@@ -145,10 +145,11 @@
 						<div class="row" ng-repeat="c in cart">
 							<div class="dv-history-item-container">
 								<div class="col-md-8">
+								
 									<p>
-										{{c.desc}}<span ng-show="c.qty > 1"> x {{c.qty}}</span>
+										{{(products | filter:{ id: c.product_id })[0].short_description_en_US}}<span ng-show="c.qty > 1"> x {{c.qty}}</span>
 										<br/>
-										<span class="amount">$ {{c.price * c.qty}}</span>
+										<span class="amount">$ {{c.unit_price * c.qty}}</span>
 										<a ng-show="c.qty > 1" class="btn btn-xs btn-default" ng-click="MinusOneFromCart(c)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 										<a class="btn btn-xs btn-default" ng-click="PlusOneFromCart(c)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 										<a class="btn btn-xs btn-default" ng-click="RemoveFromCart(c)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>

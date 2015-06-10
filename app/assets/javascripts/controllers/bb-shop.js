@@ -44,8 +44,19 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	success(function(data, status, headers, config) {
 		$scope.products = data
 		$scope.tags = data.tags
-		console.log(data)
 	})
+
+
+
+	//
+	//	Shopping Cart
+	//
+	$scope.cart = []
+	$http.get('/api/v1/carts/mycart').
+	success(function(data) {
+		$scope.cart = data.shopping_cart_items
+	})
+
 
 	//
 	//	Ageselect Tags
@@ -160,10 +171,6 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 
 	$scope.showAll()
 
-	//
-	//	Shopping Cart
-	//
-	$scope.cart = []
 
 	$scope.Recalc = function() {
 		$scope.total = 0
@@ -187,6 +194,10 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 				desc: p.short_description_en_US,
 				qty: 1,
 				price: p.unit_price
+			})
+			$http.get('/api/v1/carts/additemtocart').
+			success(function(data) {
+				$scope.cart = data.shopping_cart_items
 			})
 		}
 		$scope.Recalc()
