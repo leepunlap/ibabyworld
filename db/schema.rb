@@ -27,16 +27,16 @@ ActiveRecord::Schema.define(version: 20150610153253) do
   create_table "articles", force: :cascade do |t|
     t.string   "language",     limit: 10
     t.string   "title",        limit: 150
-    t.text     "tags",         limit: 16777215
-    t.text     "description",  limit: 16777215
-    t.text     "content",      limit: 16777215
+    t.text     "tags",         limit: 65535
+    t.text     "description",  limit: 65535
+    t.text     "content",      limit: 65535
     t.string   "poster",       limit: 70
-    t.text     "slug",         limit: 16777215
+    t.text     "slug",         limit: 65535
     t.integer  "status",       limit: 1
     t.integer  "created_by",   limit: 4
     t.integer  "published_by", limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "banners", force: :cascade do |t|
@@ -115,7 +115,6 @@ ActiveRecord::Schema.define(version: 20150610153253) do
 
   create_table "members", force: :cascade do |t|
     t.string   "oauth_uid",      limit: 25
-    t.string   "oauth_provider", limit: 25
     t.string   "account_name",   limit: 60
     t.string   "email",          limit: 50
     t.string   "password",       limit: 60
@@ -132,6 +131,7 @@ ActiveRecord::Schema.define(version: 20150610153253) do
     t.datetime "recovery_at"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "oauth_provider", limit: 25
   end
 
   create_table "page_images", force: :cascade do |t|
@@ -222,10 +222,10 @@ ActiveRecord::Schema.define(version: 20150610153253) do
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "taggings_count", limit: 4,   default: 0
+    t.string  "name",           limit: 255
+    t.integer "taggings_count", limit: 4,   default: 0
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
 end
