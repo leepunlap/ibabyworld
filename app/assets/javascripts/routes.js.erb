@@ -69,6 +69,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 				controller: 'BBShopController'
         	})
 
+        	.state('bb_shop_checkout', {
+        		url: '/bb-shop/checkout',
+        		title: 'Checkout',
+        		templateUrl: '<%= asset_path("bb-shop-checkout.html") %>',
+        		controller: 'BBShopController'
+        	})
 
 	        .state('member', {
 	        	abstract: true,
