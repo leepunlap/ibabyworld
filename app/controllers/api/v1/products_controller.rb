@@ -7,7 +7,8 @@ class Api::V1::ProductsController < ApplicationController
   def all
     products = Product.all.order('id desc')
 
-  	response_success({ :products => products })
+  	# response_success({ :products => products })
+    render json: products.to_json(include: [:tags])
   end
 
   def list
