@@ -30,12 +30,12 @@
 <div class="content">
 	<br/>
 	<div class="container-fluid container-fixed-lg">
-		<form name="articleForm" role="form">
+		<form name="couponForm" role="form">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">New Article</div>
+							<div class="panel-title">New Coupon</div>
 						</div>
 						<div class="panel-body">
 							<p>Please complete all the <strong class="red">*</strong> required fields</p>
@@ -48,20 +48,26 @@
 								</select>
 							</div> -->
 
-							<div class="form-group">
-								<label><strong class="red">*</strong> Title</label>
-								<input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="article.title">
+              <div class="form-group">
+								<label><strong class="red">*</strong> Name</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a name EN here" ng-model="coupon.name_en_US"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name CN here" ng-model="coupon.name_zh_CN"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name HK here" ng-model="coupon.name_zh_HK">
+							</div>
+
+              <div class="form-group">
+								<label><strong class="red">*</strong> Full Description Body (EN)</label>
+								<textarea name="content" ng-model="coupon.description_en_US" placeholder="Enter your coupon content EN here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Short Description</label>
-								<span class="help">"Must be 100 characters long"</span>
-								<textarea class="form-control" placeholder="Enter a short description" ng-model="article.description"></textarea>
+								<label><strong class="red">*</strong> Full Description Body (CN)</label>
+								<textarea name="content" ng-model="coupon.description_zh_CN" placeholder="Enter your coupon content CN here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Content Body</label>
-								<textarea id="content" name="content" ng-model="article.content" placeholder="Enter your article content here" required="" ckeditor="editorOptions" ng-model="article.content"></textarea>
+								<label><strong class="red">*</strong> Full Description Body (HK)</label>
+								<textarea name="content" ng-model="coupon.description_zh_HK" placeholder="Enter your coupon content ZH here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 						</div>
 					</div>
@@ -84,17 +90,9 @@
 					</div>
  				</div> -->
 
- 				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<div class="form-group" style="padding-bottom: -10px;">
-								<label>Tags</label>
-								<span class="help">"Separate tags with commas"</span>
-								<tags-input ng-model="article.tags"  min-length="1" display-property="name" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
-							</div>
-						</div>
-					</div>
- 				</div>
+
+
+
 
  				<div class="col-md-4">
 					<div class="panel panel-default">
@@ -102,16 +100,9 @@
 							<div class="panel-title">Save As</div>
 						</div>
 						<div class="panel-body">
-							<p>Do you want to publish your new article?</p>
 
-							<div class="radio radio-success">
-								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="article.status">
-								<label for="yes">Draft</label>
-								<input type="radio" value="2" name="optionyes" id="no" ng-model="article.status">
-								<label for="no">Publish</label>
-							</div>
 
-							<button class="btn btn-primary" ng-click="doCreateArticle(article)">Submit</button>
+							<button class="btn btn-primary" ng-click="doCreateCoupon(coupon)">Submit</button>
 						</div>
 					</div>
  				</div>

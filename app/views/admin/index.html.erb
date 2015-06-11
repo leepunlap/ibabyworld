@@ -8,7 +8,7 @@
 				<a href="tables.html#" class="p-l-10"><img src="assets/img/demo/email_app.svg" alt="socail"></a>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-xs-6 m-t-20 no-padding">
 				<a href="tables.html#" class="p-l-40"><img src="assets/img/demo/calendar_app.svg" alt="socail"></a>
@@ -18,11 +18,11 @@
 			</div>
 		</div>
 	</div>
- 
+
 	<div class="sidebar-header">
 		<img src="assets/img/logo_white.png" alt="logo" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png" width="78" height="22">
 	</div>
- 
+
 	<div class="sidebar-menu">
 		<ul class="menu-items">
 			<!-- <li class="m-t-30 ">
@@ -30,19 +30,19 @@
 					<span class="title">Dashboard</span>
 					<span class="details">12 New Updates</span>
 				</a>
-			
+
 				<span class="icon-thumbnail bg-success"><i class="pg-home"></i></span>
 			</li> -->
 			<li class="m-t-30">
 				<a ui-sref="admin.dashboard"><span class="title">Dashboard</span></a>
 				<span class="icon-thumbnail">D</span>
 			</li>
-	
+
 			<li class="">
 				<a ui-sref="admin.members"><span class="title">Members</span></a>
 				<span class="icon-thumbnail">M</span>
 			</li>
-			
+
 			<li class="">
 				<a ui-sref="admin.articles"><span class="title">Articles</span>
 				<span class=" arrow"></span></a>
@@ -66,7 +66,55 @@
 					</li>
 				</ul>
 			</li>
-			
+
+			<li class="">
+				<a ui-sref="admin.pages"><span class="title">Pages</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">P</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.pages-new">New Pages</a>
+						<span class="icon-thumbnail">CP</span>
+					</li>
+				</ul>
+			</li>
+
+			<li class="">
+				<a ui-sref="admin.banners"><span class="title">Banners</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">B</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.banners-new">New Banner</a>
+						<span class="icon-thumbnail">CB</span>
+					</li>
+				</ul>
+			</li>
+
+			<li class="">
+				<a ui-sref="admin.brands"><span class="title">Brands</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">B</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.brands-new">New Brand</a>
+						<span class="icon-thumbnail">CB</span>
+					</li>
+				</ul>
+			</li>
+
+			<li class="">
+				<a ui-sref="admin.coupons"><span class="title">Coupons</span>
+				<span class=" arrow"></span></a>
+				<span class="icon-thumbnail">C</span>
+				<ul class="sub-menu">
+					<li class="">
+						<a ui-sref="admin.coupons-new">New Coupon</a>
+						<span class="icon-thumbnail">CC</span>
+					</li>
+				</ul>
+			</li>
+
 			<li class="">
 				<a>
 					<button ng-click="doSignout()"><span class="title">Logout</span></button>

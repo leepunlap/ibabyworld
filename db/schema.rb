@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610153253) do
+ActiveRecord::Schema.define(version: 20150610221840) do
 
   create_table "article_images", force: :cascade do |t|
     t.integer  "article_id",         limit: 4
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20150610153253) do
     t.string   "cover_content_type", limit: 255
     t.integer  "cover_file_size",    limit: 4
     t.datetime "cover_updated_at"
-    t.text     "desciption_en_US",   limit: 65535
+    t.text     "description_en_US",  limit: 65535
     t.text     "description_zh_CN",  limit: 65535
     t.text     "description_zh_HK",  limit: 65535
     t.datetime "created_at",                       null: false

@@ -56,7 +56,7 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 					templateUrl: '<%= asset_path("pages/articles_edit.html") %>',
 					controller: 'ArticleController'
 	        	})
-	        	// Products
+            // Products
 	        	.state('admin.products', {
 					url: '/products',
 					title: 'Products',
@@ -77,6 +77,94 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 					templateUrl: '<%= asset_path("pages/products_edit.html") %>',
 					controller: 'ProductController'
 	        	})
+
+            // Pages
+            .state('admin.pages', {
+            url: '/pages',
+            title: 'Pages',
+            templateUrl: '<%= asset_path("pages/pages.html") %>',
+            controller: 'PageController'
+            })
+
+            .state('admin.pages-new', {
+                url: '/pages/new',
+                title: 'New Page',
+            templateUrl: '<%= asset_path("pages/pages_new.html") %>',
+            controller: 'PageController'
+            })
+
+            .state('admin.pages-edit', {
+            url: '/pages/edit/:id',
+                title: 'Edit Page',
+            templateUrl: '<%= asset_path("pages/pages_edit.html") %>',
+            controller: 'PageController'
+            })
+
+            // Brands
+            .state('admin.brands', {
+            url: '/brands',
+            title: 'Brands',
+            templateUrl: '<%= asset_path("pages/brands.html") %>',
+            controller: 'BrandController'
+            })
+
+            .state('admin.brands-new', {
+                url: '/brands/new',
+                title: 'New Brand',
+            templateUrl: '<%= asset_path("pages/brands_new.html") %>',
+            controller: 'BrandController'
+            })
+
+            .state('admin.brands-edit', {
+            url: '/brands/edit/:id',
+                title: 'Edit Brand',
+            templateUrl: '<%= asset_path("pages/brands_edit.html") %>',
+            controller: 'BrandController'
+            })
+
+            // Banner
+            .state('admin.banners', {
+            url: '/banners',
+            title: 'Banners',
+            templateUrl: '<%= asset_path("pages/banners.html") %>',
+            controller: 'BannerController'
+            })
+
+            .state('admin.banners-new', {
+                url: '/banners/new',
+                title: 'New Banner',
+            templateUrl: '<%= asset_path("pages/banners_new.html") %>',
+            controller: 'BannerController'
+            })
+
+            .state('admin.banners-edit', {
+            url: '/banners/edit/:id',
+                title: 'Edit Banner',
+            templateUrl: '<%= asset_path("pages/banners_edit.html") %>',
+            controller: 'BannerController'
+            })
+
+            // Coupons
+            .state('admin.coupons', {
+            url: '/coupons',
+            title: 'Coupons',
+            templateUrl: '<%= asset_path("pages/coupons.html") %>',
+            controller: 'CouponController'
+            })
+
+            .state('admin.coupons-new', {
+                url: '/coupons/new',
+                title: 'New Coupon',
+            templateUrl: '<%= asset_path("pages/coupons_new.html") %>',
+            controller: 'CouponController'
+            })
+
+            .state('admin.coupons-edit', {
+            url: '/coupons/edit/:id',
+                title: 'Edit Coupon',
+            templateUrl: '<%= asset_path("pages/coupons_edit.html") %>',
+            controller: 'CouponController'
+            })
 
     // 		.state('login', {
     //         	url: '/login',

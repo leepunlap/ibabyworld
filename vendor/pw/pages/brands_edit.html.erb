@@ -1,0 +1,86 @@
+<style>
+.red {
+	color: #cc0000;
+}
+</style>
+
+<div class="content">
+	<br/>
+	<div class="container-fluid container-fixed-lg">
+		<form name="brandForm" role="form">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Edit Brand</div>
+						</div>
+						<div class="panel-body">
+							<p>Please complete all the <strong class="red">*</strong> required fields</p>
+
+							<!-- <div class="form-group">
+								<select class="cs-select cs-skin-slide" data-init-plugin="cs-select">
+									<option value="sightseeing">Web-safe</option>
+									<option value="business">Helvetica</option>
+									<option value="honeymoon">SegeoUI</option>
+								</select>
+							</div> -->
+
+              <div class="form-group">
+								<label><strong class="red">*</strong> Name</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a name EN here" ng-model="brand.name_en_US"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name CN here" ng-model="brand.name_zh_CN"><br/>
+								<input type="text" class="form-control" require="" placeholder="Enter a name HK here" ng-model="brand.name_zh_HK">
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- <div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Poster Attachment</div>
+						</div>
+
+						<div class="poster panel-body no-scroll no-padding">
+							<div class="fallback">
+								<div class="preview">
+									<img src=""/>
+								</div>
+								<div class="btn btn-default btn-file" ngf-select ng-model="files">Browse</div>
+							</div>
+						</div>
+					</div>
+ 				</div> -->
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Image Attachment</div>
+						</div>
+						<div class="panel-body no-scroll no-padding">
+							<div class="dropzone" dropzone="dropzoneConfig">
+						    </div>
+
+						</div>
+					</div>
+ 				</div>
+
+
+
+
+ 				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Save As</div>
+						</div>
+						<div class="panel-body">
+
+
+							<button class="btn btn-primary" ng-click="doUpdateBrand(brand)">Submit</button>
+						</div>
+					</div>
+ 				</div>
+			</div>
+		</form>
+	</div>
+</div>
