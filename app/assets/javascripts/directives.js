@@ -30,10 +30,11 @@ app.directive('focus', function() {
     .directive('ibabyBanner', function (Data) {
         return {
             restrict: 'E',
+            template: '<p>{{test}}</p>',
             link: function (scope, element, attr, ctrl) {
-                Data.get('/api/v1/banners').success(function(result) {
-                    if (result.code == 'Success') {
-                        element.append(result.body);
+                Data.get('banners').then(function(result) {
+                    if (result.code === 200) {
+                        scope.test = result.body;
                     }
                 })
                 
