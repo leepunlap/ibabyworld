@@ -1549,18 +1549,18 @@
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-#product .row .col-md-7 .sort-tags {
+.sort-tags {
     padding: 10px 0px 15px 0px;
     font-size: 16px;
     margin-top: 18px;
     margin-left: 14px;
 }
 
-#product .row .col-md-7 .sort-tags p{
+.sort-tags p{
     color: white;
 }
 
-#product .row .col-md-7 .sort-tags .dv-btn-group {
+.sort-tags .dv-btn-group {
     margin-top: -6px;
 }
 
@@ -2042,7 +2042,7 @@
     background-image: url(asset-path('product/img-social.png'));
 }
 
-#product-details .row .col-md-10 .btn-facebook {
+.btn-facebook {
     width: 30px;
     height: 30px;
     margin: 0 0 0 8px;
@@ -2050,7 +2050,7 @@
     background-image: url(asset-path('product/img-btn-social-facebook.png'));
 }
 
-#product-details .row .col-md-10 .btn-twitter {
+.btn-twitter {
     width: 30px;
     height: 30px;
     margin: 0 0 0 -11px;
@@ -2058,7 +2058,7 @@
     background-image: url(asset-path('product/img-btn-social-twitter.png'));
 }
 
-#product-details .row .col-md-10 .btn-email {
+.btn-email {
     width: 41px;
     height: 30px;
     margin: 0 0 0 -25px;
@@ -2066,16 +2066,10 @@
     background-image: url(asset-path('product/img-btn-email.png'));
 }
 
-#product-details .row .col-md-10 .products h1 {
+.products h1 {
     font-size: 29px;
     font-weight: bold;
     color: #ff8522;
-}
-
-#product-details .row .col-md-10 .products h3{
-    color: #ff8522;
-    font-size: 18px;
-    margin: 10px 0 0 0px;
 }
 
 #product-details .row .col-md-10 .dv-product-description-header {
@@ -2102,7 +2096,7 @@
     min-width: 100px;
 }
 
-#product-details .row .col-md-10 .btn-add-to-bag {
+.btn-add-to-bag {
     width:334px;
     height:125px;
     margin: -70px 0 0 74px;
@@ -2296,7 +2290,7 @@
     min-width: 100px;
 }
 
-#kids-fashion-details .row .col-md-10 .btn-add-to-bag {
+.btn-add-to-bag {
     width:334px;
     height:125px;
     margin: -70px 0 0 74px;
@@ -2533,4 +2527,8 @@
   padding-top: 5px;
   padding-right: 14px;
   cursor: pointer;
+}
+
+.dv-thumb-images .col-md-3 {
+    padding: 0px;
 }

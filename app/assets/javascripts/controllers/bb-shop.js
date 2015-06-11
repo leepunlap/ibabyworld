@@ -154,6 +154,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	}
 
 	$scope.setTag = function(d, t) {
+		$scope.detailmode=false
 		$scope.tag = t.tag
 		if (d == 1) {
 			$scope.crumbs = ['Age', t.desc]
@@ -178,11 +179,13 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	});
 	$scope.showAll = function() {
 		$scope.filter = ""
+		$scope.filtertext = ""
 	}
 
 	$scope.showAll()
 
 	$scope.AddToCart = function(p) {
+		$scope.detailmode=false
 		var found = false
 		for (var i in $scope.cart.shopping_cart_items) {
 			var item = $scope.cart.shopping_cart_items[i]
@@ -227,5 +230,13 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		success(function(data) {
 			$scope.refreshCart()
 		})
+	}
+	$scope.detailmode = false
+	$scope.showProductDetail = function(p) {
+		$scope.selectedproduct=p
+		$scope.detailmode=true
+	}
+	$scope.hideProductDetail = function() {
+		$scope.detailmode=false
 	}
 });
