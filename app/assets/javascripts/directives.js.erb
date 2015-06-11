@@ -30,11 +30,24 @@ app.directive('focus', function() {
     .directive('ibabyBanner', function (Data) {
         return {
             restrict: 'E',
-            template: '<p>{{test}}</p>',
+            templateUrl: '<%= asset_path("ibaby-banner.html") %>',
             link: function (scope, element, attr, ctrl) {
-                Data.get('banners').then(function(result) {
+                Data.get('banners').then(function (result) {
+                    scope.banners = [];
                     if (result.code === 200) {
-                        scope.test = result.body;
+                        result.body.forEach(function (banner) {
+                            Data.get('banners/'+banner.id).then(function (bannerFormID) {
+                                if (bannerFormID.code === 200) {
+                                    scope.banners.push({
+                                    name:bannerFormID.body.name,
+                                    image:bannerFormID.body.image_url_medium,
+                                    description:bannerFormID.body.description,
+                                    url:bannerFormID.body.url,
+                                    order:bannerFormID.body.order
+                                });
+                                }
+                            })
+                        })
                     }
                 })
                 
