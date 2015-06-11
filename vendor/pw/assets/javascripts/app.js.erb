@@ -7,6 +7,11 @@ var requestPath = {
     products: 'products',
     productImages: 'product_images',
     articleImages: 'article_images',
+  	pages: 'pages',
+  	pageImages: 'page_images',
+  	brands: 'brands',
+  	banners: 'banners',
+  	coupons: 'coupons',
 };
 
 var app = angular.module('pwAdminApp', ['ngAnimate', 'ngCookies', 'ngSanitize', 'ngCkeditor', 'ngTagsInput', 'ngFileUpload', 'ui.router', 'ngActivityIndicator', 'ui.bootstrap.modal', 'dropzone'])
@@ -54,3 +59,19 @@ angular.module('dropzone', []).directive('dropzone', function () {
     });
   };
 });
+
+app.directive('fileModel', ['$parse', function ($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);

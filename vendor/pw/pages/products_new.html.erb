@@ -39,7 +39,7 @@
 						</div>
 						<div class="panel-body">
 							<p>Please complete all the <strong class="red">*</strong> required fields</p>
-						
+
 							<!-- <div class="form-group">
 								<select class="cs-select cs-skin-slide" data-init-plugin="cs-select">
 									<option value="sightseeing">Web-safe</option>
@@ -51,7 +51,7 @@
 							<div class="form-group">
 								<label><strong class="red">*</strong> Sku</label>
 								<input type="text" class="form-control" require="" placeholder="Enter a sku here" ng-model="product.sku">
-							</div>	
+							</div>
 
 							<div class="form-group">
 								<label><strong class="red">*</strong> Name</label>
@@ -67,20 +67,20 @@
 								<textarea class="form-control" placeholder="Enter a short description CN" ng-model="product.short_description_zh_CN"></textarea><br/>
 								<textarea class="form-control" placeholder="Enter a short description HK" ng-model="product.short_description_zh_HK"></textarea>
 							</div>
-	
+
 							<div class="form-group">
 								<label><strong class="red">*</strong> Full Description Body (EN)</label>
-								<textarea name="content" ng-model="product.desciption_en_US" placeholder="Enter your product content EN here" required="" ckeditor="editorOptions"></textarea>
+								<textarea name="content" ng-model="product.description_en_US" placeholder="Enter your product content EN here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 
 							<div class="form-group">
 								<label><strong class="red">*</strong> Full Description Body (CN)</label>
-								<textarea name="content" ng-model="product.desciption_zh_CN" placeholder="Enter your product content CN here" required="" ckeditor="editorOptions"></textarea>
+								<textarea name="content" ng-model="product.description_zh_CN" placeholder="Enter your product content CN here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 
 							<div class="form-group">
 								<label><strong class="red">*</strong> Full Description Body (HK)</label>
-								<textarea name="content" ng-model="product.desciption_zh_HK" placeholder="Enter your product content ZH here" required="" ckeditor="editorOptions"></textarea>
+								<textarea name="content" ng-model="product.description_zh_HK" placeholder="Enter your product content ZH here" required="" ckeditor="editorOptions"></textarea>
 							</div>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 					</div>
  				</div> -->
 
- 				
+
 
 				<div class="col-md-4">
 					<div class="panel panel-default">
@@ -140,10 +140,10 @@
 							<div class="form-group" style="padding-bottom: -10px;">
 								<label>Tags</label>
 								<span class="help">"Separate tags with commas"</span>
-								<tags-input ng-model="product.tags" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
+								<tags-input ng-model="product.tags" min-length="1" display-property="name" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
 							</div>
 
-							
+
 						</div>
 					</div>
  				</div>
@@ -155,7 +155,7 @@
 						</div>
 						<div class="panel-body">
 							<p>Do you want to publish your new product?</p>
-					
+
 							<div class="radio radio-success">
 								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="product.status">
 								<label for="yes">Draft</label>
@@ -170,6 +170,6 @@
 			</div>
 		</form>
 
-		
+
 	</div>
 </div>

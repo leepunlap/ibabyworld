@@ -30,12 +30,12 @@
 <div class="content">
 	<br/>
 	<div class="container-fluid container-fixed-lg">
-		<form name="articleForm" role="form">
+		<form name="bannerForm" role="form">
 			<div class="row">
 				<div class="col-md-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">New Article</div>
+							<div class="panel-title">Edit Banner</div>
 						</div>
 						<div class="panel-body">
 							<p>Please complete all the <strong class="red">*</strong> required fields</p>
@@ -49,19 +49,18 @@
 							</div> -->
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Title</label>
-								<input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="article.title">
+								<label><strong class="red">*</strong> Name</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a name here" ng-model="banner.name">
 							</div>
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Short Description</label>
-								<span class="help">"Must be 100 characters long"</span>
-								<textarea class="form-control" placeholder="Enter a short description" ng-model="article.description"></textarea>
+								<label>Url</label>
+								<input type="text" class="form-control" ng-model="banner.url" placeholder="Enter your url here"></input>
 							</div>
 
 							<div class="form-group">
-								<label><strong class="red">*</strong> Content Body</label>
-								<textarea id="content" name="content" ng-model="article.content" placeholder="Enter your article content here" required="" ckeditor="editorOptions" ng-model="article.content"></textarea>
+								<label><strong class="red">*</strong> Description</label>
+								<textarea id="content" name="content" ng-model="banner.description" placeholder="Enter your banner content here" required="" ckeditor="editorOptions" ng-model="banner.content"></textarea>
 							</div>
 						</div>
 					</div>
@@ -84,13 +83,52 @@
 					</div>
  				</div> -->
 
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<label>Order</label>
+								<input type="text" class="form-control" ng-model="banner.order" placeholder="Enter your order here"></input>
+							</div>
+
+							<!-- <div class="form-group">
+								<label>Image</label>
+								<input type="file" class="form-control" ng-model="banner.image"></input>
+							</div> -->
+						</div>
+					</div>
+ 				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Image Attachment</div>
+						</div>
+						<div class="panel-body no-scroll no-padding">
+							<div class="dropzone" dropzone="dropzoneConfig">
+						    </div>
+
+						</div>
+					</div>
+ 				</div>
+
+				<div class="col-md-4">
+					<div class="panel panel-default">
+
+						<div class="panel-body no-scroll no-padding">
+							<img ng-src="{{banner.image_url_medium}}" class="img-responsive"/>
+
+						</div>
+					</div>
+ 				</div>
+
+
  				<div class="col-md-4">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group" style="padding-bottom: -10px;">
 								<label>Tags</label>
 								<span class="help">"Separate tags with commas"</span>
-								<tags-input ng-model="article.tags"  min-length="1" display-property="name" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
+								<tags-input ng-model="banner.tags"  min-length="1" display-property="name" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
 							</div>
 						</div>
 					</div>
@@ -102,16 +140,9 @@
 							<div class="panel-title">Save As</div>
 						</div>
 						<div class="panel-body">
-							<p>Do you want to publish your new article?</p>
 
-							<div class="radio radio-success">
-								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="article.status">
-								<label for="yes">Draft</label>
-								<input type="radio" value="2" name="optionyes" id="no" ng-model="article.status">
-								<label for="no">Publish</label>
-							</div>
 
-							<button class="btn btn-primary" ng-click="doCreateArticle(article)">Submit</button>
+							<button class="btn btn-primary" ng-click="doUpdateBanner(banner)">Submit</button>
 						</div>
 					</div>
  				</div>

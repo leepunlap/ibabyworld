@@ -1,7 +1,6 @@
 app.controller('ArticleController', function ($rootScope, $scope, $state, $stateParams, $http, Data, Upload) {
     $scope.articles = [];
     $scope.checkedArticleIds = [];
-    $scope.file = null;
     $scope.article = {
         status: 0
     };
@@ -13,8 +12,6 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
     },
     'eventHandlers': {
       'sending': function (file, xhr, formData) {
-        //console.log(file, xhr, formData);
-
       },
       'success': function (file, response) {
       }
@@ -23,62 +20,22 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
     if ($state.current.name == "admin.articles") {
         // Get articles
-        Data.get(requestPath.articles +'/all').then(function (results) {
-            if (results.code == 200) {
-                $scope.articles = results.body.articles;
-            }
+        $http.get(urlService + requestPath.articles).success(function(data){
+          $scope.articles = data;
         });
-
     } else if ($state.current.name == "admin.articles-edit") {
         // Get article details
         $scope.articleId = $stateParams.id;
 
         console.log('Get article Id: '+ requestPath.articles +'/'+ $scope.articleId);
 
-        Data.get(requestPath.articles +'/'+ $scope.articleId).then(function (results) {
+        $http.get(urlService + requestPath.articles +'/'+ $scope.articleId).success(function(data){
+          $scope.article = data;
 
-            if (results.code == 200) {
-                $scope.article = results.body.article;
-                $scope.article.tags = results.body.tags;
-                //console.log($scope.article);
-                Data.get(requestPath.articles + '/' + $scope.articleId + '/medium-images').then(function (data){
-                  $scope.article_images = data.body;
-                  console.log(data);
-                });
-
-                // if ($scope.article.tags.length > 0) {
-                //     var strings = $scope.article.tags.split(', ');
-                //     var tags = [];
-
-                //     $.each(strings, function(index, string){
-                //         tags.push({ text: string });
-                //         // console.log('Tag: '+ string);
-                //     });
-
-                //     $scope.article.tags = tags;
-                // }
-                // var tags = [];
-                // var str = "";
-                // for (var i = 0; i < $scope.article.tags.length; i++){
-                //     //console.log($scope.article.tags);
-                //     tags.push($scope.article.tags[i].name[0].text);
-                // //     $.each(strings, function(index, string){
-                // //         tags.push({ text: string });
-                // //         // console.log('Tag: '+ string);
-                // //     });
-
-
-                //     if (i + 1 == $scope.article.tags.length)
-                //     {
-                //         str += $scope.article.tags[i].name;
-                //     }else
-                //     {
-                //         str += $scope.article.tags[i].name + ',';
-                //     }
-                // }
-                // //console.log(JSON.parse(str));
-                // $scope.article.tags = JSON.parse(str);
-            }
+          $http.get(urlService + requestPath.articles + '/' + $scope.articleId + '/medium-images').success(function(data){
+            $scope.article_images = data;
+            //console.log(data);
+          });
         });
     }
 
@@ -93,96 +50,44 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         return "Published";
     }
 
-    // $scope.getTags = function(string) {
-    //     return string.split(', ');
-    // }
 
     $scope.doDeleteArticle = function () {
         // console.log("I'm being clicked: "+ $scope.checkedArticleIds);
         angular.forEach($scope.checkedArticleIds, function(checked, articleId) {
             if (checked) {
                 console.log('Deleting: '+ articleId);
+                $http.delete(urlService + requestPath.articles + '/' + articleId).success(function (data) {
+                      for( var index = 0; index < $scope.articles.length; index++ ) {
+                          if ( $scope.articles[index].id === articleId ) {
+                              $scope.articles.splice( index, 1 );
+                              break;
+                          }
+                      }
 
-                Data.delete(requestPath.articles +'/'+ articleId +'/delete').then(function (results) {
-                    if (results.code == 200) {
-                        console.log('success registration!');
-
-                        for( var index = 0; index < $scope.articles.length; index++ ) {
-                            if ( $scope.articles[index].id === articleId ) {
-                                $scope.articles.splice( index, 1 );
-                                break;
-                            }
-                        }
-                    }
                 });
             }
         });
     }
 
+    $scope.doDeleteSingleArticle = function (id) {
+      $http.delete(urlService + requestPath.articles + '/' + id).success(function (data) {
+        for( var index = 0; index < $scope.articles.length; index++ ) {
+            if ( $scope.articles[index].id === id ) {
+                $scope.articles.splice( index, 1 );
+                break;
+            }
+        }
+      });
+    }
+
     $scope.doUpdateArticle = function (article) {
         $scope.submitted = true;
 
-        if (!$scope.articleForm.$invalid) {
-            // Data.post(requestPath.articles +'/'+ $scope.articleId +'/update', {
-            //     article: article
-
-            // }).then(function (results) {
-            //     if (results.code == 200) {
-            //         $state.go('admin.articles');
-
-            //         // $.each(body.member, function(key, value){
-            //         //     console.log('Parameters: '+ key +' : '+ value);
-            //         // });
-
-            //         console.log('success registration!');
-            //     }
-            // });
-
-            var temp_str = '';
-            article.tags.forEach(function(p){
-                temp_str += p.text + ',';
-                console.log(p);
-            });
-            article.tags = temp_str;
-
-
-            Upload.upload({
-                url: urlService + requestPath.articles +'/'+ $scope.articleId +'/update',
-                fields: article,
-                file: $scope.file
-            }).progress(function (evt) {
-                // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-
-            }).error(function (data, status, headers, config) {
-                console.log('Error data Response: '+ data);
-
-            }).success(function (data, status, headers, config) {
-                // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-
-                console.log('Success data Response: '+ data);
-                $state.go('admin.articles');
-            });
-        }
-    };
-
-    $scope.$watch('files', function () {
-        $scope.upload($scope.files);
-    });
-
-    $scope.upload = function (files) {
-         if (files && files.length) {
-            var reader = new FileReader();
-
-            $scope.file = files[0];
-
-            reader.onload = function (e) {
-                $('.preview img').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL($scope.file);
-            return false;
-        }
+        //if (!$scope.articleForm.$invalid) {
+            $http.put(urlService + requestPath.articles + '/' + $scope.articleId, article).success(function(data){
+               $state.go('admin.articles');
+             });
+        //}
     };
 
     $scope.doCreateArticle = function (article) {
@@ -190,33 +95,16 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
 
         console.log('Submitting article form');
 
-        var temp_str = '';
-        article.tags.forEach(function(p){
-            temp_str += p.text + ',';
-            console.log(p);
+        $http.post(urlService + requestPath.articles, article).success(function(data){
+          $state.go('admin.articles-edit', {id: data.id});
         });
-        article.tags = temp_str;
-
-
-        // if (!$scope.articleForm.$invalid) {
-            Upload.upload({
-                url: urlService + requestPath.articles +'/create',
-                fields: article,
-                file: $scope.file
-            }).progress(function (evt) {
-                // var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                // console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-
-            }).error(function (data, status, headers, config) {
-                $.each(data, function(key, value){
-                    console.log('Parameters: '+ key +' : '+ value);
-                });
-
-            }).success(function (data, status, headers, config) {
-                // console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-
-                console.log('Success data Response: '+ data);
-                $state.go('admin.articles');
-            });
     };
+
+    $scope.deleteArticleImage = function (id){
+      Data.delete(requestPath.articleImages + '/' + id).then(function(data,status){
+        Data.get(requestPath.articles + '/' + $scope.articleId + '/medium-images').then(function (data){
+          $scope.article_images = data.body;
+        });
+      });
+    }
 });

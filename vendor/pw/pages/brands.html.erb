@@ -4,7 +4,7 @@
 			<div class="inner">
 				<ul class="breadcrumb">
 					<li><p>Admin</p></li>
-					<li><a ui-sref="articles" class="active">Articles</a></li>
+					<li><a ui-sref="brands" class="active">Brands</a></li>
 				</ul>
 			</div>
 		</div>
@@ -12,9 +12,9 @@
 		<div class="container-fluid container-fixed-lg bg-white">
 			<div class="panel panel-transparent">
 				<div class="panel-heading">
-					<!-- <div class="panel-title">Article</div> -->
+					<!-- <div class="panel-title">Brand</div> -->
 					<div class="btn-group pull-right m-b-10">
-						<button type="button" class="btn btn-default" ng-click="doNewArticle()">Add new</button>
+						<button type="button" class="btn btn-default" ng-click="doNewBrand()">Add new</button>
 						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 							<span class="caret"></span>
 						</button>
@@ -29,46 +29,42 @@
 				</div>
 
 				<div class="panel-body">
-					<form name="articles" class="table-responsive">
-						<table id="articles" class="table table-hover">
+					<form name="brands" class="table-responsive">
+						<table id="brands" class="table table-hover">
 							<thead>
 								<tr>
 								<th style="width:1%">
-									<button class="btn" ng-click="doDeleteArticle()"><i class="pg-trash"></i></button>
+									<button class="btn" ng-click="doDeleteBrand()"><i class="pg-trash"></i></button>
 								</th>
-								<th style="width:20%">Title</th>
-								<th style="width:15%">Status</th>
-								<th style="width:20%">Tags</th>
+								<th style="width:20%">Image</th>
+								<th style="width:15%">Name</th>
 								<th style="width:15%">Last Update</th>
 								<th style="width:15%">Actions</th>
 							</tr>
 							</thead>
 							<tbody>
-								<!-- <tr ng-repeat="article in articles" ng-bind-html="article.content"> -->
-								<tr ng-repeat="article in articles">
+								<!-- <tr ng-repeat="brand in brands" ng-bind-html="brand.content"> -->
+								<tr ng-repeat="brand in brands">
 									<td class="v-align-middle">
 										<div class="checkbox" style="margin-top: -15px;">
-											<input type="checkbox" value="{{article.id}}" ng-model="checkedArticleIds[article.id]" id="checkbox{{article.id}}">
-											<label for="checkbox{{article.id}}"></label>
+											<input type="checkbox" value="{{brand.id}}" ng-model="checkedBrandIds[brand.id]" id="checkbox{{brand.id}}">
+											<label for="checkbox{{brand.id}}"></label>
 										</div>
 									</td>
 									<td class="v-align-middle ">
-										<p><a ui-sref="admin.articles-edit({ id: {{article.id}} })">{{article.title}}</a></p>
+
 									</td>
 									<!-- <td class="v-align-middle">
-										{{article.content | limitTo: 150}}
+										{{brand.content | limitTo: 150}}
 									</td> -->
-									<td class="v-align-middle">
-										<p>{{checkStatus(article.status)}}</p>
-									</td>
 									<td>
-										<a href="" ng-repeat="tag in article.tags">{{tag.name}}{{$last ? '' : ',' }} </a>
+										<p><a ui-sref="admin.brands-edit({ id: {{brand.id}} })">{{brand.name_en_US}}</a></p>
 									</td>
 									<td class="v-align-middle">
-										<p>{{article.created_at| cmdate:'MMMM dd, yyyy HH:mm'}}</p>
+										<p>{{brand.created_at| cmdate:'MMMM dd, yyyy HH:mm'}}</p>
 									</td>
 									<td>
-										<a href="" ui-sref="admin.articles-edit({ id: {{article.id}} })" class="btn btn-primary">Edit</a> <a href="" ng-click="doDeleteSingleArticle(article.id)" class="btn btn-danger">Delete</a>
+										<a href="" ui-sref="admin.brands-edit({ id: {{brand.id}} })" class="btn btn-primary">Edit</a> <a href="" ng-click="doDeleteSingleBrand(brand.id)" class="btn btn-danger">Delete</a>
 									</td>
 								</tr>
 							</tbody>

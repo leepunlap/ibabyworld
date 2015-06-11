@@ -1,0 +1,92 @@
+<style>
+.red {
+	color: #cc0000;
+}
+</style>
+
+<div class="content">
+	<br/>
+	<div class="container-fluid container-fixed-lg">
+		<form name="pageForm" role="form">
+			<div class="row">
+				<div class="col-md-8">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Edit Page #{{page.id}}</div>
+						</div>
+						<div class="panel-body">
+							<p>Please complete all the <strong class="red">*</strong> required fields</p>
+
+							<div class="form-group">
+								<label><strong class="red">*</strong> Title</label>
+								<input type="text" class="form-control" require="" placeholder="Enter a title here" ng-model="page.title">
+							</div>
+
+              <div class="form-group">
+								<label><strong class="red">*</strong> Browser Title</label>
+								<textarea class="form-control" placeholder="Enter a browser title" ng-model="page.browser_title"></textarea>
+							</div>
+
+              <div class="form-group">
+								<label><strong class="red">*</strong> Browser Url</label>
+								<textarea class="form-control" placeholder="Enter a browser url" ng-model="page.browser_url"></textarea>
+							</div>
+
+							<div class="form-group">
+								<label><strong class="red">*</strong> Content Body</label>
+								<textarea id="content" name="content" ng-model="page.content" placeholder="Enter your page content here" required="" ckeditor="editorOptions" ng-model="page.content"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+
+        <div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Image Attachment</div>
+						</div>
+						<div class="panel-body no-scroll no-padding">
+							<div class="dropzone" dropzone="dropzoneConfig">
+						    </div>
+
+						</div>
+					</div>
+ 				</div>
+
+				<div class="col-md-2" ng-repeat="i in page_images">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="form-group">
+								<a href="" ng-click="deletePageImage(i.id)" class="btn btn-danger">Delete</a>
+							</div>
+
+							<div class="form-group">
+								<img ng-src="{{i.image_url_medium}}" class="img-responsive" />
+							</div>
+						</div>
+					</div>
+ 				</div>
+
+ 				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="panel-title">Save As</div>
+						</div>
+						<div class="panel-body">
+							<p>Do you want to publish your new page?</p>
+
+							<div class="radio radio-success">
+								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="page.status">
+								<label for="yes">Draft</label>
+								<input type="radio" value="2" name="optionyes" id="no" ng-model="page.status">
+								<label for="no">Publish</label>
+							</div>
+
+							<button class="btn btn-primary" ng-click="doUpdatePage(page)">Submit</button>
+						</div>
+					</div>
+ 				</div>
+			</div>
+		</form>
+	</div>
+</div>

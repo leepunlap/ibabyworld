@@ -35,7 +35,7 @@
 				<div class="col-md-8">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<div class="panel-title">New Article</div>
+							<div class="panel-title">Edit Article</div>
 						</div>
 						<div class="panel-body">
 							<p>Please complete all the <strong class="red">*</strong> required fields</p>
@@ -116,7 +116,7 @@
 							<div class="form-group" style="padding-bottom: -10px;">
 								<label>Tags</label>
 								<span class="help">"Separate tags with commas"</span>
-								<tags-input ng-model="article.tags" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
+								<tags-input ng-model="article.tags" min-length="1" display-property="name" style="margin-top: -10px;margin-bottom: -15px;"></tags-input>
 
 							</div>
 						</div>
@@ -132,9 +132,9 @@
 							<p>Do you want to publish your new article?</p>
 
 							<div class="radio radio-success">
-								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="article.status" ng-disabled="article.status == 2">
+								<input type="radio" checked="checked" value="0" name="optionyes" id="yes" ng-model="article.status" >
 								<label for="yes">Draft</label>
-								<input type="radio" value="2" name="optionyes" id="no" ng-model="article.status" ng-disabled="article.status == 2">
+								<input type="radio" value="2" name="optionyes" id="no" ng-model="article.status">
 								<label for="no">Publish</label>
 							</div>
 

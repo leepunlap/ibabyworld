@@ -1,16 +1,20 @@
 class Api::V1::BrandsController < ApplicationController
 
   # Removing this line causes 422 "Unprocessable Entity Error"
-  # It happens if we call the api request below without refreshing the page
+  # It happens if we call the api request below without refreshing the brand
   skip_before_action :verify_authenticity_token
 
+  def index
+    @brand = Brand.all
+    render json: @brand
+  end
+
   def create
-    @brand = Brand.new
-    @brand.cover = params[:cover]
+    @brand = Brand.new(post_params)
 
     @brand.save
 
-    response_success({ :brand => @brand })
+    render json: @brand
   end
 
   def show
@@ -21,9 +25,16 @@ class Api::V1::BrandsController < ApplicationController
   def update
     @brand = Brand.find(params[:id])
 
-    @brand.update_attributes(params[:brand])
+    @brand.update_attributes!(post_params)
 
-    render json: @brand.to_json(methods: [:cover_url_medium])
+    render json: @brand
+  end
+
+  def updateImage
+    @brand = Brand.find(params[:brand_id])
+    @brand.update_attributes(cover: params[:image])
+
+    render json: @brand
   end
 
   def destroy
@@ -31,6 +42,16 @@ class Api::V1::BrandsController < ApplicationController
 
     @brand.destroy
 
-    response_success()
+    response_success({})
+  end
+
+  def get_medium_images
+    @a = Brand.find(params[:brand_id])
+    render json: @a.brand_images.to_json(methods: [:cover_url_medium])
+  end
+
+  private
+  def post_params
+    params.require(:brand).permit(:brand_id, :name_en_US, :name_zh_CN, :name_zh_HK, :cover )
   end
 end

@@ -1,6 +1,6 @@
 app.controller('ProductController', function ($rootScope, $scope, $state, $stateParams, $http, Data, Upload) {
     $scope.products = [];
-    $scope.checkedproductIds = [];
+    $scope.checkedProductIds = [];
     $scope.file = null;
     $scope.product = {
         status: 0
@@ -24,42 +24,22 @@ app.controller('ProductController', function ($rootScope, $scope, $state, $state
 
     if ($state.current.name == "admin.products") {
         // Get products
-        Data.get(requestPath.products +'/all').then(function (results) {
-            if (results.code == 200) {
-                $scope.products = results.body.products;
-            }
+        $http.get(urlService + requestPath.products).success(function(data){
+          $scope.products = data;
         });
-
     } else if ($state.current.name == "admin.products-edit") {
         // Get product details
         $scope.productId = $stateParams.id;
 
         console.log('Get product Id: '+ requestPath.products +'/'+ $scope.productId);
 
-        Data.get(requestPath.products +'/'+ $scope.productId).then(function (results) {
-            console.log(results.body);
-            if (results.code == 200) {
-                $scope.product = results.body.product;
-                $scope.product.tags = results.body.tags;
+        $http.get(urlService + requestPath.products +'/'+ $scope.productId).success(function(data){
+          $scope.product = data;
 
-                Data.get(requestPath.products + '/' + $scope.productId + '/medium-images').then(function (data){
-                  $scope.product_images = data.body;
-                });
-                // var tags = [];
-                // var str = "";
-                // for (var i = 0; i < $scope.product.tags.length; i++){
-
-                //     if (i + 1 == $scope.product.tags.length)
-                //     {
-                //         str += $scope.product.tags[i].name;
-                //     }else
-                //     {
-                //         str += $scope.product.tags[i].name + ',';
-                //     }
-                // }
-                //console.log(JSON.parse(str));
-                //$scope.product.tags = JSON.parse(str);
-            }
+          $http.get(urlService + requestPath.products + '/' + $scope.productId + '/medium-images').success(function(data){
+            $scope.product_images = data;
+            //console.log(data);
+          });
         });
     }
 
@@ -74,30 +54,35 @@ app.controller('ProductController', function ($rootScope, $scope, $state, $state
         return "Published";
     }
 
-    $scope.getTags = function(string) {
-        return string.split(', ');
-    }
-
     $scope.doDeleteProduct = function () {
         // console.log("I'm being clicked: "+ $scope.checkedproductIds);
-        angular.forEach($scope.checkedproductIds, function(checked, productId) {
-            if (checked) {
-                console.log('Deleting: '+ productId);
+        angular.forEach($scope.checkedProductIds, function(checked, productId) {
+          if (checked) {
+              console.log('Deleting: '+ productId);
 
-                Data.delete(requestPath.products +'/'+ productId +'/delete').then(function (results) {
-                    if (results.code == 200) {
-                        console.log('success registration!');
+              $http.delete(urlService + requestPath.products + '/' + productId).success(function (data) {
 
-                        for( var index = 0; index < $scope.products.length; index++ ) {
-                            if ( $scope.products[index].id === productId ) {
-                                $scope.products.splice( index, 1 );
-                                break;
-                            }
+                    for( var index = 0; index < $scope.products.length; index++ ) {
+                        if ( $scope.products[index].id === productId ) {
+                            $scope.products.splice( index, 1 );
+                            break;
                         }
                     }
-                });
-            }
+
+              });
+          }
         });
+    }
+
+    $scope.doDeleteSingleProduct = function (id) {
+      $http.delete(urlService + requestPath.products + '/' + id).success(function (data) {
+        for( var index = 0; index < $scope.products.length; index++ ) {
+            if ( $scope.products[index].id === id ) {
+                $scope.products.splice( index, 1 );
+                break;
+            }
+        }
+      });
     }
 
     $scope.doUpdateProduct = function (product) {
@@ -137,36 +122,9 @@ app.controller('ProductController', function ($rootScope, $scope, $state, $state
         //     });
         // }
         //console.log(product.tags);
-        var temp_str = '';
-        product.tags.forEach(function(p){
-            temp_str += p.text + ',';
-           // console.log(p);
+        $http.put(urlService + requestPath.products + '/' + $scope.productId, product).success(function(data){
+           $state.go('admin.products');
         });
-        // console.log(temp_str);
-        product.tags = temp_str;
-
-        Data.post(requestPath.products+'/' + $scope.productId + '/update', product).then(function(data, status) {
-            $state.go('admin.products');
-        });
-    };
-
-    $scope.$watch('files', function () {
-        $scope.upload($scope.files);
-    });
-
-    $scope.upload = function (files) {
-         if (files && files.length) {
-            var reader = new FileReader();
-
-            $scope.file = files[0];
-
-            reader.onload = function (e) {
-                $('.preview img').attr('src', e.target.result);
-            }
-
-            reader.readAsDataURL($scope.file);
-            return false;
-        }
     };
 
     $scope.doCreateProduct = function (product) {
@@ -197,16 +155,8 @@ app.controller('ProductController', function ($rootScope, $scope, $state, $state
             // });
 
         // console.log(product.tags);
-        var temp_str = '';
-        product.tags.forEach(function(p){
-            temp_str += p.text + ',';
-            console.log(p);
-        });
-        // console.log(temp_str);
-        product.tags = temp_str;
-
-        Data.post(requestPath.products+'/create', product).then(function(data, status) {
-            $state.go('admin.products-edit', {id: data.body.product.id});
+        $http.post(urlService + requestPath.products, product).success(function(data){
+          $state.go('admin.products-edit', {id: data.id});
         });
     };
 
