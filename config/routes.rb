@@ -30,30 +30,39 @@ Rails.application.routes.draw do
         end
       end
 
-      resource :articles do
-        member do
-          get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
-          get ':id/medium-images', to: 'articles#get_medium_images'
-          get '', :to => 'articles#list', :as => :articles
-          get 'all', :to => 'articles#all', :as => :all_articles
-          get ':id', :to => 'articles#detail', :as => :article_detail
-          post ':id/update', :to => 'articles#update', :as => :update_article
-          delete ':id/delete', :to => 'articles#delete', :as => :delete_article
-          post 'create', :to => 'articles#create', :as => :create_article
-        end
+      # resource :articles do
+      #   member do
+      #     get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
+      #     get ':id/medium-images', to: 'articles#get_medium_images'
+      #     get '', :to => 'articles#list', :as => :articles
+      #     get 'all', :to => 'articles#all', :as => :all_articles
+      #     get ':id', :to => 'articles#detail', :as => :article_detail
+      #     post ':id/update', :to => 'articles#update', :as => :update_article
+      #     delete ':id/delete', :to => 'articles#delete', :as => :delete_article
+      #     post 'create', :to => 'articles#create', :as => :create_article
+      #   end
+      # end
+
+      resources :articles do
+        get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
+        get 'medium-images', to: 'articles#get_medium_images'
       end
 
-      resource :products do
-        member do
-          get 'get_tag_list', :to => 'products#get_tag_list', :as => :get_tag_list
-          get ':id/medium-images', to: 'products#get_medium_images'
-          get '', :to => 'products#list', :as => :products
-          get 'all', :to => 'products#all', :as => :all_products
-          get ':id', :to => 'products#detail', :as => :product_detail
-          post ':id/update', :to => 'products#update', :as => :update_product
-          delete ':id/delete', :to => 'products#delete', :as => :delete_product
-          post 'create', :to => 'products#create', :as => :create_product
-        end
+      # resource :products do
+      #   member do
+      #     get 'get_tag_list', :to => 'products#get_tag_list', :as => :get_tag_list
+      #     get ':id/medium-images', to: 'products#get_medium_images'
+      #     get '', :to => 'products#list', :as => :products
+      #     get 'all', :to => 'products#all', :as => :all_products
+      #     get ':id', :to => 'products#detail', :as => :product_detail
+      #     post ':id/update', :to => 'products#update', :as => :update_product
+      #     delete ':id/delete', :to => 'products#delete', :as => :delete_product
+      #     post 'create', :to => 'products#create', :as => :create_product
+      #   end
+      # end
+
+      resources :products do
+        get ':id/medium-images', to: 'products#get_medium_images'
       end
 
       resource :carts do
@@ -67,10 +76,19 @@ Rails.application.routes.draw do
 
       resources :product_images
       resources :article_images
-      resources :pages
-      resources :coupons
-      resources :banners
-      resources :brands
+      resources :pages do
+        get 'medium-images', to: 'pages#get_medium_images'
+      end
+      resources :coupons do
+        put 'updateImage', to: 'coupons#updateImage'
+      end
+      resources :banners do
+        put 'updateImage', to: 'banners#updateImage'
+      end
+      resources :brands do
+        put 'updateImage', to: 'brands#updateImage'
+      end
+
     end
   end
 
