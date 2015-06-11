@@ -2,50 +2,48 @@
 	<div class="row">
 		<div class="col-md-7">
 			<div class="row">
-				<table>
+				<table id="checkouttable">
 					<tr>
 						<td style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom; background-position: 20px 0px; background-repeat: no-repeat;">
 							<img src="<%= asset_path("checkout-cart-header-start.png") %>" style="position: relative; left: -4px;">
 						</td>
-						<td style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
+						<td width="50%" style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
 							<p style="color: white;">
-								Ordering Product
+								Product&nbsp;
 							</p>
 						</td>
-						<td style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
+						<td width="15%" style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
 							<p style="color: white;">
-								Unit Price
+								Price&nbsp;
 							</p>
 						</td>
-						<td style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
+						<td width="10%" style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
 							<p style="color: white;">
-								Unit
+								Qty&nbsp;
 							</p>
 						</td>
-						<td style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
+						<td width="15%" style="background-image: url(<%= asset_path("checkout-cart-header-middle.png") %>); vertical-align: bottom;">
 							<p style="color: white;">
-								Price
+								Subtotal
 							</p>
 						</td>
 						<td style="vertical-align: bottom;">
 							<img src="<%= asset_path("checkout-cart-header-end.png") %>">
 						</td>
 					</tr>
-					<tr style="border-style: solid; border-width: 1px;">
+					<tr ng-repeat="c in cart.shopping_cart_items" class="checkouttablerow">
+						<td>&nbsp;{{(products | filter:{ id: c.product_id })[0].sku}}</td>
 						<td>
-							test
+							{{(products | filter:{ id: c.product_id })[0].short_description_en_US}}
 						</td>
 						<td>
-							test
+							$ {{c.unit_price}}
 						</td>
 						<td>
-							test
+							{{c.qty}}
 						</td>
 						<td>
-							test
-						</td>
-						<td>
-							test
+							$ {{c.unit_price * c.qty}}
 						</td>
 						<td></td>
 					</tr>
@@ -70,7 +68,7 @@
 					<div class="col-md-12">
 						<div style="padding-left: 15%; padding-right: 15%;">
 							<span class="left">Product Amount</span>
-							<span class="right">$1371.00</span>
+							<span class="right">$ {{total}}</span>
 						</div>
 					</div>
 				</div>
@@ -88,7 +86,7 @@
 						<div style="padding-left: 15%; padding-right: 15%;">
 							<big style="color: red;">
 								<span class="left">Grand Total</span>
-								<span class="right">$1371.00</span>
+								<span class="right">$ {{total}}</span>
 							</big>
 						</div>
 					</div>
@@ -156,13 +154,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+<!-- 				<div class="row">
 					<div class="col-md-12" style="padding-top: 30px; padding-bottom: 30px;">
 						<p class="text-center">
 							<img src="<%= asset_path("checkout-confirm-payment.png") %>">
 						</p>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
