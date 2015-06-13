@@ -1,4 +1,18 @@
-app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location) {
+
+	var paymentid = $location.search()['paymentId']
+	var paymenttoken = $location.search()['token']
+	var payerid = $location.search()['PayerID']
+
+
+	if (typeof(paymentid) != 'undefined') {
+		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
+		success(function(data) {
+			$scope.paymentinfo = data.payment
+			console.log(data)
+		})
+	}
+
 	$scope.viewItem = function() {
 		$state.go('product-details');
 	}
@@ -238,5 +252,18 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	}
 	$scope.hideProductDetail = function() {
 		$scope.detailmode=false
+	}
+	$scope.creatingpayment = false
+	$scope.doPayPal = function() {
+		console.log("Doing Paypal")
+		$scope.creatingpayment = true;
+		$http.get('/api/v1/carts/checkout').
+		success(function(data) {
+			$scope.creatingpayment = false
+			$scope.paymentid = data.paymentid
+			$scope.redirect = data.link
+			$window.location.href = $scope.redirect
+		})
+		
 	}
 });

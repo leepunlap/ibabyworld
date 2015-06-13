@@ -60,7 +60,10 @@
 				<div class="row">
 					<div class="col-md-12" style="padding-top: 30px; padding-bottom: 30px;">
 						<p class="text-center">
-							<img src="<%= asset_path("checkout-confirm-payment.png") %>">
+<!-- 							<img src="<%= asset_path("checkout-confirm-payment.png") %>"> -->
+							<a ng-click="doPayPal()">
+							<img src="<%= asset_path("EC-button.gif") %>">
+							</a>
 						</p>
 					</div>
 				</div>
@@ -147,10 +150,10 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="padding-left: 5%; padding-right: 5%;">
-							<label>
+<!-- 							<label>
 								<input type="radio" name="payment-method" value="visa">
 								<img src="<%= asset_path("visa.png") %>">
-							</label>
+							</label> -->
 						</div>
 					</div>
 				</div>

@@ -41,6 +41,7 @@ group :production, :development, :local do
   gem 'roo', '~> 2.0.0'
   gem "paperclip", "~> 4.2"
   gem 'acts-as-taggable-on', '~> 3.4'
+  gem 'paypal-sdk-rest'
 end
 # Use Unicorn as the app server
 # gem 'unicorn'

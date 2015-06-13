@@ -1,5 +1,8 @@
 class Api::V1::CartsController < ApplicationController
 
+	require 'paypal-sdk-rest'
+	include PayPal::SDK::OpenIDConnect
+
 	def mycart
 		if (params.has_key?(:memberid))
 			cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
@@ -44,6 +47,65 @@ class Api::V1::CartsController < ApplicationController
 			ShoppingCartItem.find(params[:cartitemid]).destroy
 			render :json => { 
 			      :status => 'ok'
+			    }.to_json
+		end
+	end
+
+	def checkout
+
+		conf = PayPal::SDK.configure({
+		  :mode => "sandbox",
+		})
+
+		@cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld') 
+
+		@payment = PayPal::SDK::REST::Payment.new({
+		  :intent => "sale",
+		  :payer => {
+		    :payment_method => "paypal" },
+		  :redirect_urls => {
+		    :return_url => "http://localhost:3000/#/bb-shop/thankyou",
+		    :cancel_url => "http://localhost:3000/#/bb-shop/cancel" },
+		  :transactions => [ {
+		    :amount => {
+		      :total => "1",
+		      :currency => "HKD" },
+		    :description => "creating a payment" } ] } )
+
+       	@payment.transactions[0].item_list.items[0] = {
+                quantity: 1,
+                name: 'Poop',
+                price: 1,
+                currency: 'HKD'
+            }
+
+		paymentresult = @payment.create
+		@cart.update_attributes!({:paymentid => @payment.id, :paymenturl => @payment.links[1].href, :status => 1})
+		@cart.save
+  	
+
+		render :json => { 
+				:cart => @cart,
+				:paymentid => @payment.id,
+				:link => @payment.links[1].href,
+				:success => paymentresult,
+		    	:status => 'ok'
+		    }.to_json
+	end
+
+	def executepaypal
+		if (params.has_key?(:paymentid) and params.has_key?(:payerid))
+
+			conf = PayPal::SDK.configure({
+			  :mode => "sandbox",
+			})
+			@payment = PayPal::SDK::REST::Payment.find(params[:paymentid])
+			@result = @payment.execute( :payer_id => params[:payerid] )
+
+			render :json => { 
+					:payment => @payment,
+					:result => @result,
+			    	:status => 'ok'
 			    }.to_json
 		end
 	end
