@@ -24,8 +24,9 @@ app.controller('MembershipController', function ($scope, $rootScope, $state, $co
                 }
                 $rootScope.isAuthorized = AuthService.isAuthorized();
                 $rootScope.loggedUser = member;
-                if ($rootScope.laststate) {
-                    $state.go($rootScope.laststate.name);
+                
+                if ($rootScope.$lastState.name) {
+                    $state.go($rootScope.$lastState.name);
                 } else {
                     $state.go('home');
                 }

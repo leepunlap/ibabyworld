@@ -209,7 +209,7 @@
 									<p>
 										{{(products | filter:{ id: c.product_id })[0].short_description_en_US}}<span ng-show="c.qty > 1"> x {{c.qty}}</span>
 										<br/>
-										<span class="amount">$ {{c.subtotal}}</span>
+										<span class="amount">{{c.unit_price * c.qty | currency:"$":2}}</span>
 										<a ng-show="c.qty > 1" class="btn btn-xs btn-default" ng-click="MinusOneFromCart(c)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></a>
 										<a class="btn btn-xs btn-default" ng-click="PlusOneFromCart(c)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 										<a class="btn btn-xs btn-default" ng-click="RemoveFromCart(c)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>

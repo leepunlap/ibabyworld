@@ -38,6 +38,7 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 
 	.run(function ($window, $rootScope, $location, $cookies, $translate, matchmedia, Data, AuthService, Session) {
 
+		$rootScope.loggingin = true
 
 		$rootScope.locale = $cookies['locale'];
 		$rootScope.locales = {
@@ -72,7 +73,6 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 		$translate.use($rootScope.locale);
 
 		if ($cookies['staysignedin'] === 'true') {
-
 			var login = {
 				email : $cookies['email'],
 				password : $cookies['password']
@@ -85,17 +85,20 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 		            }
 		            console.log('Check isAuthorized : '+ $rootScope.isAuthorized);
 		            console.log($rootScope.loggedUser)
+		            $rootScope.loggingin = false
 		        });
 			},100)
 
+		} else {
+			$rootScope.loggingin = false
 		}
 
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-			$rootScope.lastState = fromState;
+			$rootScope.$lastState = fromState;
     		$rootScope.$state = toState;
     		$rootScope.pageTitle = $rootScope.$state.title;
     		
-    		console.log('State changed from '+ $rootScope.lastState.name +' to: '+ $rootScope.$state.name);
+    		console.log('State changed from '+ $rootScope.$lastState.name +' to: '+ $rootScope.$state.name);
   		});
 
   		$rootScope.doLogout = function() {

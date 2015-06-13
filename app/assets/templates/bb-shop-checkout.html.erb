@@ -37,13 +37,13 @@
 							{{(products | filter:{ id: c.product_id })[0].short_description_en_US}}
 						</td>
 						<td>
-							$ {{c.unit_price}}
+							{{c.unit_price| currency:"$":2}}
 						</td>
 						<td>
 							{{c.qty}}
 						</td>
 						<td>
-							$ {{c.unit_price * c.qty}}
+							{{(c.unit_price * c.qty)| currency:"$":2}}
 						</td>
 						<td></td>
 					</tr>
