@@ -29,19 +29,20 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		return passwordArray.join("");
 	};
 
-	//
-	//	TODO : Hard coded, need to change
-	//
-	$scope.isLoggedIn = false
+	console.log("Get Cart")
+	console.log($rootScope.isAuthorized)
+	console.log($rootScope.loggedUser)
+
 
 	//
 	//	If logged in, get cart from member id
 	//	If not logged in, get cartid, generate one and store in cookie if not exists.  Then get cart from cartid
 	//
-	if ($scope.isLoggedIn) {
+	if ($rootScope.isAuthorized) {
 		//
 		//	TODO : get shopping cart from member id
 		//
+		console.log("Member ID " + $rootScope.loggedUser.id)
 	} else {
 		var cartid = $cookies['cartid']
 		if (cartid) {
@@ -69,8 +70,10 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		$scope.total = 0
 		for (var i in $scope.cart.shopping_cart_items) {
 			var item = $scope.cart.shopping_cart_items[i]
+			item.subtotal = (item.unit_price * item.qty).toFixed(2)
 			$scope.total += item.unit_price * item.qty
 		}
+		$scope.total = $scope.total.toFixed(2)
 	}
 	$scope.cart = []
 	$scope.refreshCart = function() {

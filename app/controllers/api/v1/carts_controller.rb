@@ -59,6 +59,8 @@ class Api::V1::CartsController < ApplicationController
 
 		@cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld') 
 
+		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id )
+
 		@payment = PayPal::SDK::REST::Payment.new({
 		  :intent => "sale",
 		  :payer => {
@@ -68,16 +70,25 @@ class Api::V1::CartsController < ApplicationController
 		    :cancel_url => "http://localhost:3000/#/bb-shop/cancel" },
 		  :transactions => [ {
 		    :amount => {
-		      :total => "1",
 		      :currency => "HKD" },
-		    :description => "creating a payment" } ] } )
+		    :description => "iBabyWorld Purchase" } ] } )
 
-       	@payment.transactions[0].item_list.items[0] = {
-                quantity: 1,
-                name: 'Poop',
-                price: 1,
-                currency: 'HKD'
-            }
+		total=0
+		itemno=0
+		@cartitems.each do |i|
+			@product = Product.find(i.product_id)
+			name = @product.short_description_en_US
+	       	@payment.transactions[0].item_list.items[itemno] = {
+	                quantity: i.qty,
+	                name: name,
+	                price: '%.2f' % i.unit_price,
+	                currency: 'HKD'
+	            }
+			total += i.unit_price.to_f * i.qty
+			itemno += 1
+		end
+
+		@payment.transactions[0].amount.total = '%.2f' % total
 
 		paymentresult = @payment.create
 		@cart.update_attributes!({:paymentid => @payment.id, :paymenturl => @payment.links[1].href, :status => 1})
@@ -85,7 +96,6 @@ class Api::V1::CartsController < ApplicationController
   	
 
 		render :json => { 
-				:cart => @cart,
 				:paymentid => @payment.id,
 				:link => @payment.links[1].href,
 				:success => paymentresult,
