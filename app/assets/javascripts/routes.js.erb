@@ -64,9 +64,9 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 	        })
 	        
         	.state('bb_shop_product', {
-        		url: '/bb-shop/product',
-        		title: 'Product',
-				templateUrl: '<%= asset_path("bb_shop_product.html") %>',
+        		url: '/bb-shop/:productID',
+        		title: 'BB Shop',
+				templateUrl: '<%= asset_path("bb-shop.html") %>',
 				controller: 'BBShopController'
         	})
 

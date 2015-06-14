@@ -54,3 +54,16 @@ app.directive('focus', function() {
             }
         }
     })
+
+    .directive('bbShopProduct', function ($route) {
+            return {
+                restrict: 'E',
+                templateUrl: '<%= asset_path("bb-shop-product.html") %>',
+                scope: {
+                  bbProduct: '='
+                },
+                link: function (scope, element, attr, ctrl) {
+
+                }
+            }
+        })

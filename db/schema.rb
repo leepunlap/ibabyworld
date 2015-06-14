@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20150613074725) do
   create_table "articles", force: :cascade do |t|
     t.string   "language",     limit: 10
     t.string   "title",        limit: 150
+    t.text     "tags",         limit: 65535
     t.text     "description",  limit: 65535
     t.text     "content",      limit: 65535
     t.string   "poster",       limit: 70
@@ -36,7 +37,6 @@ ActiveRecord::Schema.define(version: 20150613074725) do
     t.integer  "published_by", limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.string   "tags",         limit: 255
   end
 
   create_table "banners", force: :cascade do |t|
@@ -114,6 +114,7 @@ ActiveRecord::Schema.define(version: 20150613074725) do
   end
 
   create_table "members", force: :cascade do |t|
+    t.string   "oauth_uid",      limit: 25
     t.string   "account_name",   limit: 60
     t.string   "email",          limit: 50
     t.string   "password",       limit: 60
