@@ -1,0 +1,19 @@
+<h1>Payment OK</h1>
+<table class="table">
+
+	<tr><th>Payment ID:</th><td>{{paymentinfo.id}}</td></tr>
+	<tr><th>State:</th><td>{{paymentinfo.state}}</td></tr>
+	<tr><th>Payment Method:</th><td>{{paymentinfo.payer.payment_method}}</td></tr>
+	<tr><th>Payer:</th><td>{{paymentinfo.payer.payer_info.email}}</td></tr>
+	<tr><th>Ship To:</th>
+	<td>
+		{{paymentinfo.payer.payer_info.shipping_address.recipient_name}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.line1}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.line2}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.city}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.state}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.postal_code}}<br>
+		{{paymentinfo.payer.payer_info.shipping_address.country_code}}<br>
+	</td></tr>
+
+</table>

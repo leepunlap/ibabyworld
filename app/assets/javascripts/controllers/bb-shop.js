@@ -1,4 +1,24 @@
-app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location) {
+
+	//
+	//	Check callback parameters to check if it is paypal or paydollar callback
+	//
+	var paymentid = $location.search()['paymentId']
+	var paymenttoken = $location.search()['token']
+	var payerid = $location.search()['PayerID']
+
+	//
+	//	Execute paypal and return if paymentid in callback
+	//
+	if (typeof(paymentid) != 'undefined') {
+		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
+		success(function(data) {
+			$scope.paymentinfo = data.payment
+			console.log(data)
+		})
+		return
+	}
+
 	$scope.viewItem = function() {
 		$state.go('product-details');
 	}
@@ -15,37 +35,79 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		return passwordArray.join("");
 	};
 
-	//
-	//	TODO : Hard coded, need to change
-	//
-	$scope.isLoggedIn = false
+	$http.get('/api/v1/products').
+	success(function(data, status, headers, config) {
+		$scope.products = data
+		$scope.tags = data.tags
+	})
 
+	//
+	//	Shopping Cart
+	//
+	$scope.Recalc = function() {
+		$scope.total = 0
+		for (var i in $scope.cart.shopping_cart_items) {
+			var item = $scope.cart.shopping_cart_items[i]
+			$scope.total += item.unit_price * item.qty
+		}
+		$scope.total = $scope.total.toFixed(2)
+	}
+	$scope.cart = []
+	$scope.cartgetparams = function() {
+		var params = '?cookie=' + $scope.cartid
+		if ($rootScope.isAuthorized) {
+			params += "&memberid=" + $rootScope.loggedUser.id
+		}
+		return params
+	}
+	$scope.refreshCart = function() {
+		var url = '/api/v1/carts/mycart' + $scope.cartgetparams()
+		console.log("Refresh Cart : " + url)
+		$http.get(url).
+		success(function(data) {
+			$scope.cart = data
+			$scope.Recalc()
+		})
+	}
+
+	//
+	//	Paydollar - generate payment form and hash in advance
+	//
+	$scope.getPayDollarFormInfo = function() {
+		var url = '/api/v1/carts/checkoutpaydollar' + $scope.cartgetparams()
+		console.log("Checkout Paydollar : " + url)
+		$http.get(url).
+		success(function(data) {
+			$scope.pdform = data
+			console.log(data)
+		})
+	}
+
+	
 	//
 	//	If logged in, get cart from member id
 	//	If not logged in, get cartid, generate one and store in cookie if not exists.  Then get cart from cartid
 	//
-	if ($scope.isLoggedIn) {
-		//
-		//	TODO : get shopping cart from member id
-		//
-	} else {
+	$scope.getCart = function() {
+		if ($rootScope.loggingin) {
+			setTimeout($scope.getCart,100)
+			return
+		}
 		var cartid = $cookies['cartid']
 		if (cartid) {
-			console.log("got cartid " + cartid)
+			console.log("Got cartid " + cartid)
 			$scope.cartid = cartid
 		} else {
 			$cookies['cartid'] = $scope.createCartID()
-			console.log("new cartid " + $cookies['cartid'])
+			console.log("New cartid " + $cookies['cartid'])
 		}
+		if ($rootScope.isAuthorized) {
+			console.log("Member ID " + $rootScope.loggedUser.id)
+		}
+		$scope.refreshCart()
+		$scope.getPayDollarFormInfo()
 	}
-
-
-	$http.get('/api/v1/products/all').
-	success(function(data, status, headers, config) {
-		$scope.products = data
-		$scope.tags = data.tags
-		console.log(data)
-	})
+	$scope.getCart()
 
 	//
 	//	Ageselect Tags
@@ -132,6 +194,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	}
 
 	$scope.setTag = function(d, t) {
+		$scope.detailmode=false
 		$scope.tag = t.tag
 		if (d == 1) {
 			$scope.crumbs = ['Age', t.desc]
@@ -156,64 +219,80 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	});
 	$scope.showAll = function() {
 		$scope.filter = ""
+		$scope.filtertext = ""
 	}
 
 	$scope.showAll()
 
-	//
-	//	Shopping Cart
-	//
-	$scope.cart = []
-
-	$scope.Recalc = function() {
-		$scope.total = 0
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			$scope.total += item.price * item.qty
-		}
-	}
 	$scope.AddToCart = function(p) {
+		$scope.detailmode=false
 		var found = false
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			if (item.sku == p.sku) {
+		for (var i in $scope.cart.shopping_cart_items) {
+			var item = $scope.cart.shopping_cart_items[i]
+			if (item.product_id == p.id) {
 				item.qty += 1
 				found = true;
 			}
 		}
 		if (!found) {
-			$scope.cart.push({
-				sku: p.sku,
-				desc: p.short_description_en_US,
-				qty: 1,
-				price: p.unit_price
+			$http.get('/api/v1/carts/additemtocart?cartid='+$scope.cart.id+"&productid="+p.id).
+			success(function(data) {
+				$scope.refreshCart()
 			})
 		}
-		$scope.Recalc()
 	}
 	$scope.MinusOneFromCart = function(p) {
 		if (!p.qty) {
-			p.qty = 1
+			newqty = 1
 		} else if (p.qty > 1) {
-			p.qty--;
+			newqty = p.qty - 1
 		}
-		$scope.Recalc()
+		$http.get('/api/v1/carts/changecartitemqty/'+p.id+"/"+newqty).
+		success(function(data) {
+			console.log(data)
+			$scope.refreshCart()
+		})
 	}
 	$scope.PlusOneFromCart = function(p) {
 		if (!p.qty) {
-			p.qty = 1
+			newqty = 1
 		} else {
-			p.qty++
+			newqty = p.qty + 1
 		}
-		$scope.Recalc()
+		$http.get('/api/v1/carts/changecartitemqty/'+p.id+"/"+newqty).
+		success(function(data) {
+			console.log(data)
+			$scope.refreshCart()
+		})
 	}
 	$scope.RemoveFromCart = function(p) {
-		for (var i in $scope.cart) {
-			var item = $scope.cart[i]
-			if (item.sku == p.sku) {
-				$scope.cart.splice(i, 1)
-			}
+		$http.get('/api/v1/carts/removecartitem?cartitemid='+p.id).
+		success(function(data) {
+			$scope.refreshCart()
+		})
+	}
+	$scope.detailmode = false
+	$scope.showProductDetail = function(p) {
+		$scope.selectedproduct=p
+		$scope.detailmode=true
+	}
+	$scope.hideProductDetail = function() {
+		$scope.detailmode=false
+	}
+	$scope.creatingpayment = false
+	$scope.doPayPal = function() {
+		if (!$rootScope.isAuthorized) {
+			$state.go('membership')
+		} else {
+			console.log("Doing Paypal")
+			$scope.creatingpayment = true;
+			$http.get('/api/v1/carts/checkout').
+			success(function(data) {
+				$scope.creatingpayment = false
+				$scope.paymentid = data.paymentid
+				$scope.redirect = data.link
+				$window.location.href = $scope.redirect
+			})
 		}
-		$scope.Recalc()
 	}
 });

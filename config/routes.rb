@@ -65,6 +65,18 @@ Rails.application.routes.draw do
         get ':id/medium-images', to: 'products#get_medium_images'
       end
 
+      resource :carts do
+        member do
+          get 'mycart', :to => 'carts#mycart', :as => :mycart
+          get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
+          get 'changecartitemqty/:cartitemid/:qty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
+          get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
+          get 'checkoutpaypal', :to => 'carts#checkoutpaypal', :as => :checkoutpaypal
+          get 'executepaypal', :to => 'carts#executepaypal', :as => :executepaypal
+          get 'checkoutpaydollar', :to => 'carts#checkoutpaydollar', :as => :checkoutpaydollar
+        end
+      end
+
       resources :product_images
       resources :article_images
       resources :pages do
@@ -79,6 +91,7 @@ Rails.application.routes.draw do
       resources :brands do
         put 'updateImage', to: 'brands#updateImage'
       end
+
     end
   end
 
