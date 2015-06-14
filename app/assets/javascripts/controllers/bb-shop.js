@@ -1,16 +1,22 @@
 app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location) {
 
+	//
+	//	Check callback parameters to check if it is paypal or paydollar callback
+	//
 	var paymentid = $location.search()['paymentId']
 	var paymenttoken = $location.search()['token']
 	var payerid = $location.search()['PayerID']
 
-
+	//
+	//	Execute paypal and return if paymentid in callback
+	//
 	if (typeof(paymentid) != 'undefined') {
 		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
 		success(function(data) {
 			$scope.paymentinfo = data.payment
 			console.log(data)
 		})
+		return
 	}
 
 	$scope.viewItem = function() {
@@ -47,11 +53,15 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		$scope.total = $scope.total.toFixed(2)
 	}
 	$scope.cart = []
-	$scope.refreshCart = function() {
-		var url = '/api/v1/carts/mycart?cookie=' + $scope.cartid
+	$scope.cartgetparams = function() {
+		var params = '?cookie=' + $scope.cartid
 		if ($rootScope.isAuthorized) {
-			url += "&memberid=" + $rootScope.loggedUser.id
+			params += "&memberid=" + $rootScope.loggedUser.id
 		}
+		return params
+	}
+	$scope.refreshCart = function() {
+		var url = '/api/v1/carts/mycart' + $scope.cartgetparams()
 		console.log("Refresh Cart : " + url)
 		$http.get(url).
 		success(function(data) {
@@ -59,6 +69,20 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 			$scope.Recalc()
 		})
 	}
+
+	//
+	//	Paydollar - generate payment form and hash in advance
+	//
+	$scope.getPayDollarFormInfo = function() {
+		var url = '/api/v1/carts/checkoutpaydollar' + $scope.cartgetparams()
+		console.log("Checkout Paydollar : " + url)
+		$http.get(url).
+		success(function(data) {
+			$scope.pdform = data
+			console.log(data)
+		})
+	}
+
 	
 	//
 	//	If logged in, get cart from member id
@@ -81,6 +105,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 			console.log("Member ID " + $rootScope.loggedUser.id)
 		}
 		$scope.refreshCart()
+		$scope.getPayDollarFormInfo()
 	}
 	$scope.getCart()
 
