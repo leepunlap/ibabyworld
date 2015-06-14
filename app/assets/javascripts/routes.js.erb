@@ -3,7 +3,8 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         	.state('home', {
             	url: '/',
             	title: 'Home',
-				templateUrl: '<%= asset_path("home.html") %>'
+				templateUrl: '<%= asset_path("home.html") %>',
+				controller: 'HomeController'
 	        })
 
 	        .state('ibaby', {
@@ -75,7 +76,18 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         		templateUrl: '<%= asset_path("bb-shop-checkout.html") %>',
         		controller: 'BBShopController'
         	})
-
+        	.state('bb_shop_payment_ok', {
+        		url: '/bb-shop/thankyou',
+        		title: 'Thank You',
+        		templateUrl: '<%= asset_path("payment-ok.html") %>',
+        		controller: 'BBShopController'
+        	})
+        	.state('bb_shop_payment_cancel', {
+        		url: '/bb-shop/cancel',
+        		title: 'Checkout',
+        		templateUrl: '<%= asset_path("payment-cancel.html") %>',
+        		controller: 'BBShopController'
+        	})
 	        .state('member', {
 	        	abstract: true,
             	url: '/member',

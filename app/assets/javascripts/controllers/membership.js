@@ -1,23 +1,37 @@
-app.controller('MembershipController', function ($scope, $rootScope, $state, $http, AuthService, Session) {
-    // we will store all of our form data in this object
-    $scope.formData = {};
+app.controller('MembershipController', function ($scope, $rootScope, $state, $cookies, AuthService) {
+
+    if ($cookies['staysignedin'] === 'true') {
+        $rootScope.member = {
+            staysignedin : true,
+        }
+    }
+
+    $scope.test = function() {
+        console.log($rootScope.member)
+    }
 
     $scope.doLogin = function (login) {
-        $scope.submitted = true;
-        $scope.success = true;
-
         AuthService.login(login).then(function (member) {
             if (member == null) {
-                $scope.member.password = '';
-                $scope.success = false;
-
+                $rootScope.member.password = '';
             } else {
+                if ($rootScope.member.staysignedin) {
+                    $cookies['staysignedin'] = 'true'
+                    $cookies['email'] = $rootScope.member.email
+                    $cookies['password'] = $rootScope.member.password
+                } else {
+                    $cookies['staysignedin'] = 'false'
+                }
                 $rootScope.isAuthorized = AuthService.isAuthorized();
                 $rootScope.loggedUser = member;
-                $state.go('member.edit_profile');
+                
+                if ($rootScope.$lastState.name) {
+                    $state.go($rootScope.$lastState.name);
+                } else {
+                    $state.go('home');
+                }
             }
-
-            console.log('Check Authorization: '+ $rootScope.isAuthorized);
+            console.log('Check isAuthorized : '+ $rootScope.isAuthorized);
         });
     };
 });

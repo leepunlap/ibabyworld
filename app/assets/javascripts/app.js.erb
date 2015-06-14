@@ -34,7 +34,12 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
     	$facebookProvider.setAppId('613007765509884').setPermissions(['email', 'public_profile', 'user_friends', 'publish_actions']);
 	}])
 
+
+
 	.run(function ($window, $rootScope, $location, $cookies, $translate, matchmedia, Data, AuthService, Session) {
+
+		$rootScope.loggingin = true
+
 		$rootScope.locale = $cookies['locale'];
 		$rootScope.locales = {
         	en_US: 'English',
@@ -54,10 +59,10 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 		}
 
 		// Switch to reloaded page
-		if (goToPage != null) {
-			$location.path(goToPage);
-			$location.search('');
-		}
+		// if (goToPage != null) {
+		// 	$location.path(goToPage);
+		// 	$location.search('');
+		// }
 
 		// // If the current selected locale doesn't exist
 		if (!$rootScope.locales.hasOwnProperty($rootScope.locale)) {
@@ -67,18 +72,42 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 		// Set translation
 		$translate.use($rootScope.locale);
 
-		$rootScope.$on('$stateChangeStart', function (event, next) {
-    		$rootScope.$state = next;
+		if ($cookies['staysignedin'] === 'true') {
+			var login = {
+				email : $cookies['email'],
+				password : $cookies['password']
+			}
+			setTimeout(function() {
+		        AuthService.login(login).then(function (member) {
+		            if (member != null) {
+		                $rootScope.isAuthorized = AuthService.isAuthorized();
+		                $rootScope.loggedUser = member;
+		            }
+		            console.log('Check isAuthorized : '+ $rootScope.isAuthorized);
+		            console.log($rootScope.loggedUser)
+		            $rootScope.loggingin = false
+		        });
+			},100)
+
+		} else {
+			$rootScope.loggingin = false
+		}
+
+		$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+			$rootScope.$lastState = fromState;
+    		$rootScope.$state = toState;
     		$rootScope.pageTitle = $rootScope.$state.title;
     		
-    		console.log('State changed to: '+ $rootScope.$state.name);
+    		console.log('State changed from '+ $rootScope.$lastState.name +' to: '+ $rootScope.$state.name);
   		});
 
   		$rootScope.doLogout = function() {
         	AuthService.destroy().then(function (results) {
 				$rootScope.isAuthorized = AuthService.isAuthorized();
 				$rootScope.loggedUser == null;
-
+				$cookies['staysignedin'] === 'false'
+				delete ($cookies['email'])
+				delete ($cookies['password'])
             	$location.path('membership');
         	});
     	};
@@ -95,4 +124,17 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 			$rootScope.$on('fb.load', function() {
 			$window.dispatchEvent(new Event('fb.load'));
 		});
-    });
+    })
+
+app.controller('HomeController', function($rootScope, $scope, $http, $state, $cookies, $location) {
+	console.log(location.search)
+	if (location.search === '?finish') {
+		console.log("FINISH")
+		$location.path('#/bb-shop/thankyou')
+	}
+	if (location.search === '?cancel') {
+		console.log("CANCEL")
+		$location.path('#/bb-shop/cancel')
+	}
+	
+})

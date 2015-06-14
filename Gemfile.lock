@@ -109,6 +109,10 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    paypal-sdk-rest (1.2.1)
+      multi_json (~> 1.0)
+      uuidtools (~> 2.1)
+      xml-simple
     rack (1.6.1)
     rack-oauth2 (1.1.1)
       activesupport (>= 2.3)
@@ -177,11 +181,13 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uuidtools (2.1.5)
     web-console (2.1.2)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
@@ -198,6 +204,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 4.2)
+  paypal-sdk-rest
   rails (= 4.2.1)
   roo (~> 2.0.0)
   sass-rails (~> 5.0)

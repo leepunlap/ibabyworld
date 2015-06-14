@@ -1,4 +1,18 @@
-app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location) {
+
+	var paymentid = $location.search()['paymentId']
+	var paymenttoken = $location.search()['token']
+	var payerid = $location.search()['PayerID']
+
+
+	if (typeof(paymentid) != 'undefined') {
+		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
+		success(function(data) {
+			$scope.paymentinfo = data.payment
+			console.log(data)
+		})
+	}
+
 	$scope.viewItem = function() {
 		$state.go('product-details');
 	}
@@ -15,38 +29,11 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		return passwordArray.join("");
 	};
 
-	//
-	//	TODO : Hard coded, need to change
-	//
-	$scope.isLoggedIn = false
-
-	//
-	//	If logged in, get cart from member id
-	//	If not logged in, get cartid, generate one and store in cookie if not exists.  Then get cart from cartid
-	//
-	if ($scope.isLoggedIn) {
-		//
-		//	TODO : get shopping cart from member id
-		//
-	} else {
-		var cartid = $cookies['cartid']
-		if (cartid) {
-			console.log("got cartid " + cartid)
-			$scope.cartid = cartid
-		} else {
-			$cookies['cartid'] = $scope.createCartID()
-			console.log("new cartid " + $cookies['cartid'])
-		}
-	}
-
-
 	$http.get('/api/v1/products').
 	success(function(data, status, headers, config) {
 		$scope.products = data
 		$scope.tags = data.tags
 	})
-
-
 
 	//
 	//	Shopping Cart
@@ -57,17 +44,45 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 			var item = $scope.cart.shopping_cart_items[i]
 			$scope.total += item.unit_price * item.qty
 		}
+		$scope.total = $scope.total.toFixed(2)
 	}
 	$scope.cart = []
 	$scope.refreshCart = function() {
-		$http.get('/api/v1/carts/mycart').
+		var url = '/api/v1/carts/mycart?cookie=' + $scope.cartid
+		if ($rootScope.isAuthorized) {
+			url += "&memberid=" + $rootScope.loggedUser.id
+		}
+		console.log("Refresh Cart : " + url)
+		$http.get(url).
 		success(function(data) {
 			$scope.cart = data
 			$scope.Recalc()
 		})
 	}
-	$scope.refreshCart()
-
+	
+	//
+	//	If logged in, get cart from member id
+	//	If not logged in, get cartid, generate one and store in cookie if not exists.  Then get cart from cartid
+	//
+	$scope.getCart = function() {
+		if ($rootScope.loggingin) {
+			setTimeout($scope.getCart,100)
+			return
+		}
+		var cartid = $cookies['cartid']
+		if (cartid) {
+			console.log("Got cartid " + cartid)
+			$scope.cartid = cartid
+		} else {
+			$cookies['cartid'] = $scope.createCartID()
+			console.log("New cartid " + $cookies['cartid'])
+		}
+		if ($rootScope.isAuthorized) {
+			console.log("Member ID " + $rootScope.loggedUser.id)
+		}
+		$scope.refreshCart()
+	}
+	$scope.getCart()
 
 	//
 	//	Ageselect Tags
@@ -238,5 +253,21 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	}
 	$scope.hideProductDetail = function() {
 		$scope.detailmode=false
+	}
+	$scope.creatingpayment = false
+	$scope.doPayPal = function() {
+		if (!$rootScope.isAuthorized) {
+			$state.go('membership')
+		} else {
+			console.log("Doing Paypal")
+			$scope.creatingpayment = true;
+			$http.get('/api/v1/carts/checkout').
+			success(function(data) {
+				$scope.creatingpayment = false
+				$scope.paymentid = data.paymentid
+				$scope.redirect = data.link
+				$window.location.href = $scope.redirect
+			})
+		}
 	}
 });

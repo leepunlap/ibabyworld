@@ -71,6 +71,8 @@ Rails.application.routes.draw do
           get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
           get 'changecartitemqty/:cartitemid/:qty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
           get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
+          get 'checkout', :to => 'carts#checkout', :as => :checkout
+          get 'executepaypal', :to => 'carts#executepaypal', :as => :executepaypal
         end
       end
 

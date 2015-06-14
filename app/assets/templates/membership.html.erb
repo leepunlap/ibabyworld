@@ -13,7 +13,6 @@
 <div id="membership">
 	<div class="login">
 		<h2 class="header"></h2>
-
 		<form name="loginForm" class="form-horizontal rounded-20">
 			<div class="form-group ">
 				<input type="email" class="form-control" ng-model="member.email" name="email" placeholder="Email address">
@@ -28,7 +27,7 @@
 
 			<div class="checkbox">
 				<label>
-					<input type="checkbox"> <span translate="stay_signin">Stay signed in</span>
+					<input type="checkbox" ng-model="member.staysignedin"> <span translate="stay_signin">Stay signed in</span>
 				</label>
 				<a ui-sref="password_recovery" translate="forgot_password">Forget password?</a>
 			</div>

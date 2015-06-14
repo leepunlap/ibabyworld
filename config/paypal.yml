@@ -1,0 +1,31 @@
+test: &default
+
+  # Credentials for REST APIs
+  client_id: AdKJeRUx21Ix0iniGMsbZzMuwzO62s5A8yo3O3u5a4DN0BqcORUMy3-jsgkE19fVWWPTLzLFHtgu1m9m
+  client_secret: EEobYKciFNe6P7gq0_WGnbzVXk6W2J9glal2C_fNNu4w78_FwvceRkYx2Q1-Ri7kCad9NsjyGzZqr_Lg
+
+  # Mode can be 'live' or 'sandbox'
+  mode: sandbox
+
+  # Credentials for Classic APIs
+  #app_id: APP-80W284485P519543T
+  # username: bernard.p.lee_api1.gmail.com
+  # password: U8QJKS7AQSLMRAZ7
+  # signature: An5ns1Kso7MWUdW4ErQKJJJ4qi4-AjvJ.5DQb5ZDekLFwlKrRk5CkYYj
+  # # With Certificate
+  # cert_path: "config/cert_key.pem"
+  #sandbox_email_address: bernard.p.lee@gmail.com
+
+  # # IP Address
+  # ip_address: 127.0.0.1
+  # # HTTP Proxy
+  # http_proxy: http://proxy-ipaddress:3129/
+
+  # verbose_logging: true
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+  mode: live
