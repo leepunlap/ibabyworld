@@ -2,12 +2,12 @@ app.controller('MembershipController', function ($scope, $rootScope, $state, $co
 
     if ($cookies['staysignedin'] === 'true') {
         $rootScope.member = {
-            staysignedin : true,
+            staysignedin : true
         }
-    }
-
-    $scope.test = function() {
-        console.log($rootScope.member)
+    } else {
+        $rootScope.member = {
+            staysignedin : false
+        }
     }
 
     $scope.doLogin = function (login) {

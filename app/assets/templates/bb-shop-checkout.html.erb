@@ -64,6 +64,24 @@
 							<a ng-click="doPayPal()">
 							<img src="<%= asset_path("EC-button.gif") %>">
 							</a>
+
+							<form name="payFormCcard" class="text-center" method="post" action="https://test.paydollar.com/b2cDemo/eng/payment/payForm.jsp">
+							<input type="hidden" name="merchantId" value="{{pdform.merchantId}}">
+							<input type="hidden" name="amount" value="{{pdform.amount}}" >
+							<input type="hidden" name="orderRef" value="{{pdform.orderRef}}">
+							<input type="hidden" name="currCode" value="344" >
+							<input type="hidden" name="mpsMode" value="NIL" >
+							<input type="hidden" name="successUrl" value="{{pdform.successUrl}}">
+							<input type="hidden" name="failUrl" value="{{pdform.failUrl}}">
+							<input type="hidden" name="cancelUrl" value="{{pdform.cancelUrl}}">
+							<input type="hidden" name="payType" value="{{pdform.payType}}">
+							<input type="hidden" name="lang" value="{{pdform.lang}}">
+							<input type="hidden" name="payMethod" value="{{pdform.payMethod}}">
+							<input type="hidden" name="secureHash" value="{{pdform.secureHash}}">
+							<input type="submit" class="paydollarsubmit" name="submit" value="">
+							</form>
+
+
 						</p>
 					</div>
 				</div>

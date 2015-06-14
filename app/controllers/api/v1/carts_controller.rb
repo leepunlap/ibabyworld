@@ -1,17 +1,45 @@
 class Api::V1::CartsController < ApplicationController
 
+	PAYDOLLAR_URL = "https://test.paydollar.com/b2cDemo/eng/payment/payForm.jsp"
+	PAYDOLLAR_MERCHANTID = "1"
+	PAYDOLLAR_CURRENCY_CODE_HKD = "344"
+	PAYDOLLAR_PAYMENT_TYPE = "CC"
+	PAYDOLLAR_SECRET = "gMAVIEGVpqHvxoNEqbrZRuBDFT1B0icW"
+	PD_SEP = "|"
+
+	# PAYDOLLAR_MERCHANTID = "88588405"
+
+	RETURNURL = "http://localhost:3000/#/bb-shop/thankyou"
+	CANCELURL = "http://localhost:3000/#/bb-shop/cancel"
+
+	STATUS_NEW = 1
+	STATUS_SIGNED_IN = 2
+	STATUS_PAYPAL_ISSUED = 3
+	STATUS_PAYPAL_EXECUTED = 4
+	STATUS_PAYDOLLAR_ISSUED = 5
+	STATUS_PAYDOLLAR_EXECUTED = 6
+
 	require 'paypal-sdk-rest'
 	include PayPal::SDK::OpenIDConnect
 
-	def mycart
+	def getcart(params)
 		if (params.has_key?(:memberid))
-			cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
+			@cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
 		elsif (params.has_key?(:cookie))
-			cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+			@cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
 		else 
-			cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld')
+			@cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld')
 		end
-		render json: cart.to_json(include: [:shopping_cart_items])	
+		return @cart
+	end
+
+	def getinvoiceno(cart)
+		return 'I' << Time.now.strftime("%Y%m%d") << cart.id.to_s.rjust(8, '0')
+	end
+
+	def mycart
+		@cart = getcart(params)
+		render json: @cart.to_json(include: [:shopping_cart_items])	
 	end
 
 	def additemtocart
@@ -51,14 +79,13 @@ class Api::V1::CartsController < ApplicationController
 		end
 	end
 
-	def checkout
+	def checkoutpaypal
 
 		conf = PayPal::SDK.configure({
 		  :mode => "sandbox",
 		})
 
-		@cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld') 
-
+		@cart = getcart(params)
 		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id )
 
 		@payment = PayPal::SDK::REST::Payment.new({
@@ -66,8 +93,8 @@ class Api::V1::CartsController < ApplicationController
 		  :payer => {
 		    :payment_method => "paypal" },
 		  :redirect_urls => {
-		    :return_url => "http://localhost:3000/#/bb-shop/thankyou",
-		    :cancel_url => "http://localhost:3000/#/bb-shop/cancel" },
+		    :return_url => RETURNURL,
+		    :cancel_url => CANCELURL },
 		  :transactions => [ {
 		    :amount => {
 		      :currency => "HKD" },
@@ -91,9 +118,8 @@ class Api::V1::CartsController < ApplicationController
 		@payment.transactions[0].amount.total = '%.2f' % total
 
 		paymentresult = @payment.create
-		@cart.update_attributes!({:paymentid => @payment.id, :paymenturl => @payment.links[1].href, :status => 1})
+		@cart.update_attributes!({:paymentid => @payment.id, :paymenturl => @payment.links[1].href, :status => STATUS_PAYPAL_ISSUED})
 		@cart.save
-  	
 
 		render :json => { 
 				:paymentid => @payment.id,
@@ -118,6 +144,41 @@ class Api::V1::CartsController < ApplicationController
 			    	:status => 'ok'
 			    }.to_json
 		end
+	end
+
+	def checkoutpaydollar
+		@cart = getcart(params)
+		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id)
+		total=0
+		itemno=0
+		@cartitems.each do |i|
+			total += i.unit_price.to_f * i.qty
+			itemno += 1
+		end
+		amount = '%.2f' % total
+		hashstring = PAYDOLLAR_MERCHANTID + PD_SEP + getinvoiceno(@cart) + PD_SEP + PAYDOLLAR_CURRENCY_CODE_HKD
+		hashstring << PD_SEP + amount + PD_SEP + PAYDOLLAR_PAYMENT_TYPE + PD_SEP + PAYDOLLAR_SECRET
+
+		@w = Digest::SHA1.hexdigest("#{hashstring}")
+
+		render :json => { 
+				:postUrl => PAYDOLLAR_URL,
+				:orderRef => getinvoiceno(@cart),
+				:payMethod => "CC",
+				:merchantId => PAYDOLLAR_MERCHANTID, #88588405
+				:amount => amount,
+				:items => itemno,
+				:payType => "N",
+				:lang => "E",
+				:currCode => PAYDOLLAR_CURRENCY_CODE_HKD,
+				:mpsMode => "NIL",
+				:successUrl => RETURNURL,
+				:failUrl => CANCELURL,
+				:cancelUrl => CANCELURL,
+				:secureHash => @w,
+		    	:status => 'ok'
+		    }.to_json
+
 	end
 
 end
