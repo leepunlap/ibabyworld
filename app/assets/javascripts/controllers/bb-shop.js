@@ -1,4 +1,4 @@
-app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location, $routeParams) {
 
 	//
 	//	Check callback parameters to check if it is paypal or paydollar callback
@@ -293,6 +293,14 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 				$scope.redirect = data.link
 				$window.location.href = $scope.redirect
 			})
+		}
+	}
+	if ($routeParams.productID != null) {
+		for (var p in $scope.products) {
+			if ($routeParams.productID == p.id) {
+				$scope.showProductDetail(p);
+				break;
+			}
 		}
 	}
 });

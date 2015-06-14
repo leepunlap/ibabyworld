@@ -1,0 +1,13 @@
+<div class="product">
+  <div class="banner">
+	  <a href="#/bb-shop/{{bbProduct.id}}">
+		  <img ng-src="uploads/products/{{bbProduct.sku}}.png">
+		</a>
+	</div>
+	<div class="caption">
+	  <h3><a href="#/bb-shop/{{bbProduct.id}}">{{bbProduct.short_description_en_US}}</a></h3>
+		<p>{{bbProduct.description_en_US}}</p>
+		<span class="amount">{{bbProduct.unit_price | currency:"$":2}}</span>
+		<a class="cmd add" ng-click="AddToCart(bbProduct)" ng-show="{$route.current.scope.name == 'BBShopController'}"></a>
+	</div>
+</div>
