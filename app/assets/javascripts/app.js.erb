@@ -136,5 +136,10 @@ app.controller('HomeController', function($rootScope, $scope, $http, $state, $co
 		console.log("CANCEL")
 		$location.path('#/bb-shop/cancel')
 	}
+	$http.get('/api/v1/products').
+  	success(function(data, status, headers, config) {
+  		$scope.products = data
+  		$scope.tags = data.tags
+  	})
 	
 })
