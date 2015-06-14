@@ -14,6 +14,13 @@ class Api::V1::ArticleImagesController < ApplicationController
     response_success({ :article_image => @articleImage })
   end
 
+  def update
+    @articleImage = ArticleImage.find(params[:id])
+
+    @articleImage.update_attributes!(post_params)
+
+    render json: @articleImage
+  end
 
   def show
     @articleImage = ArticleImage.find(params[:id])
@@ -26,5 +33,10 @@ class Api::V1::ArticleImagesController < ApplicationController
     @articleImage.destroy
 
     response_success()
+  end
+
+  private
+  def post_params
+    params.require(:article_image).permit(:article_id, :image, :isCover)
   end
 end

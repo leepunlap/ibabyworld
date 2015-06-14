@@ -107,4 +107,11 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $state
         });
       });
     }
+
+    $scope.updateCover = function (ai) {
+      $http.put(urlService + requestPath.articleImages + '/' + ai.id, ai).success(function(data){
+        $state.go('admin.articles-edit', {id: data.article_id});
+        //console.log(data);
+      });
+    }
 });
