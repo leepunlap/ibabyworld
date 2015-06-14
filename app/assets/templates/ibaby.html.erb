@@ -100,41 +100,51 @@
 	font-size: 1.6em;
 	font-weight: normal;
 }
+
+.trending-title{
+	font-size: 16px;
+	color:rgb(234,32,76);
+}
+
+.trending-tag{
+	margin:0 20px
+}
+
 </style>
 
 <div id="ibaby">
+	<div class="header">
+		<span class="trending-title">Trending / </span>
+		<a href=""><span class="trending-tag">兒童營養</span></a>
+		<a href=""><span class="trending-tag">動物趣聞</span></a>
+		<a href=""><span class="trending-tag">增廣見聞</span></a>
+		<a href=""><span class="trending-tag">學習教育</span></a>
+		<a href=""><span class="trending-tag">夫妻關係</span></a>
+	</div>
 	<div class="row" ng-show="article == null">
 		<div id="featured-post" class="col-md-10">
-			<img src="{{articles[0].poster}}" alt="{{articles[0].title}}" class="left poster"/>
+			<img ng-src="{{articles[0].image[0].image_url_medium}}" alt="{{articles[0].title}}" class="left poster"/>
 			<div class="content left">
 				<h3><a ui-sref="ibaby({ article: articles[0].id })">{{articles[0].title}}</a></h3>
 				<div>{{articles[0].description}}</div>
 			</div>
 			<div class="clear"></div>
+			<div class="content right">
+				<div class="fb-like" data-href="http://www.ibabyworld.com/#/ibaby?articles={{articles[0].id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+			</div>
+			<div class="clear"></div>
 		</div>
 
-		<div class="col-md-2">
-			<h4 style="margin-bottom: 0px;">&#20998;&#39006;&#27161;&#31844;</h4>
 
-			<ul class="category">
-				<li><a href="">&#20818;&#31461;&#29151;&#39178;</a> (52)</li>
-				<li><a href="">&#21205;&#29289;&#36259;&#32862;</a> (15)</li>
-				<li><a href="">&#22686;&#24291;&#35211;&#32862;</a> (529)</li>
-				<li><a href="">&#22827;&#22971;&#38364;&#20418;</a> (94)</li>
-				<li><a href="">&#23416;&#32722;&#25945;&#32946;</a> (264)</li>
-				<li><a href="">&#25079;&#23381;&#20998;&#23081;</a> (241)</li>
-				<li><a href="">&#25104;&#38263;&#20581;&#24247;</a> (324)</li>
-			</ul>
-		</div>
 	</div>
-		
+
 	<div class="row" ng-show="article == null">
 		<div class="col-md-9">
 			<h4>Featured</h4>
 
 			<div class="post" ng-repeat="article in articles" ng-show="!$first">
 				<div class="poster left">
-					<img src="{{article.poster}}" alt="{{article.title}}" class="left poster"/>
+					<img ng-src="{{article.image[0].image_url_medium}}" alt="{{article.title}}" class="left poster"/>
 				</div>
 				<div class="content right">
 					<h3><a ui-sref="ibaby({ article: {{article.id}} })">{{article.title}}</a></h3>
@@ -142,15 +152,22 @@
 				</div>
 
 				<div class="clear"></div>
-			</div>	
+				<div class="content right">
+					<div class="fb-like" data-href="http://www.ibabyworld.com/#/ibaby?articles={{article.id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
 		</div>
 	</div>
 
 	<div class="row" ng-show="article != null">
 		<div class="col-md-9">
 			<div class="article-detail">
-				<img src="{{article.poster}}" alt="{{article.title}}" class="poster"/>
-				<h3>{{article.title}}</h3>	
+				<img ng-src="{{article.image[0].image_url_medium}}" alt="{{article.title}}" class="poster"/>
+				<br/>
+				<div class="fb-like" data-href="http://www.ibabyworld.com/#/ibaby?articles={{article.id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+
+				<h3>{{article.title}}</h3>
 				<div ng-bind-html="article.content"></div>
 			</div>
 		</div>
@@ -165,7 +182,7 @@
 			<div class="poster"></div>
 
 			<div class="poster"></div> -->
-			<h4 style="margin-bottom: 0px;">&#20998;&#39006;&#27161;&#31844;</h4>
+			<!-- <h4 style="margin-bottom: 0px;">&#20998;&#39006;&#27161;&#31844;</h4>
 
 			<ul class="category">
 				<li><a href="">&#20818;&#31461;&#29151;&#39178;</a> (52)</li>
@@ -175,7 +192,7 @@
 				<li><a href="">&#23416;&#32722;&#25945;&#32946;</a> (264)</li>
 				<li><a href="">&#25079;&#23381;&#20998;&#23081;</a> (241)</li>
 				<li><a href="">&#25104;&#38263;&#20581;&#24247;</a> (324)</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 </div>

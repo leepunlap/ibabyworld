@@ -100,11 +100,13 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="form-group">
-								<a href="" ng-click="deleteArticleImage(ai.id)" class="btn btn-danger">Delete</a>
-							</div>
-
-							<div class="form-group">
 								<img ng-src="{{ai.image_url_medium}}" class="img-responsive" />
+							</div>
+							<div class="form-group">
+								<a href="" ng-click="deleteArticleImage(ai.id)" class="btn btn-danger btn-xs">Delete</a>
+									<label>Is Cover?</label>
+									<input type="checkbox" aria-label="Is Cover?" ng-model="ai.isCover" ng-change="updateCover(ai)" />
+
 							</div>
 						</div>
 					</div>
