@@ -97,7 +97,7 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 			$rootScope.$lastState = fromState;
     		$rootScope.$state = toState;
     		$rootScope.pageTitle = $rootScope.$state.title;
-    		
+
     		console.log('State changed from '+ $rootScope.$lastState.name +' to: '+ $rootScope.$state.name);
   		});
 
@@ -114,13 +114,13 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 
         (function(d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0];
-			
+
 			if (d.getElementById(id)) return;
 				js = d.createElement(s); js.id = id;
 				js.src = "//connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			} (document, 'script', 'facebook-jssdk'));
-				
+
 			$rootScope.$on('fb.load', function() {
 			$window.dispatchEvent(new Event('fb.load'));
 		});
@@ -136,5 +136,68 @@ app.controller('HomeController', function($rootScope, $scope, $http, $state, $co
 		console.log("CANCEL")
 		$location.path('#/bb-shop/cancel')
 	}
-	
+
+	$http.get('/api/v1/get_article_by_tags/news').success(function(data){
+		$scope.news_article = data;
+		$http.get('/api/v1/' + requestPath.articles + '/' + $scope.news_article[0].id + '/medium-images').success(function(data){
+			$scope.news_article[0].image = data;
+			if (data.length <= 0){
+				$scope.news_article[0].image = [{image_url_medium: '/default.png'}];
+			}
+		});
+	});
+
+	$http.get('/api/v1/get_article_by_tags/promotion').success(function(data){
+		$scope.promotion_article = data;
+		$http.get('/api/v1/' + requestPath.articles + '/' + $scope.promotion_article[0].id + '/medium-images').success(function(data){
+			$scope.promotion_article[0].image = data;
+			if (data.length <= 0){
+				$scope.promotion_article[0].image = [{image_url_medium: '/default.png'}];
+			}
+		});
+	});
+
+	$http.get('/api/v1/get_article_by_tags/hot-pick').success(function(data){
+		$scope.hot_article = data;
+		$http.get('/api/v1/' + requestPath.articles + '/' + $scope.hot_article[0].id + '/medium-images').success(function(data){
+			$scope.hot_article[0].image = data;
+			if (data.length <= 0){
+				$scope.hot_article[0].image = [{image_url_medium: '/default.png'}];
+			}
+		});
+	});
+
+	var i = 0;
+	$http.get('/api/v1/get_article_by_tags/mum-talks').success(function(data){
+		$scope.mum_talks_article = data;
+
+		$scope.mum_talks_article.forEach(function(m){
+			i++;
+
+			$http.get('/api/v1/' + requestPath.articles + '/' + m.id + '/medium-images').success(function(data){
+				m.image = data;
+				// console.log(m);
+				if (data.length <= 0){
+					m.image = [{image_url_medium: '/default.png'}];
+				}
+			});
+			if (i >= 3){
+				return;
+			}
+		});
+	});
+
+	$http.get('/api/v1/get_product_by_tags/featured').success(function(data){
+		$scope.products = data;
+		console.log(data);
+		$scope.products.forEach(function(p){
+			$http.get('/api/v1/products/' + p.id + '/medium-images').success(function(data){
+				p.image = data;
+				if (data.length <= 0){
+					p.image = [{image_url_medium: '/default.png'}];
+				}
+			});
+		});
+	});
+
 })

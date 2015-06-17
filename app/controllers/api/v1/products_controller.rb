@@ -45,6 +45,11 @@ class Api::V1::ProductsController < ApplicationController
     render json: @a.product_images.to_json(methods: [:cover_url_medium])
   end
 
+  def get_product_by_tags
+    @product = Product.tagged_with(params[:tags], :any => true).order('created_at DESC')
+    render json: @product.to_json(include: [:product_images])
+  end
+
   private
   def post_params
     params.require(:product).permit(:sku, :status, :tags, :discounted_price, :discount_description_en_US, :discount_description_zh_CN, :discount_description_zh_HK, :description_en_US, :description_zh_CN, :description_zh_HK, :name_en_US, :name_zh_HK, :name_zh_CN, :brand_id, :short_description_en_US, :short_description_zh_CN, :short_description_zh_HK, :unit_price)

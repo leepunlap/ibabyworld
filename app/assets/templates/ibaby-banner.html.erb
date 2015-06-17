@@ -9,8 +9,8 @@
         <div ng-repeat="b in banners" class="item" ng-class="{active:$first}">
             <a herf="{{b.url}}">
                 <img ng-src="{{b.image}}" width="100%">
-                <div class="carousel-caption">
-                    {{b.description}}
+                <div class="carousel-caption"  ng-bind-html="b.description">
+              
                 </div>
             </a>
         </div>

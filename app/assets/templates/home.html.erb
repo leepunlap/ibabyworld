@@ -8,12 +8,12 @@
 				<h3>News & Events</h3>
 			</div>
 			<div class="banner">
-				<!-- <img src="<%= asset_path("hot-news-banner-001.jpg") %>" width="100%"> -->
+				<img src="{{news_article[0].image[0].image_url_medium}}" width="100%">
 			</div>
 			<div class="caption">
-				<h3><a href="http://www.ibabyworld.com/#/ibaby?article=4">剛出生的寶寶愛哭只因2顆誕生牙</a></h3>
-				<span>May 30, 2015 | <!-- <a href="">51 Likes</a> | --> <a href="">baby</a> | <a href="http://www.ibabyworld.com/#/ibaby?article=4">Read More ></a></span>
-				<p>新生兒就長牙？爸爸媽媽有沒有聽說過呢？寶寶在出生時就存在的牙齒稱為“誕生牙”。據專家介紹，新生兒長牙齒的現象並不多見，每1100個正常新生兒中...</p>
+				<h3><a href="#/ibaby?article={{news_article[0].id}}">{{news_article[0].title}}</a></h3>
+				<span>{{news_article[0].created_at | date: 'MMM dd, yyyy'}} | <!-- <a href="">51 Likes</a> | --> <a href="" ng-repeat="t in news_article[0].tags">{{t.name}}</a> | <a href="#/ibaby?article={{news_article[0].id}}">Read More ></a></span>
+				<p>{{news_article[0].description}}...</p>
 			</div>
 		</div>
 
@@ -22,14 +22,12 @@
 				<h3>Promotion</h3>
 			</div>
 			<div class="banner">
-				<img src="http://www.ibabyworld.com/uploads/articles/f1eba5347246d583ece4e7c0f29ef754.png" style="display: block;max-width:333px;max-height:212px;width: auto;height: auto;vertical-align: middle;">
+				<img src="{{promotion_article[0].image[0].image_url_medium}}" style="display: block;max-width:333px;max-height:212px;width: auto;height: auto;vertical-align: middle;">
 			</div>
 			<div class="caption red">
-				<h3><a href="http://www.ibabyworld.com/#/ibaby?article=5">送【百家寶BB展曁兒童全方位學習博覽】</a></h3>
-				<span>May 08, 2015 | <!-- <a href="">51 Likes</a> |  --><a href="">Promotion</a> | <a href="http://www.ibabyworld.com/#/ibaby?article=5">Read More ></a></span>
-				<p>送【百家寶BB展曁兒童全方位學習博覽】(共100份)
-第14屆百家寶BB展曁兒童全方位學習博覽又到, 今年我地有都有參展!為了答謝爸媽對我地支持, 
-只需完成以下歩驟 ...</p>
+				<h3><a href="#/ibaby?article={{promotion_article[0].id}}">{{promotion_article[0].title}}</a></h3>
+				<span>{{promotion_article[0].created_at | date: 'MMM dd, yyyy'}} | <!-- <a href="">51 Likes</a> | --> <a href="" ng-repeat="t in promotion_article[0].tags">{{t.name}}</a> | <a href="#/ibaby?article={{promotion_article[0].id}}">Read More ></a></span>
+				<p>{{promotion_article[0].description}}...</p>
 			</div>
 		</div>
 
@@ -37,12 +35,13 @@
 			<div class="header love-mom">
 				<h3>Hot Picks</h3>
 			</div>
-			<div class="banner"></div>
-			<div class="caption green">
-				<h3><a href="http://www.ibabyworld.com/#/ibaby?article=2">2歲男童偷吃花生米被卡住，家長們注意啦！</a></h3>
-				<span>May 30, 2015 | <!-- <a href="">51 Likes</a> |  --><a href="">baby</a> | <a href="http://www.ibabyworld.com/#/ibaby?article=2">Read More ></a></span>
-				<p>2歲男童偷吃花生米被卡住喉嚨，所幸位置比較淺，醫生花了10多分鐘將花生米取出來；醫生：低齡兒童遠離堅果類食物！...</p>
-				<!-- <h3>Coming Soon...</h3> -->
+			<div class="banner">
+				<img src="{{hot_article[0].image[0].image_url_medium}}" style="display: block;max-width:333px;max-height:212px;width: auto;height: auto;vertical-align: middle;">
+			</div>
+			<div class="caption red">
+				<h3><a href="#/ibaby?article={{hot_article[0].id}}">{{hot_article[0].title}}</a></h3>
+				<span>{{hot_article[0].created_at | date: 'MMM dd, yyyy'}} | <!-- <a href="">51 Likes</a> | --> <a href="" ng-repeat="t in hot_article[0].tags">{{t.name}}</a> | <a href="#/ibaby?article={{hot_article[0].id}}">Read More ></a></span>
+				<p>{{hot_article[0].description}}...</p>
 			</div>
 		</div>
 	</div>
@@ -53,122 +52,29 @@
 	<div class="bg-img-abc"></div>
 
 	<div class="header">
-		<a href="" class="more">Read More &gt;</a>
+		<a href="#/products" class="more">Read More &gt;</a>
 	</div>
 
 	<div class="posts row">
-		<div class="col-xs-3 col-md-3">
+
+		<div class="col-xs-3 col-md-3" ng-repeat="p in products">
+			<!-- <span class="sale"></span> -->
 			<div class="banner">
-				<img src="<%= asset_path("product-002.png") %>" width="100%">
+				<img ng-src="{{p.image[0].cover_url_medium}}" width="100%">
 			</div>
 			<div class="caption">
-				<h3>Thomas the Tank Engine</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Explore the fascinating world of Thomas & Friends, Through the exciting adventures of Thomas the Tank Engine and his ...</p>
-				<span class="amount">$ 336.50</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
+				<h3>{{p.name_en_US}}</h3>
+				<p>{{p.short_description_en_US}}...</p>
+				<a class="right btn btn-success" href="#/products?product_id={{p.id}}">More...</a>
+				<div ng-show="p.discounted_price > 0"><span class="discount">${{p.unit_price}}  </span><span class="amount">$ {{p.discounted_price}}</span></div>
+				<span class="amount" ng-show="p.discounted_price == null">$ {{p.unit_price}}</span>
+				<!-- <a class="cmd like"></a>
+				<a class="cmd add"></a> -->
+
 			</div>
 		</div>
 
-		<div class="col-xs-3 col-md-3">
-			<span class="sale"></span>
-			<div class="banner">
-				<img src="<%= asset_path("product-001.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Bandai Kyoryuger DX K...</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Ages: 4+; Exclusive offer - FREE Kyoryuger Watch with purchase of any Kyoryuger items over $500. Please refer to in-store poster for details, While stock lasts...</p>
-				<span class="discount">$410.00  </span><span class="amount">$ 200.00</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
 
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-002.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Thomas the Tank Engine</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Explore the fascinating world of Thomas & Friends, Through the exciting adventures of Thomas the Tank Engine and his ...</p>
-				<span class="amount">$ 336.50</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
-
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-003.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Digital learning card</h3>
-				<h4>Best Learning Kit</h4>
-				<p>The Nike Tailwind Loose Women's Running Tank Top is made with sweat-wicking fabric to help you stay dry and comfortable on your run.</p>
-				<span class="amount">$ 339.50</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
-
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-004.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Digital Learning Card</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor.</p>
-				<span class="amount">$ 36.99</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
-
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-005.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Digital Learning Card</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor.</p>
-				<span class="amount">$ 36.99</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
-
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-006.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Digital Learning Card</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor.</p>
-				<span class="amount">$ 36.99</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
-
-		<div class="col-xs-3 col-md-3">
-			<div class="banner">
-				<img src="<%= asset_path("product-007.png") %>" width="100%">
-			</div>
-			<div class="caption">
-				<h3>Digital Learning Card</h3>
-				<h4>Best Learning Kit</h4>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor.</p>
-				<span class="amount">$ 36.99</span>
-				<a class="cmd like"></a>
-				<a class="cmd add"></a>
-			</div>
-		</div>
 		<!-- Coming Soon... -->
 	</div>
 </div>
@@ -177,49 +83,36 @@
 	<div class="header"></div>
 
 	<div class="row">
-		<div class="col-md-8">
-			<div class="post">
+		<div class="col-md-12">
+			<div class="post" ng-repeat="m in mum_talks_article">
 				<div class="banner">
-					<img src="<%= asset_path("featured-posts-banner-001") %>" alt="" width="100%"/>
+					<img ng-src="{{m.image[0].image_url_medium}}" alt="" width="100%"/>
 				</div>
 
 				<div class="text-left">
-					<h5 class="left text-uppercase"><a href="">Lorem ipsum dolor sit amet</a></h5>
-					<p class="posted">Posted on April 4, 2015 By <a href="">Little Moon and friends</a></p>
+					<h5 class="left text-uppercase"><a href="#/ibaby?article={{m.id}}">{{m.title}}</a></h5>
+					<p class="posted">Posted on {{m.created_at | date: 'MMM dd, yyyy'}}
+						<!-- By <a href="#/ibaby?article=?{{m.id}}">{{m.created_by}}</a> -->
+						</p>
 
 					<div class="clear"></div>
 				</div>
 
 				<div class="caption">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse potenti. Proin ac elit sit amet neque finibus varius.</p>
+					<p>{{m.description}}</p>
 				</div>
 			</div>
 
-			<div class="post">
-				<div class="banner">
-					<img src="<%= asset_path("featured-posts-banner-002") %>" alt="" width="100%"/>
-				</div>
 
-				<div class="text-left">
-					<h5 class="left text-uppercase"><a href="">Lorem ipsum dolor sit amet</a></h5>
-					<p class="posted">Posted on April 4, 2015 By <a href="">Little Moon and friends</a></p>
-
-					<div class="clear"></div>
-				</div>
-
-				<div class="caption">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed lacinia erat, sed posuere odio. Donec bibendum non est sit amet auctor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse potenti. Proin ac elit sit amet neque finibus varius.</p>
-				</div>
-			</div>
 		</div>
 
-		<div class="col-md-4">
+		<!-- <div class="col-md-4">
 			<div id="tab-posts">
 				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 					<li><a href="#first" data-toggle="tab">First</a></li>
 					<li class="active"><a href="#second" data-toggle="tab">Second</a></li>
 				</ul>
-    			
+
     			<div class="tab-content">
         			<div class="tab-pane active" id="first"></div>
 
@@ -262,7 +155,7 @@
 			</div>
 
 			<img class="advertisement" src="<%= asset_path("poster-001.jpg") %>" alt="...">
-		</div>
+		</div> -->
 		<!-- Coming Soon... -->
 	</div>
 </div>
