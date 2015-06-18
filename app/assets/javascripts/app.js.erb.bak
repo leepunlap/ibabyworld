@@ -137,13 +137,17 @@ app.controller('HomeController', function($rootScope, $scope, $http, $state, $co
 		console.log("CANCEL")
 		$location.path('#/bb-shop/cancel')
 	}
-	
+<<<<<<< HEAD
 	$http.get('/api/v1/products').
   	success(function(data, status, headers, config) {
   		$scope.products = data
   		$scope.tags = data.tags
   	})
 	
+})
+
+=======
+
 	$http.get('/api/v1/get_article_by_tags/news').success(function(data){
 		$scope.news_article = data;
 		$http.get('/api/v1/' + requestPath.articles + '/' + $scope.news_article[0].id + '/medium-images').success(function(data){
@@ -206,5 +210,6 @@ app.controller('HomeController', function($rootScope, $scope, $http, $state, $co
 			});
 		});
 	});
-})
 
+})
+>>>>>>> 722ba619ab6c07824802e1286a902e143b3efe61

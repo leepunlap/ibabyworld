@@ -18,11 +18,13 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $sanit
     	// });
       $http.get('/api/v1/' + requestPath.articles).success(function(data){
         $scope.articles = data;
-        console.log($scope.articles[0].id);
+        // console.log($scope.articles[0].id);
         $scope.articles.forEach(function(a){
           $http.get('/api/v1/' + requestPath.articles + '/' + a.id + '/medium-images').success(function(data){
             a.image = data;
-            console.log(a);
+            if (data.length <= 0){
+              a.image = [{image_url_medium: '/default.png'}];
+            }
           });
         });
       });
@@ -38,6 +40,9 @@ app.controller('ArticleController', function ($rootScope, $scope, $state, $sanit
         $scope.article = data;
         $http.get('/api/v1/' + requestPath.articles + '/' + $scope.article.id + '/medium-images').success(function(data){
           $scope.article.image = data;
+          if (data.length <= 0){
+            $scope.article.image = [{image_url_medium: '/default.png'}];
+          }
         });
       });
     }

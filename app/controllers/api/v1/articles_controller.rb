@@ -45,6 +45,11 @@ class Api::V1::ArticlesController < ApplicationController
     render json: @a.article_images.to_json(methods: [:image_url_medium])
   end
 
+  def get_article_by_tags
+    @article = Article.tagged_with(params[:tags], :any => true).order('created_at DESC')
+    render json: @article.to_json(include: [:article_images])
+  end
+
   private
   def post_params
     params.require(:article).permit(:article_id, :title, :description, :content, :status, :tags )

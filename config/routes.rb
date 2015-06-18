@@ -43,8 +43,8 @@ Rails.application.routes.draw do
       #   end
       # end
 
+      get 'get_article_by_tags/:tags', to: 'articles#get_article_by_tags'
       resources :articles do
-        get 'get_tag_list', :to => 'articles#get_tag_list', :as => :get_tag_list
         get 'medium-images', to: 'articles#get_medium_images'
       end
 
@@ -61,8 +61,9 @@ Rails.application.routes.draw do
       #   end
       # end
 
+      get 'get_product_by_tags/:tags', to: 'products#get_product_by_tags'
       resources :products do
-        get ':id/medium-images', to: 'products#get_medium_images'
+        get 'medium-images', to: 'products#get_medium_images'
       end
 
       resource :carts do

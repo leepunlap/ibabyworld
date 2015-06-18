@@ -56,9 +56,11 @@
 	</div>
 
 	<div class="posts row">
+<<<<<<< HEAD
 <!-- 		<div class="col-xs-3 col-md-3" ng-repeat="p in products | filter:filter">
 			<bb-shop-product bb-product="p"></bb-shop-product>
 		</div> -->
+=======
 
 		<div class="col-xs-3 col-md-3" ng-repeat="p in products">
 			<!-- <span class="sale"></span> -->
@@ -80,6 +82,7 @@
 
 		<!-- Coming Soon... -->
 	</div>
+>>>>>>> 722ba619ab6c07824802e1286a902e143b3efe61
 </div>
 
 <div id="featured-posts">
