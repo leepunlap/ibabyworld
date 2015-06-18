@@ -10,17 +10,7 @@ app.controller('MembershipController', function ($scope, $rootScope, $http, $sta
         }
     }
 
-    $http.get("http://localhost:3000/api/v1/sessions/profile").
-    success(function(data) {
-        console.log(data)
-        // $scope.profile = data.member
-        // $scope.profile.childs = data.details[0].childs
-        // var addrstr = data.details[0].address
-        // var contactstr = data.details[0].contact
-        // $scope.profile.address = JSON.parse(addrstr)
-        // $scope.profile.contact = JSON.parse(contactstr)[0]
-    })
-
+    $rootScope.getUserDetails()
 
 
     $scope.doLogin = function (login) {
@@ -37,6 +27,7 @@ app.controller('MembershipController', function ($scope, $rootScope, $http, $sta
                 }
                 $rootScope.isAuthorized = AuthService.isAuthorized();
                 $rootScope.loggedUser = member;
+                $rootScope.getUserDetails()
                 
                 // if ($rootScope.$lastState.name) {
                 //     $state.go($rootScope.$lastState.name);

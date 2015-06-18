@@ -49,16 +49,8 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		return passwordArray.join("");
 	};
 
-    $http.get("http://localhost:3000/api/v1/sessions/profile").
-    success(function(data) {
-        $scope.profile = data.member
-        $scope.profile.childs = data.details[0].childs
-        var addrstr = data.details[0].address
-        var contactstr = data.details[0].contact
-        $scope.profile.address = JSON.parse(addrstr)
-        $scope.profile.contact = JSON.parse(contactstr)[0]
-    })
-
+	$rootScope.getUserDetails()
+	
 	$http.get('/api/v1/products').
 	success(function(data, status, headers, config) {
 		$scope.products = data
@@ -101,6 +93,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 			$scope.Recalc()
 		})
 	}
+	$scope.refreshCart()	
 
 	//
 	//	Paydollar - generate payment form and hash in advance
