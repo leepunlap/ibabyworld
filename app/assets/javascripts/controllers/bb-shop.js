@@ -1,4 +1,4 @@
-app.controller('BBShopController', function($rootScope, $scope, $http, $state, $cookies, $window, $location, $routeParams) {
+app.controller('BBShopController', function($rootScope, $scope, $http, $stateParams, $cookies, $window, $location) {
 
 	//
 	//	Check callback parameters to check if it is paypal or paydollar callback
@@ -6,16 +6,30 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	var paymentid = $location.search()['paymentId']
 	var paymenttoken = $location.search()['token']
 	var payerid = $location.search()['PayerID']
-
+	var testpaymentid = $location.search()['testpaymentid']
 	//
 	//	Execute paypal and return if paymentid in callback
 	//
 	if (typeof(paymentid) != 'undefined') {
+		$scope.paymentexectype = 'Paypal '
 		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
 		success(function(data) {
 			$scope.paymentinfo = data.payment
+			$scope.paymentinfo.type = 1
 			console.log(data)
 		})
+		return
+	}
+	//
+	//	Execute test payment
+	//
+	if (typeof(testpaymentid) != 'undefined') {
+		$scope.paymentexectype = 'Test '
+		$scope.paymentinfo = {
+			type : 3,
+			id : testpaymentid
+
+		}
 		return
 	}
 
@@ -35,10 +49,28 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		return passwordArray.join("");
 	};
 
+    $http.get("http://localhost:3000/api/v1/sessions/profile").
+    success(function(data) {
+        $scope.profile = data.member
+        $scope.profile.childs = data.details[0].childs
+        var addrstr = data.details[0].address
+        var contactstr = data.details[0].contact
+        $scope.profile.address = JSON.parse(addrstr)
+        $scope.profile.contact = JSON.parse(contactstr)[0]
+    })
+
 	$http.get('/api/v1/products').
 	success(function(data, status, headers, config) {
 		$scope.products = data
 		$scope.tags = data.tags
+			if ($stateParams.productID != null) {
+			for (var p in $scope.products) {
+				if ($stateParams.productID == $scope.products[p].id) {
+					$scope.showProductDetail($scope.products[p]);
+					break;
+				}
+			}
+		}
 	})
 
 	//
@@ -225,6 +257,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 	$scope.showAll()
 
 	$scope.AddToCart = function(p) {
+		console.log("Add To Cart")
 		$scope.detailmode=false
 		var found = false
 		for (var i in $scope.cart.shopping_cart_items) {
@@ -286,7 +319,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 		} else {
 			console.log("Doing Paypal")
 			$scope.creatingpayment = true;
-			$http.get('/api/v1/carts/checkout').
+			$http.get('/api/v1/carts/checkoutpaypal' + $scope.cartgetparams()).
 			success(function(data) {
 				$scope.creatingpayment = false
 				$scope.paymentid = data.paymentid
@@ -295,12 +328,21 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $state, $
 			})
 		}
 	}
-	if ($routeParams.productID != null) {
-		for (var p in $scope.products) {
-			if ($routeParams.productID == p.id) {
-				$scope.showProductDetail(p);
-				break;
-			}
-		}
+
+	$scope.doTestPayment = function() {
+		console.log("Test Payment")
+		$scope.creatingpayment = true
+		$scope.testpaymentid = $scope.createCartID()
+		$http.get('/api/v1/carts/checkouttest' + $scope.cartgetparams() + "&paymentid=" + $scope.testpaymentid).
+		success(function(data) {
+			$scope.testpaymentresults = data
+			$scope.testpaymentresults.params = $scope.cartgetparams()
+		// 	$scope.creatingpayment = false
+		// 	$scope.redirect = $window.location.href = "#/bb-shop/thankyou?testpaymentid="+$scope.createCartID()
+		// 	//$window.location.href = $scope.redirect
+		})
+		
 	}
+
+
 });

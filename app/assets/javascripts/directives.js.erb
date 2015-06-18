@@ -1,3 +1,4 @@
+
 app.directive('focus', function() {
     	return function(scope, element) {
         	element[0].focus();
@@ -55,7 +56,7 @@ app.directive('focus', function() {
         }
     })
 
-    .directive('bbShopProduct', function ($route) {
+    .directive('bbShopProduct', function () {
             return {
                 restrict: 'E',
                 templateUrl: '<%= asset_path("bb-shop-product.html") %>',

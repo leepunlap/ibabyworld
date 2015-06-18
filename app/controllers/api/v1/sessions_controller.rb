@@ -45,7 +45,12 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def profile
-    response_success({ :token => session[:token], :member => session[:member] })
+    md = nil
+    if (session[:member])
+      id = session[:member]['id']
+      md = MemberDetail.where(member_id: id)
+    end
+    response_success({ :token => session[:token], :member => session[:member], :details => md })
   end
 
   def authenticate

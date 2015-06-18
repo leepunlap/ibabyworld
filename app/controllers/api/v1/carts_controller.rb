@@ -18,6 +18,7 @@ class Api::V1::CartsController < ApplicationController
 	STATUS_PAYPAL_EXECUTED = 4
 	STATUS_PAYDOLLAR_ISSUED = 5
 	STATUS_PAYDOLLAR_EXECUTED = 6
+	STATUS_TESTPAYMENT_ISSUED = 7
 
 	require 'paypal-sdk-rest'
 	include PayPal::SDK::OpenIDConnect
@@ -25,6 +26,14 @@ class Api::V1::CartsController < ApplicationController
 	def getcart(params)
 		if (params.has_key?(:memberid))
 			@cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
+			if (params.has_key?(:cookie))
+				@anon_cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+				@cartitems = ShoppingCartItem.where(shopping_cart_id: @anon_cart.id)
+				@cartitems.each do |i|
+					i.update_attributes(shopping_cart_id: @cart.id)
+					cartitem.save
+				end
+			end
 		elsif (params.has_key?(:cookie))
 			@cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
 		else 
@@ -179,6 +188,23 @@ class Api::V1::CartsController < ApplicationController
 		    	:status => 'ok'
 		    }.to_json
 
+	end
+
+	def checkouttest
+		@cart = getcart(params)
+
+		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id)
+		total=0
+		itemno=0
+		@cartitems.each do |i|
+			total += i.unit_price.to_f * i.qty
+			itemno += 1
+		end
+		@cart.update_attributes!({:paymentid => params[:memberid], :status => STATUS_TESTPAYMENT_ISSUED})
+		@cart.save
+		render :json => { 
+			:cart => @cart
+	    }.to_json
 	end
 
 end

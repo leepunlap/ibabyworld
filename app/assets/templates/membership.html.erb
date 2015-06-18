@@ -10,7 +10,7 @@
 	font-size: 1.8em;
 }
 </style>
-<div id="membership">
+<div id="membership" ng-hide="isAuthorized">
 	<div class="login">
 		<h2 class="header"></h2>
 		<form name="loginForm" class="form-horizontal rounded-20">
@@ -53,4 +53,16 @@
     		</div>
     	</div>
     </div>
+</div>
+<div ng-show="isAuthorized">
+<table cellpadding="3px">
+<tr><th style="width:200px">Last Name</th><td>{{profile.last_name}}</td></tr>
+<tr><th>First Name</th><td>{{profile.first_name}}</td></tr>
+<tr><th>Birth Date</th><td>{{profile.birth_date}}</td></tr>
+<tr><th>Language</th><td>{{profile.language}}</td></tr>
+<tr><th>Children</th><td>{{profile.childs}}</td></tr>
+<tr><th>Address</th><td><div ng-repeat="i in profile.address">{{i}}</div></td></tr>
+<tr><th>Contact</th><td><div ng-repeat="i in profile.contact">{{i}}</div></td></tr>
+</table>
+<hr>
 </div>

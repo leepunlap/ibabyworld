@@ -1,5 +1,5 @@
-<h1>Payment OK</h1>
-<table class="table">
+<h1>{{paymentexectype}} Payment OK</h1>
+<table class="table" ng-show="paymentinfo.type == 1">
 
 	<tr><th>Payment ID:</th><td>{{paymentinfo.id}}</td></tr>
 	<tr><th>State:</th><td>{{paymentinfo.state}}</td></tr>
@@ -15,5 +15,11 @@
 		{{paymentinfo.payer.payer_info.shipping_address.postal_code}}<br>
 		{{paymentinfo.payer.payer_info.shipping_address.country_code}}<br>
 	</td></tr>
+
+</table>
+
+<table class="table" ng-show="paymentinfo.type == 3">
+
+	<tr><th>Payment ID:</th><td>{{paymentinfo.id}}</td></tr>
 
 </table>

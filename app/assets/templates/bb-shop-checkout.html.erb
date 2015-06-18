@@ -48,9 +48,13 @@
 						<td></td>
 					</tr>
 				</table>
+				{{testpaymentresults}}
 			</div>
 		</div>
-		<div class="col-md-5">
+		<div class="col-md-5" ng-hide="isAuthorized">
+			<h3>Please login to check out</h3>
+		</div>
+		<div class="col-md-5" ng-show="isAuthorized">
 			<div class="row">
 				<div class="col-md-12" style="padding-top: 30px; padding-bottom: 30px;">
 					<img src="<%= asset_path("progress-checkout.png") %>">
@@ -80,8 +84,11 @@
 							<input type="hidden" name="secureHash" value="{{pdform.secureHash}}">
 							<input type="submit" class="paydollarsubmit" name="submit" value="">
 							</form>
-
-
+<center>
+							<a ng-click="doTestPayment()">
+							Test Payment
+							</a>
+</center>
 						</p>
 					</div>
 				</div>
@@ -116,7 +123,7 @@
 				<br>
 				<div class="row">
 					<div class="col-md-12">
-						<div style="padding-left: 15%; padding-right: 15%;">
+						<div style="padding-left: 15%; padding-right: 15%; padding-bottom:10px">
 							Delivery Address
 						</div>
 					</div>
@@ -125,30 +132,29 @@
 					<div class="col-md-12">
 						<div style="border-color: #ddd; border-width: 2px; border-radius: 4px 4px 0 0; border-style: dashed; margin-left: 5%; margin-right: 5%; padding: 5%;">
 							<span class="left">Recevier:</span>
-							<span class="right">Victor Kam</span>
+							<span class="right">{{profile.first_name}} {{profile.last_name}}</span>
 							<br>
 							<span class="left">Contact:</span>
-							<span class="right">9883 2589</span>
+							<span class="right"><div ng-repeat="i in profile.contact">{{i}}</div></span>
 							<br>
 							<span class="left">Email:</span>
-							<span class="right">abc2@hotmail.com</span>
+							<span class="right">{{profile.email}}</span>
 							<br>
 							<br>
 							Address:
-							<br>
-							Rm 2013, ABC Garden, 2, Oi Tung Road, Sha Tin, N.T.
-							<br>
+							<div ng-repeat="i in profile.address">{{i}}</div>
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<br>
+<!-- 				<div class="row">
 					<div class="col-md-12">
 						<div style="padding-left: 15%; padding-right: 15%;">
 							<small><span class="right">Edit/Change</span></small>
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div> -->
+<!-- 				<div class="row">
 					<div class="col-md-12">
 						<div style="padding-left: 15%; padding-right: 15%;">
 							Discount Code
@@ -168,14 +174,14 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div style="padding-left: 5%; padding-right: 5%;">
-<!-- 							<label>
+							<label>
 								<input type="radio" name="payment-method" value="visa">
 								<img src="<%= asset_path("visa.png") %>">
-							</label> -->
+							</label>
 						</div>
 					</div>
 				</div>
-<!-- 				<div class="row">
+				<div class="row">
 					<div class="col-md-12" style="padding-top: 30px; padding-bottom: 30px;">
 						<p class="text-center">
 							<img src="<%= asset_path("checkout-confirm-payment.png") %>">

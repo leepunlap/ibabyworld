@@ -77,17 +77,18 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 				email : $cookies['email'],
 				password : $cookies['password']
 			}
-			setTimeout(function() {
-		        AuthService.login(login).then(function (member) {
-		            if (member != null) {
-		                $rootScope.isAuthorized = AuthService.isAuthorized();
-		                $rootScope.loggedUser = member;
-		            }
-		            console.log('Check isAuthorized : '+ $rootScope.isAuthorized);
-		            console.log($rootScope.loggedUser)
-		            $rootScope.loggingin = false
-		        });
-			},100)
+			if (typeof(login.email) !== 'undefined' && typeof(login.password) !== 'undefined') {
+				setTimeout(function() {
+			        AuthService.login(login).then(function (member) {
+			            if (member != null) {
+			                $rootScope.isAuthorized = AuthService.isAuthorized();
+			                $rootScope.loggedUser = member;
+			            }
+			            $rootScope.loggingin = false
+			        });
+				},100)
+			}
+
 
 		} else {
 			$rootScope.loggingin = false
@@ -143,3 +144,4 @@ app.controller('HomeController', function($rootScope, $scope, $http, $state, $co
   	})
 	
 })
+

@@ -11,7 +11,8 @@
 <!-- <div id="top-wrapper" ng-include="'<%= asset_path("partials/header.html") %>'"></div>
 <div id="content-wrapper" ui-view></div> -->
 <div id="top-wrapper"  ng-include="'<%= asset_path("partials/header.html") %>'"></div>
-<div id="content-wrapper" ng-show="{{isDesktop}}" ui-view></div>
+<div id="content-wrapper" ui-view></div>
+<!-- <div id="content-wrapper" ng-show="{{isDesktop}}" ui-view></div> -->
 <!-- <div id="content-wrapper-tab" ng-show="{{isTablet}}" ui-view></div> DONT do this.  Contrllers will be called twice -->
 <div id="bottom-wrapper" ng-include="'<%= asset_path("partials/footer.html") %>'"></div>
 </div>

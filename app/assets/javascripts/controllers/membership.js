@@ -1,4 +1,4 @@
-app.controller('MembershipController', function ($scope, $rootScope, $state, $cookies, AuthService) {
+app.controller('MembershipController', function ($scope, $rootScope, $http, $state, $cookies, AuthService) {
 
     if ($cookies['staysignedin'] === 'true') {
         $rootScope.member = {
@@ -9,6 +9,19 @@ app.controller('MembershipController', function ($scope, $rootScope, $state, $co
             staysignedin : false
         }
     }
+
+    $http.get("http://localhost:3000/api/v1/sessions/profile").
+    success(function(data) {
+        console.log(data)
+        // $scope.profile = data.member
+        // $scope.profile.childs = data.details[0].childs
+        // var addrstr = data.details[0].address
+        // var contactstr = data.details[0].contact
+        // $scope.profile.address = JSON.parse(addrstr)
+        // $scope.profile.contact = JSON.parse(contactstr)[0]
+    })
+
+
 
     $scope.doLogin = function (login) {
         AuthService.login(login).then(function (member) {
@@ -25,11 +38,11 @@ app.controller('MembershipController', function ($scope, $rootScope, $state, $co
                 $rootScope.isAuthorized = AuthService.isAuthorized();
                 $rootScope.loggedUser = member;
                 
-                if ($rootScope.$lastState.name) {
-                    $state.go($rootScope.$lastState.name);
-                } else {
-                    $state.go('home');
-                }
+                // if ($rootScope.$lastState.name) {
+                //     $state.go($rootScope.$lastState.name);
+                // } else {
+                //     $state.go('home');
+                // }
             }
             console.log('Check isAuthorized : '+ $rootScope.isAuthorized);
         });
