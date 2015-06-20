@@ -7,7 +7,7 @@
 
 <div id="registration">
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-8" ng-hide="currentorder">
 			<div class="header blue-max">
 				<h3><i translate="edit_profile">Profile</i></h3>
 			</div>
@@ -72,15 +72,28 @@
 			</div>
 		</div>
 
+		<div class="col-md-8" ng-show="currentorder">
+			<a ng-click="hideOrder()">Back</a>
+		{{currentorder}}
+		</div>
+
 		<div class="col-md-4">
 			<div class="panel first">
-				<div class="header-orange-min"></div>
+				<div class="header-orange-min">
+					<h3>Orders</h3>
+				</div>
 				
 				<div class="caption rounded-20 text-center">
 					<ol class="posts">
-  						<li>
-  							<h5>Loem ipsum dolor</h5>
-							<p class="text-small">Vitae adipiscing turpis. Aenean ligula nibh, molestie id viverra a, dapibus at dolor.</p>
+  						<li ng-repeat="o in orders">
+  							<h5>{{o.updated_at}}</h5>
+							<p class="text-small">
+								Total: {{o.total}}<br>
+								Status: {{o.status | displayStatus}}<br>
+								PaymentID: {{o.paymentid}}<br>
+								<a href ng-click="showOrder(o)">Show</a>
+								<a href ng-click="deleteOrder(o)">Delete</a>
+							</p>
   						</li>
 					</ol>
 				</div>

@@ -63,6 +63,17 @@ class Api::V1::CartsController < ApplicationController
 		render json: @cart.to_json(include: [:shopping_cart_items])	
 	end
 
+	def updatecarttotal (cartid)
+		@cart = ShoppingCart.find(cartid)
+		@cartitems = ShoppingCartItem.where(shopping_cart_id: cartid)
+		total=0
+		@cartitems.each do |i|
+			total += i.unit_price.to_f * i.qty
+		end
+		@cart.update_attributes(total: total)
+		@cart.save
+	end
+
 	def additemtocart
 		if (params.has_key?(:cartid) and params.has_key?(:productid))
 			@product = Product.find(params[:productid])
@@ -73,6 +84,7 @@ class Api::V1::CartsController < ApplicationController
 				i.unit_price = @product.unit_price
 			end
 			cartitem.save
+			updatecarttotal(params[:cartid])
 			response_success({ :cartitem => cartitem })
 		end
 	end
@@ -82,19 +94,25 @@ class Api::V1::CartsController < ApplicationController
 			# cartitem = ShoppingCartItem.find(params[:cartitemid]) do |i|
 			# 	i.qty = params[:qty]
 			# end
-			cartitem = ShoppingCartItem.find(params[:cartitemid])
-			cartitem.update_attributes(qty: params[:qty])
+			@cartitem = ShoppingCartItem.find(params[:cartitemid])
+			@cartitem.update_attributes(qty: params[:qty])
+			@cartitem.save
+			updatecarttotal(@cartitem.shopping_cart_id)
 			render :json => { 
 			      :status => 'ok',
-			      :cartitem => cartitem 
+			      :cartid => @cartitem.shopping_cart_id,
+			      :cartitem => @cartitem 
 			    }.to_json
 		end
 	end
 
 	def removecartitem
 		if (params.has_key?(:cartitemid))
-			ShoppingCartItem.find(params[:cartitemid]).destroy
+			@cartitem = ShoppingCartItem.find(params[:cartitemid])
+			updatecarttotal(@cartitem.shopping_cart_id)
+			@cartitem.destroy
 			render :json => { 
+					:cartid => @cartitem.shopping_cart_id,
 			      :status => 'ok'
 			    }.to_json
 		end

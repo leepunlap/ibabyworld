@@ -97,18 +97,17 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 				templateUrl: '<%= asset_path("member/index.html") %>'
 	        })
 	        	.state('member.profile', {
-            		url: 'member/profile',
+            		url: '/profile',
             		title: 'Profile',
 					templateUrl: '<%= asset_path("member/profile.html") %>',
 					controller: 'RegisterController'
 	        	})	        
 	        	.state('member.edit_profile', {
-            		url: 'member/edit-profile',
+            		url: '/edit-profile',
             		title: 'Edit Profile',
 					templateUrl: '<%= asset_path("member/edit_profile.html") %>',
 					controller: 'RegisterController'
 	        	})
-
 		// default fall back route
 		$urlRouterProvider.otherwise('/');
 

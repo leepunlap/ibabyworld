@@ -1,12 +1,25 @@
+app.filter('displayStatus', function() {
+  return function(input) {
+    status = "shopping cart"
+    if (input == 7) {
+        status = "test payment issued"
+    }
+    return input + " (" + status + ")" ;
+  };
+});
+
 app.controller('RegisterController', function ($rootScope, $scope, $state, $location, $http, $timeout, $stateParams, Data, countries) {
     var nowYear = date.getFullYear();
 
     $rootScope.getUserDetails()
 
-    $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
-    success(function(data, status, headers, config) {
-        $scope.cart = data
-    })
+    setTimeout(function() {
+        $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
+        success(function(data, status, headers, config) {
+            $scope.orders = data.carts
+        })
+    },500)
+
 
     $scope.token = $stateParams.token;   
     $scope.first_name = ''; 
@@ -120,4 +133,14 @@ app.controller('RegisterController', function ($rootScope, $scope, $state, $loca
             });
         }
     };
+    $scope.showOrder = function(o) {
+        $scope.currentorder = o
+        console.log(o)
+    }
+    $scope.hideOrder = function() {
+        delete ($scope.currentorder)
+    }
+    $scope.deleteOrder = function(o) {
+        console.log(o)
+    }
 });
