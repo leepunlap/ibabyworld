@@ -6,7 +6,10 @@
 </style>
 
 <div id="registration">
-	<div class="row">
+	<div class="row" ng-hide="isAuthorized">
+		<h1>Not Logged In</h1>
+	</div>
+	<div class="row" ng-show="isAuthorized">
 		<div class="col-md-8" ng-hide="currentorder">
 			<div class="header blue-max">
 				<h3><i translate="edit_profile">Profile</i></h3>
@@ -74,6 +77,7 @@
 
 		<div class="col-md-8" ng-show="currentorder">
 			<a ng-click="hideOrder()">Back</a>
+			<hr>
 		{{currentorder}}
 		</div>
 
@@ -88,7 +92,7 @@
   						<li ng-repeat="o in orders">
   							<h5>{{o.updated_at}}</h5>
 							<p class="text-small">
-								Total: {{o.total}}<br>
+								Total: {{o.total | currency : '$' : 2}}<br>
 								Status: {{o.status | displayStatus}}<br>
 								PaymentID: {{o.paymentid}}<br>
 								<a href ng-click="showOrder(o)">Show</a>

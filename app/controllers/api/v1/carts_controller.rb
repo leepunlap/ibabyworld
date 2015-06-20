@@ -16,9 +16,13 @@ class Api::V1::CartsController < ApplicationController
 	STATUS_SIGNED_IN = 2
 	STATUS_PAYPAL_ISSUED = 3
 	STATUS_PAYPAL_EXECUTED = 4
-	STATUS_PAYDOLLAR_ISSUED = 5
-	STATUS_PAYDOLLAR_EXECUTED = 6
-	STATUS_TESTPAYMENT_ISSUED = 7
+	STATUS_PAYPAL_CANCELLED = 5
+	STATUS_PAYDOLLAR_ISSUED = 6
+	STATUS_PAYDOLLAR_EXECUTED = 7
+	STATUS_PAYDOLLAR_CANCELLED = 8
+	STATUS_TESTPAYMENT_ISSUED = 9
+	STATUS_TESTPAYMENT_EXECUTED = 10
+	STATUS_TESTPAYMENT_CANCELLED = 11
 	STATUS_DELETED = 255
 
 	require 'paypal-sdk-rest'
@@ -190,15 +194,33 @@ class Api::V1::CartsController < ApplicationController
 			@payment = PayPal::SDK::REST::Payment.find(params[:paymentid])
 			@result = @payment.execute( :payer_id => params[:payerid] )
 
+			@cart = ShoppingCart.where(paymentid: params[:paymentid])[0]
+			@cart.update_attributes!({:status => STATUS_PAYPAL_EXECUTED})
+			@cart.save
+
 			render :json => { 
 					:payment => @payment,
+					:cart => @cart,
 					:result => @result,
 			    	:status => 'ok'
 			    }.to_json
 		end
 	end
 
-	def checkoutpaydollar
+	def cancelpaypal
+		if (params.has_key?(:paymentid))
+			@cart = ShoppingCart.where(paymentid: params[:paymentid]).first
+			@cart.update_attributes!({:status => STATUS_PAYPAL_CANCELLED})
+				@cart.save
+			render :json => { 
+					:paymentid => params[:paymentid],
+					:cart => @cart,
+			    	:status => 'ok'
+			    }.to_json
+		end
+	end
+
+	def preparepaydollar
 		@cart = getcart(params)
 		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id)
 		total=0
@@ -233,6 +255,41 @@ class Api::V1::CartsController < ApplicationController
 
 	end
 
+	def checkoutpaydollar
+		@cart = getcart(params)
+
+		@cartitems = ShoppingCartItem.where(shopping_cart_id: @cart.id)
+		total=0
+		itemno=0
+		@cartitems.each do |i|
+			total += i.unit_price.to_f * i.qty
+			itemno += 1
+		end
+		if (itemno > 0)
+			@cart.update_attributes!({:paymentid => params[:paymentid], :status => STATUS_PAYDOLLAR_ISSUED})
+			@cart.save
+			status = 'ok'
+		else
+			status = 'no items'
+		end
+		render :json => { 
+		    	:status => 'ok'
+		    }.to_json
+	end
+
+	def cancelpaydollar
+		if (params.has_key?(:paymentid))
+			@cart = ShoppingCart.where(paymentid: params[:paymentid]).first
+			@cart.update_attributes!({:status => STATUS_PAYDOLLAR_CANCELLED})
+				@cart.save
+			render :json => { 
+					:paymentid => params[:paymentid],
+					:cart => @cart,
+			    	:status => 'ok'
+			    }.to_json
+		end
+	end
+
 	def checkouttest
 		@cart = getcart(params)
 
@@ -244,7 +301,7 @@ class Api::V1::CartsController < ApplicationController
 			itemno += 1
 		end
 		if (itemno > 0)
-			@cart.update_attributes!({:paymentid => params[:memberid], :status => STATUS_TESTPAYMENT_ISSUED})
+			@cart.update_attributes!({:paymentid => params[:paymentid], :status => STATUS_TESTPAYMENT_ISSUED})
 			@cart.save
 			status = 'ok'
 		else
@@ -256,4 +313,17 @@ class Api::V1::CartsController < ApplicationController
 	    }.to_json
 	end
 
+	def executetestpayment
+		if (params.has_key?(:paymentid))
+			@cart = ShoppingCart.where(paymentid: params[:paymentid])[0]
+			@cart.update_attributes!({:status => STATUS_TESTPAYMENT_EXECUTED})
+			@cart.save
+			render :json => { 
+					:payment => @payment,
+					:cart => @cart,
+					:result => @result,
+			    	:status => 'ok'
+			    }.to_json
+		end
+	end
 end

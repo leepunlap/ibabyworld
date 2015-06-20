@@ -15,11 +15,19 @@ app.filter('displayStatus', function() {
     } else if (input == 4) {
         status = "paypal executed"
     } else if (input == 5) {
-        status = "paydollar issued"
+        status = "paypal cancelled"
     } else if (input == 6) {
-        status = "paydollar executed"
+        status = "paydollar issued"
     } else if (input == 7) {
+        status = "paydollar executed"
+    } else if (input == 8) {
+        status = "paydollar cancelled"
+    } else if (input == 9) {
         status = "test payment issued"
+    } else if (input == 10) {
+        status = "test payment executed"
+    } else if (input == 11) {
+        status = "test payment cancelled"
     } else if (input == 255) {
         status = "deleted"
     }
@@ -37,10 +45,12 @@ app.controller('RegisterController', function ($rootScope, $scope, $state, $loca
             setTimeout($scope.getOrders,100)
             return
         }
-        $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
-        success(function(data, status, headers, config) {
-            $scope.orders = data.carts
-        }) 
+        if ($rootScope.isAuthorized) {
+            $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
+            success(function(data, status, headers, config) {
+                $scope.orders = data.carts
+            })   
+        }
     }
 
     $scope.getOrders()

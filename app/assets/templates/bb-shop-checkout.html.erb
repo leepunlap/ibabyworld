@@ -82,10 +82,10 @@
 							<input type="hidden" name="lang" value="{{pdform.lang}}">
 							<input type="hidden" name="payMethod" value="{{pdform.payMethod}}">
 							<input type="hidden" name="secureHash" value="{{pdform.secureHash}}">
-							<input type="submit" class="paydollarsubmit" name="submit" value="">
+							<input type="submit" ng-click="checkoutPayDollar(pdform.orderRef)" class="paydollarsubmit" name="submit" value="">
 							</form>
 <center>
-							<a ng-click="doTestPayment()">
+							<a ng-click="doTestPayment(pdform.orderRef)">
 							Test Payment
 							</a>
 </center>

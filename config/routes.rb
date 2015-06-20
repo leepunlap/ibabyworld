@@ -74,9 +74,15 @@ Rails.application.routes.draw do
           get 'changecartitemqty/:cartitemid/:qty', :to => 'carts#changecartitemqty', :as => :changecartitemqty
           get 'removecartitem', :to => 'carts#removecartitem', :as => :removecartitem
           get 'checkoutpaypal', :to => 'carts#checkoutpaypal', :as => :checkoutpaypal
+          get 'cancelpaypal', :to => 'carts#cancelpaypal', :as => :cancelpaypal
           get 'executepaypal', :to => 'carts#executepaypal', :as => :executepaypal
+          get 'preparepaydollar', :to => 'carts#preparepaydollar', :as => :preparepaydollar
           get 'checkoutpaydollar', :to => 'carts#checkoutpaydollar', :as => :checkoutpaydollar
+          get 'executepaydollar', :to => 'carts#executepaydollar', :as => :executepaydollar
+          get 'cancelpaydollar', :to => 'carts#cancelpaydollar', :as => :cancelpaydollar
           get 'checkouttest', :to => 'carts#checkouttest', :as => :checkouttest
+          get 'executetestpayment', :to => 'carts#executetestpayment', :as => :executetestpayment
+          get 'cancelstpayment', :to => 'carts#cancelstpayment', :as => :cancelstpayment
           get 'deleteorder', :to => 'carts#deleteorder', :as => :deleteorder
         end
       end

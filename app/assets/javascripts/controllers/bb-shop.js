@@ -6,13 +6,34 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 	var paymentid = $location.search()['paymentId']
 	var paymenttoken = $location.search()['token']
 	var payerid = $location.search()['PayerID']
+	var ref = $location.search()['Ref']
+	var token = $location.search()['token']
 	var testpaymentid = $location.search()['testpaymentid']
+
 	//
 	//	Execute paypal and return if paymentid in callback
 	//
-	if (typeof(paymentid) != 'undefined') {
+	if (typeof(paymentid) !== 'undefined') {
 		$scope.paymentexectype = 'Paypal '
-		$http.get('/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid).
+		$url = '/api/v1/carts/executepaypal?paymentid='+paymentid+"&payerid="+payerid
+		if ($rootScope.$state.name === 'bb_shop_payment_cancel') {
+			$url = '/api/v1/carts/cancelpaypal?paymentid='+paymentid
+		}
+		$http.get($url).
+		success(function(data) {
+			$scope.paymentinfo = data.payment
+			$scope.paymentinfo.type = 1
+			console.log(data)
+		})
+		return
+	}
+	if (typeof(token) !== 'undefined') {
+		$scope.paymentexectype = 'Paypal '
+		if ($rootScope.$state.name === 'bb_shop_payment_cancel') {
+			$url = '/api/v1/carts/cancelpaypal?paymentid='+token
+		}
+		console.log($url)
+		$http.get($url).
 		success(function(data) {
 			$scope.paymentinfo = data.payment
 			$scope.paymentinfo.type = 1
@@ -21,15 +42,41 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		return
 	}
 	//
+	//	Execute paydollar payment
+	//
+	if (typeof(ref) !== 'undefined') {
+		
+		$scope.paymentexectype = 'Paydollar '
+		$url = '/api/v1/carts/executepaydollar?paymentid='+ref
+		if ($rootScope.$state.name === 'bb_shop_payment_cancel') {
+			$url = '/api/v1/carts/cancelpaydollar?paymentid='+ref
+		}
+		console.log($url)
+		$http.get($url).
+		success(function(data) {
+			$scope.paymentinfo = {
+				type : 3,
+				id : ref
+			}
+		})
+		return
+	}
+	//
 	//	Execute test payment
 	//
 	if (typeof(testpaymentid) != 'undefined') {
 		$scope.paymentexectype = 'Test '
-		$scope.paymentinfo = {
-			type : 3,
-			id : testpaymentid
-
+		$url = '/api/v1/carts/executetestpayment?paymentid='+testpaymentid
+		if ($rootScope.$state.name === 'bb_shop_payment_cancel') {
+			$url = '/api/v1/carts/canceltestpayment?paymentid='+testpaymentid
 		}
+		$http.get($url).
+		success(function(data) {
+			$scope.paymentinfo = {
+				type : 3,
+				id : testpaymentid
+			}
+		})
 		return
 	}
 
@@ -68,15 +115,19 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 	//
 	//	Shopping Cart
 	//
+	$scope.cart = []
+
 	$scope.Recalc = function() {
 		$scope.total = 0
-		for (var i in $scope.cart.shopping_cart_items) {
-			var item = $scope.cart.shopping_cart_items[i]
-			$scope.total += item.unit_price * item.qty
+		if ($scope.cart) {
+			for (var i in $scope.cart.shopping_cart_items) {
+				var item = $scope.cart.shopping_cart_items[i]
+				$scope.total += item.unit_price * item.qty
+			}
+			$scope.total = $scope.total.toFixed(2)
 		}
-		$scope.total = $scope.total.toFixed(2)
 	}
-	$scope.cart = []
+	
 	$scope.cartgetparams = function() {
 		var params = '?cookie=' + $scope.cartid
 		if ($rootScope.isAuthorized) {
@@ -97,7 +148,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 	//	Paydollar - generate payment form and hash in advance
 	//
 	$scope.getPayDollarFormInfo = function() {
-		var url = '/api/v1/carts/checkoutpaydollar' + $scope.cartgetparams()
+		var url = '/api/v1/carts/preparepaydollar' + $scope.cartgetparams()
 		console.log("Checkout Paydollar : " + url)
 		$http.get(url).
 		success(function(data) {
@@ -131,7 +182,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		$scope.getPayDollarFormInfo()
 	}
 
-	$scope.getCart()
+	//$scope.getCart()
 
 	$rootScope.$watch('isAuthorized', function() {
 		console.log("Credential Changed")
@@ -326,15 +377,14 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		}
 	}
 
-	$scope.doTestPayment = function() {
+	$scope.doTestPayment = function(paymentid) {
 		console.log("Test Payment")
 		$scope.creatingpayment = true
-		$scope.testpaymentid = $scope.createCartID()
-		$http.get('/api/v1/carts/checkouttest' + $scope.cartgetparams() + "&paymentid=" + $scope.testpaymentid).
+		$http.get('/api/v1/carts/checkouttest' + $scope.cartgetparams() + "&paymentid=" + paymentid).
 		success(function(data) {
 		 	$scope.creatingpayment = false
 		 	if (data.status === 'ok') {
-			 	$scope.redirect = $window.location.href = "#/bb-shop/thankyou?testpaymentid="+$scope.testpaymentid
+			 	$scope.redirect = $window.location.href = "#/bb-shop/thankyou?testpaymentid="+paymentid
 			 	$window.location.href = $scope.redirect
 		 	} else {
 		 		$scope.testpaymentresults = data.status
@@ -342,6 +392,16 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 
 		})
 		
+	}
+
+	$scope.checkoutPayDollar = function(paymentid) {
+		console.log("Paydollar Checkout")
+		$scope.creatingpayment = true
+		$url = '/api/v1/carts/checkoutpaydollar' + $scope.cartgetparams() + "&paymentid=" + paymentid
+		console.log($url)
+		$http.get($url).
+		success(function(data) {
+		})
 	}
 
 
