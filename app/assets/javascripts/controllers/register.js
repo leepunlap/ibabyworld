@@ -1,6 +1,13 @@
 app.controller('RegisterController', function ($rootScope, $scope, $state, $location, $http, $timeout, $stateParams, Data, countries) {
     var nowYear = date.getFullYear();
 
+    $rootScope.getUserDetails()
+
+    $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
+    success(function(data, status, headers, config) {
+        $scope.cart = data
+    })
+
     $scope.token = $stateParams.token;   
     $scope.first_name = ''; 
     $scope.fields = [];
@@ -37,21 +44,6 @@ app.controller('RegisterController', function ($rootScope, $scope, $state, $loca
         }, 3000);
     }
     
-    if ($state.current.name == "member.edit_profile") {
-        var loggedUser = $rootScope.loggedUser;
-
-        if (loggedUser) {
-            $scope.member = {
-                account_name: loggedUser.account_name == loggedUser.email ? "" : loggedUser.account_name,
-                email: loggedUser.email,
-                title: loggedUser.title,
-                first_name: loggedUser.first_name,
-                last_name: loggedUser.last_name,
-            }
-        }
-    }
-
-
     // Load all countries
     // countries.list(function(countries) {
     //     $scope.countries = countries;

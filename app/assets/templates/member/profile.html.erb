@@ -1,0 +1,98 @@
+<style>
+.header.blue-max h3 {
+	margin-left: 110px;
+	font-size: 1.4em;
+}
+</style>
+
+<div id="registration">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="header blue-max">
+				<h3><i translate="edit_profile">Profile</i></h3>
+			</div>
+			<div class="caption rounded-20">
+				<form name="profileForm" class="form-horizontal" ng-hide="successful">
+					<div class="spacer-10"></div>
+
+					<div class="form-group" style="padding-top: 5px;">
+						<label for="lastName" class="col-sm-3 control-label"><span translate="surname">Surname</span>:</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control left" id="lastName" name="lastName" placeholder="" style="width:130px;" ng-model="profile.last_name" ng-bind="profile.last_name" required="" focus>
+							
+							<input type="text" class="form-control right" id="firstName" name="firstName" placeholder="" style="width:130px;" ng-model="profile.first_name" required="">
+							
+							<label for="firstName" class="control-label right"><b class="red">*</b> <span translate="first_name">First name</span>:&nbsp;&nbsp;&nbsp;</label>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-sm-3 control-label"><span translate="email">Email</span>:</label>
+						<div class="col-sm-8">
+							<input type="email" class="form-control" id="email" name="email" placeholder="" ng-model="profile.email" required="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="accountName" class="col-sm-3 control-label"><span translate="account_name">Account name</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="accountName" name="accountName" placeholder="" ng-model="profile.account_name" ng-minlength="5" required="">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="birthYear" class="col-sm-3 control-label"><span translate="birthday">Birthday</span>:</label>
+						<div class="col-sm-8">
+							<select id="birthYear" class="form-control left" style="width:80px;" ng-init="birth.year = years[0]"  ng-options="year for year in years" ng-model="birth.year" ng-change="updateBirthdate(birth)"></select>
+							
+							<select id="birthMonth" class="form-control left" style="width:120px;" ng-init="birth.month = months[0].value" ng-options="month.value as month.name for month in months" ng-model="birth.month" ng-change="updateBirthdate(birth)"></select>
+
+							<select id="birthDay" class="form-control left" style="width:63px;" ng-init="birth.day = days[0]" ng-options="day for day in days" ng-model="birth.day" ng-change="updateBirthdate(birth)"></select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address1" class="col-sm-3 control-label"><span translate="address_first">Address 1</span>:</label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control" id="address1" placeholder="" ng-model="profile.address[0]" >
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="address2" class="col-sm-3 control-label"><span translate="address_second">Address 2:</span></label>
+						<div class="col-sm-8">
+							<input type="text" class="form-control left" id="address2" placeholder="" ng-model="profile.address[1]">
+							<span class="gray text-small left" style="margin: 7px 5px 0px 0px;">
+						</div>
+					</div>
+
+					<div class="spacer-5"></div>
+
+    			</form>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel first">
+				<div class="header-orange-min"></div>
+				
+				<div class="caption rounded-20 text-center">
+					<ol class="posts">
+  						<li>
+  							<h5>Loem ipsum dolor</h5>
+							<p class="text-small">Vitae adipiscing turpis. Aenean ligula nibh, molestie id viverra a, dapibus at dolor.</p>
+  						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script type="text/javascript">
+$('.btn-group button').click(function(){
+	$('.btn-group button').removeClass('active');
+	$(this).addClass('active');
+});
+</script>

@@ -10,7 +10,6 @@ app.factory('AuthService', function ($http, Session, Data) {
 	var authService = {};
  
 	authService.login = function (credentials) {
-		console.log('Login parameters: '+ credentials.email + ' : '+ credentials.password);
 
 		return Data.post(requestPath.sessions.authenticate, {
 			member: credentials 

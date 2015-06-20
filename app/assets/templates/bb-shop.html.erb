@@ -200,8 +200,13 @@
 						<div class="icon-duck-sm"></div>
 						<h4 class="lbl-orange">Cart</h4>
 					</div>
+						UserID : {{cart.member_id}}<br>
+						CartID : {{cart.cookies}}<br>
+						Status : {{cart.status}}  ({{cart.paymentid}})<br>
+						Total  : {{cart.total}}<br>
 					<div class="form-group">
 						<div class="row" ng-repeat="c in cart.shopping_cart_items">
+
 							<div class="dv-history-item-container">
 								<div class="col-md-8">
 									<p>

@@ -50,7 +50,7 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 	};
 
 	$rootScope.getUserDetails()
-	
+
 	$http.get('/api/v1/products').
 	success(function(data, status, headers, config) {
 		$scope.products = data
@@ -86,14 +86,12 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 	}
 	$scope.refreshCart = function() {
 		var url = '/api/v1/carts/mycart' + $scope.cartgetparams()
-		console.log("Refresh Cart : " + url)
 		$http.get(url).
 		success(function(data) {
 			$scope.cart = data
 			$scope.Recalc()
 		})
 	}
-	$scope.refreshCart()	
 
 	//
 	//	Paydollar - generate payment form and hash in advance
@@ -132,7 +130,13 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		$scope.refreshCart()
 		$scope.getPayDollarFormInfo()
 	}
+
 	$scope.getCart()
+
+	$rootScope.$watch('isAuthorized', function() {
+		console.log("Credential Changed")
+		$scope.getCart()
+	})
 
 	//
 	//	Ageselect Tags
@@ -328,11 +332,14 @@ app.controller('BBShopController', function($rootScope, $scope, $http, $statePar
 		$scope.testpaymentid = $scope.createCartID()
 		$http.get('/api/v1/carts/checkouttest' + $scope.cartgetparams() + "&paymentid=" + $scope.testpaymentid).
 		success(function(data) {
-			$scope.testpaymentresults = data
-			$scope.testpaymentresults.params = $scope.cartgetparams()
-		// 	$scope.creatingpayment = false
-		// 	$scope.redirect = $window.location.href = "#/bb-shop/thankyou?testpaymentid="+$scope.createCartID()
-		// 	//$window.location.href = $scope.redirect
+		 	$scope.creatingpayment = false
+		 	if (data.status === 'ok') {
+			 	$scope.redirect = $window.location.href = "#/bb-shop/thankyou?testpaymentid="+$scope.testpaymentid
+			 	$window.location.href = $scope.redirect
+		 	} else {
+		 		$scope.testpaymentresults = data.status
+		 	}
+
 		})
 		
 	}

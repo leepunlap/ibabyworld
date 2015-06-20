@@ -59,7 +59,7 @@
 				<li ng-hide="isAuthorized"><a ui-sref="register" class="signup" translate="register">Register</a></li>
 				<li ng-show="isAuthorized"><a ng-click="doLogout()" class="signout" translate="logout">Logout</a></li>
 				<li ng-show="isAuthorized"><span>|</span></li>
-				<li ng-show="isAuthorized"><a ui-sref="member.edit_profile" class="user">Hello, {{loggedUser.first_name}}</a></li>
+				<li ng-show="isAuthorized"><a ui-sref="member.profile" class="user">Hello, {{loggedUser.first_name}}</a></li>
 				<li>
 					<a aria-expanded="true" class="dropdown-toggle" id="dropdownMenu2" data-toggle="dropdown" translate="language.english">{{locales[locale]}}</a>
 					

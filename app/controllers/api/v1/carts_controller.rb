@@ -23,11 +23,21 @@ class Api::V1::CartsController < ApplicationController
 	require 'paypal-sdk-rest'
 	include PayPal::SDK::OpenIDConnect
 
+	def myorders()
+		@cart = ShoppingCart.where(:member_id => params[:memberid])
+		render :json => { 
+			      :status => 'ok',
+			      :carts => @cart 
+			    }.to_json
+	end
+
 	def getcart(params)
 		if (params.has_key?(:memberid))
-			@cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
+			@cart = ShoppingCart.where(:member_id => params[:memberid], :status => 0).first_or_create
+			#@cart = ShoppingCart.find_or_create_by(member_id: params[:memberid])
 			if (params.has_key?(:cookie))
-				@anon_cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+				#@anon_cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+				@anon_cart = ShoppingCart.where(:cookies => params[:cookie], :status => 0).first_or_create
 				@cartitems = ShoppingCartItem.where(shopping_cart_id: @anon_cart.id)
 				@cartitems.each do |i|
 					i.update_attributes(shopping_cart_id: @cart.id)
@@ -35,9 +45,11 @@ class Api::V1::CartsController < ApplicationController
 				end
 			end
 		elsif (params.has_key?(:cookie))
-			@cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+			#@cart = ShoppingCart.find_or_create_by(cookies: params[:cookie])
+			@anon_cart = ShoppingCart.where(:cookies => params[:cookie], :status => 0).first_or_create
 		else 
 			@cart = ShoppingCart.find_or_create_by(cookies: 'ibabyworld')
+			@anon_cart = ShoppingCart.where(:cookies => 'ibabyworld', :status => 0).first_or_create
 		end
 		return @cart
 	end
@@ -200,10 +212,16 @@ class Api::V1::CartsController < ApplicationController
 			total += i.unit_price.to_f * i.qty
 			itemno += 1
 		end
-		@cart.update_attributes!({:paymentid => params[:memberid], :status => STATUS_TESTPAYMENT_ISSUED})
-		@cart.save
+		if (itemno > 0)
+			@cart.update_attributes!({:paymentid => params[:memberid], :status => STATUS_TESTPAYMENT_ISSUED})
+			@cart.save
+			status = 'ok'
+		else
+			status = 'no items'
+		end
 		render :json => { 
-			:cart => @cart
+			:cart => @cart,
+			:status => status
 	    }.to_json
 	end
 

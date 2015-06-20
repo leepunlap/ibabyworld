@@ -96,7 +96,12 @@ app.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
             	url: '/member',
 				templateUrl: '<%= asset_path("member/index.html") %>'
 	        })
-	        
+	        	.state('member.profile', {
+            		url: 'member/profile',
+            		title: 'Profile',
+					templateUrl: '<%= asset_path("member/profile.html") %>',
+					controller: 'RegisterController'
+	        	})	        
 	        	.state('member.edit_profile', {
             		url: 'member/edit-profile',
             		title: 'Edit Profile',

@@ -68,6 +68,7 @@ Rails.application.routes.draw do
 
       resource :carts do
         member do
+          get 'myorders', :to => 'carts#myorders', :as => :myorders
           get 'mycart', :to => 'carts#mycart', :as => :mycart
           get 'additemtocart', :to => 'carts#additemtocart', :as => :additemtocart
           get 'changecartitemqty/:cartitemid/:qty', :to => 'carts#changecartitemqty', :as => :changecartitemqty

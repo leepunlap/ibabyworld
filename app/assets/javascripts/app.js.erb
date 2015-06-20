@@ -102,9 +102,11 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
 			            $rootScope.loggingin = false
 			        });
 				},100)
+			} else {
+				console.log("Cannot Remember Password")
+				console.log(login)
+				$rootScope.loggingin = false
 			}
-
-
 		} else {
 			$rootScope.loggingin = false
 		}
@@ -121,10 +123,10 @@ var app = angular.module('pwApp', ['ngAnimate', 'ngCookies', 'ngFacebook', 'ngSa
         	AuthService.destroy().then(function (results) {
 				$rootScope.isAuthorized = AuthService.isAuthorized();
 				$rootScope.loggedUser == null;
-				$cookies['staysignedin'] === 'false'
 				delete ($cookies['email'])
 				delete ($cookies['password'])
-            	$location.path('membership');
+				delete ($cookies['staysignedin'])
+            	//$location.path('membership');
         	});
     	};
 
