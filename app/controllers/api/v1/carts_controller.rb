@@ -19,12 +19,14 @@ class Api::V1::CartsController < ApplicationController
 	STATUS_PAYDOLLAR_ISSUED = 5
 	STATUS_PAYDOLLAR_EXECUTED = 6
 	STATUS_TESTPAYMENT_ISSUED = 7
+	STATUS_DELETED = 255
 
 	require 'paypal-sdk-rest'
 	include PayPal::SDK::OpenIDConnect
 
 	def myorders()
 		@cart = ShoppingCart.where(:member_id => params[:memberid])
+			.where("status > 0 and status < 255")
 		render :json => { 
 			      :status => 'ok',
 			      :carts => @cart 
@@ -72,6 +74,17 @@ class Api::V1::CartsController < ApplicationController
 		end
 		@cart.update_attributes(total: total)
 		@cart.save
+	end
+
+	def deleteorder
+		if (params.has_key?(:cartid))
+			@cart = ShoppingCart.find(params[:cartid])
+			@cart.update_attributes(status: STATUS_DELETED)
+			@cart.save
+			render :json => { 
+			      :status => 'ok',
+			    }.to_json
+		end
 	end
 
 	def additemtocart

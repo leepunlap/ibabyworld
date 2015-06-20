@@ -1,8 +1,27 @@
 app.filter('displayStatus', function() {
   return function(input) {
-    status = "shopping cart"
-    if (input == 7) {
+     status = "shopping cart"
+    if (!input) {
+        input = 0
+        return
+    }
+   
+    if (input == 1) {
+        status = "new"
+    } else if (input == 2) {
+        status = "signed in"
+    } else if (input == 3) {
+        status = "paypal issued"
+    } else if (input == 4) {
+        status = "paypal executed"
+    } else if (input == 5) {
+        status = "paydollar issued"
+    } else if (input == 6) {
+        status = "paydollar executed"
+    } else if (input == 7) {
         status = "test payment issued"
+    } else if (input == 255) {
+        status = "deleted"
     }
     return input + " (" + status + ")" ;
   };
@@ -13,12 +32,18 @@ app.controller('RegisterController', function ($rootScope, $scope, $state, $loca
 
     $rootScope.getUserDetails()
 
-    setTimeout(function() {
+    $scope.getOrders = function() {
+        if ($rootScope.loggingin) {
+            setTimeout($scope.getOrders,100)
+            return
+        }
         $http.get('/api/v1/carts/myorders?memberid=' + $rootScope.loggedUser.id).
         success(function(data, status, headers, config) {
             $scope.orders = data.carts
-        })
-    },500)
+        }) 
+    }
+
+    $scope.getOrders()
 
 
     $scope.token = $stateParams.token;   
@@ -141,6 +166,10 @@ app.controller('RegisterController', function ($rootScope, $scope, $state, $loca
         delete ($scope.currentorder)
     }
     $scope.deleteOrder = function(o) {
-        console.log(o)
+        $http.get('/api/v1/carts/deleteorder?cartid=' + o.id).
+        success(function(data, status, headers, config) {
+            $scope.getOrders()
+        })
+
     }
 });

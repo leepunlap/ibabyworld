@@ -77,6 +77,7 @@ Rails.application.routes.draw do
           get 'executepaypal', :to => 'carts#executepaypal', :as => :executepaypal
           get 'checkoutpaydollar', :to => 'carts#checkoutpaydollar', :as => :checkoutpaydollar
           get 'checkouttest', :to => 'carts#checkouttest', :as => :checkouttest
+          get 'deleteorder', :to => 'carts#deleteorder', :as => :deleteorder
         end
       end
 
